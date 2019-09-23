@@ -12,8 +12,16 @@
 */
 
 Route::get('/', 'ProductController@index')->name('home');
+
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::post('/admin/product/store', 'ProductController@store')->name('admin.product.store');
 
-// Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('uploadfile','HomeController@uploadFile');
+Route::post('uploadfile','HomeController@uploadFilePost');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

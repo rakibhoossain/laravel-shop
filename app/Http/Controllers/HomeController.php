@@ -25,4 +25,20 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    /** Return view to upload file */
+    public function uploadFile(){
+        return view('welcome');
+    }
+
+/** Example of File Upload */
+    public function uploadFilePost(Request $request){
+        $request->validate([
+            'fileToUpload' => 'required|file|max:1024',
+        ]);
+        $request->fileToUpload->store('logos');
+        return back()->with('success','You have successfully upload image.');
+    }
+
+
+    
 }

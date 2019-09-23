@@ -17,8 +17,15 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('title');
-            $table->integer('product_id');
-            $table->text('description');
+            $table->integer('category_id')->unsigned();
+            $table->integer('brand_id')->unsigned();
+            $table->string('slug');
+            $table->text('description')->nullable();
+            $table->integer('quantity')->default(1);
+            $table->integer('price');
+            $table->integer('offer_price')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('admin_id')->unsigned();
 
             $table->timestamps();
         });

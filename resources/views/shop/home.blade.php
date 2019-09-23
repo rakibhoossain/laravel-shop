@@ -86,7 +86,7 @@
               @php $i = 1; @endphp
               @foreach($product->images as $image)
                 @if($i>0)
-                  <img class="img-fluid w-100" src="{{asset('img/product/feature-product/'.$image->image)}}" alt="{{$product->title}}" />
+                  <img class="img-fluid w-100" src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" />
                 @endif
                @php --$i; @endphp
               @endforeach
