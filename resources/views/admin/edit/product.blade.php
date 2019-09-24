@@ -1,30 +1,31 @@
 @extends('admin.index')
 @section('content')
 <div class="card">
-  <h5 class="card-header">Add Product</h5>
+  <h5 class="card-header">Edit Product</h5>
   <div class="card-body">
-    <form method="post" action="{{ route('admin.product.store') }}" enctype="multipart/form-data">
+    @if($product)
+    <form method="post" action="{{ route('admin.product.update',$product->id) }}" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="form-group">
         <label for="inputTitle" class="col-form-label">Title</label>
-        <input id="inputTitle" type="text" name="title" class="form-control">
+        <input id="inputTitle" type="text" name="title" value="{{$product->title}}" class="form-control">
       </div>
       <div class="form-group">
         <label for="inputDescription">Description</label>
-        <textarea class="form-control" id="inputDescription" name="description" rows="3"></textarea>
+        <textarea class="form-control" id="inputDescription" name="description" rows="3">{{$product->description}}</textarea>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputPrice" class="col-form-label">Price</label>
-          <input id="inputPrice" type="number" name="price" class="form-control" placeholder="Numbers">
+          <input id="inputPrice" type="number" name="price" class="form-control" placeholder="Numbers" value="{{$product->price}}">
         </div>
         <div class="form-group col-md-4">
           <label for="inputOfferPrice" class="col-form-label">Offer price</label>
-          <input id="inputOfferPrice" type="number" name="offer_price" class="form-control" placeholder="Numbers">
+          <input id="inputOfferPrice" type="number" name="offer_price" class="form-control" placeholder="Numbers" value="{{$product->offer_price}}">
         </div>
         <div class="form-group col-md-4">
           <label for="inputQuantity" class="col-form-label">Quantity</label>
-          <input id="inputQuantity" type="number" name="quantity" class="form-control" placeholder="Numbers">
+          <input id="inputQuantity" type="number" name="quantity" class="form-control" placeholder="Numbers" value="{{$product->quantity}}">
         </div>
       </div>
       <div class="form-row">
@@ -45,22 +46,10 @@
         </div>
       </div>
 
-
-
-{{-- 
       <div class="custom-file mb-3">
-        <input type="file" class="custom-file-input" name="image[]" id="inputImage[]" multiple>
-        <label class="custom-file-label" for="inputImage[]">File Input</label>
+        <input type="file" class="custom-file-input" name="image" id="inputImage">
+        <label class="custom-file-label" for="inputImage">File Input</label>
       </div>
-
-      <div class="custom-file mb-3">
-        <input type="file" class="custom-file-input" name="image[]" id="inputImage[]" multiple>
-        <label class="custom-file-label" for="inputImage[]">File Input</label>
-
-      </div>
- --}}
-
-
 
 
         <div class="input-group control-group increment mb-3" id="imageuUpload">
@@ -79,18 +68,20 @@
           </div>
         </div>
 
-
-
-
-
-
-
-
+        @foreach($product->images as $image)
+          <label>
+            <img class="rounded float-left" src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" width="200" height="200"/>
+            <input type="file" class="d-none" name="image[]">
+          </label>
+        @endforeach
 
       <div class="form-group mb-3">
-        <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Submit form</button>
+        <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Update</button>
       </div>
     </form>
+    @else
+    <h2>Invalid product</h2>
+    @endif
   </div>
 </div>
 @endsection

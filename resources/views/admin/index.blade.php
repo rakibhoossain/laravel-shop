@@ -14,9 +14,10 @@
   <!-- Custom fonts for this template-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
   <!-- Custom styles for this template-->
-  <link href="css/admin.css" rel="stylesheet">
+  <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
 </head>
 
@@ -56,15 +57,15 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct" aria-expanded="true" aria-controls="collapseProduct">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
+          <span>Product</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <h6 class="collapse-header">Product Options:</h6>
+            <a class="collapse-item" href="{{route('admin.product')}}">Products</a>
+            <a class="collapse-item" href="{{route('admin.product.create')}}">Add product</a>
           </div>
         </div>
       </li>
@@ -335,9 +336,9 @@
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div> 
-                   
+          @include('admin.partials.alert')         
           @yield('content')
-
+          
         </div>
         <!-- /.container-fluid -->
 
@@ -385,22 +386,51 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/popper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('js/popper.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendors/jquery-easing/jquery.easing.min.js"></script>
+  <script src="{{ asset('vendors/jquery-easing/jquery.easing.min.js') }}"></script>
+
+
+  <!-- Dropzone -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/admin.js"></script>
+  <script src="{{ asset('js/admin.js') }}"></script>
 
   <!-- Page level plugins -->
-  <script src="vendors/chart.js/Chart.min.js"></script>
+  <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script>
+
+
+
+
+
+<script type="text/javascript">
+ 
+    $(document).ready(function() {
+ 
+      $("#add_image_field").click(function(){ 
+          const html = $(".clone_image").html();
+          $("#imageuUpload").after(html);
+      });
+ 
+      $("body").on("click",".remove_image_field",function(){ 
+          $(this).parents(".control-group").remove();
+      });
+ 
+    });
+ 
+</script>
+
+
+
+
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+  <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
 </body>
 
