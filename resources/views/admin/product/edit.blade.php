@@ -46,19 +46,12 @@
         </div>
       </div>
 
-      <div class="custom-file mb-3">
-        <input type="file" class="custom-file-input" name="image" id="inputImage">
-        <label class="custom-file-label" for="inputImage">File Input</label>
-      </div>
-
-
         <div class="input-group control-group increment mb-3" id="imageuUpload">
           <input type="file" name="image[]" class="form-control">
           <div class="input-group-btn"> 
             <button class="btn btn-success" id="add_image_field" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
           </div>
         </div>
-        
         <div  class="clone_image d-none">
           <div class="control-group input-group mb-3" style="margin-top:10px">
             <input type="file" name="image[]" class="form-control">

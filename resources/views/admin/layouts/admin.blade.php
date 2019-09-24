@@ -9,13 +9,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
+  <title>Laravel - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
@@ -30,11 +28,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">@auth {{ Auth::user()->name }} @endauth</div>
       </a>
 
       <!-- Divider -->
@@ -69,6 +67,22 @@
             </div>
           </div>
         </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory" aria-expanded="true" aria-controls="collapseCategory">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Category</span>
+          </a>
+          <div id="collapseCategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Category Options:</h6>
+              <a class="collapse-item" href="{{route('admin.product.category')}}">Categories</a>
+              <a class="collapse-item" href="{{route('admin.product.category.create')}}">Add category</a>
+            </div>
+          </div>
+        </li>
+
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
@@ -272,7 +286,7 @@
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                   <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">@auth {{ Auth::user()->name }} @endauth</span>
                     <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                   </a>
                   <!-- Dropdown - User Information -->
@@ -351,8 +365,11 @@
             </div>
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
-              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-              <a class="btn btn-primary" href="login.html">Logout</a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                 @csrf
+                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                 <button type="submit" class="btn btn-primary">Logout</button>
+              </form>
             </div>
           </div>
         </div>
@@ -365,23 +382,13 @@
 
       <!-- Core plugin JavaScript-->
       <script src="{{ asset('vendors/jquery-easing/jquery.easing.min.js') }}"></script>
-
-
-      <!-- Dropzone -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
-
       <!-- Custom scripts for all pages-->
       <script src="{{ asset('js/admin.js') }}"></script>
 
       <!-- Page level plugins -->
       <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script>
 
-
-
-
-
       <script type="text/javascript">
-
         $(document).ready(function() {
 
           $("#add_image_field").click(function(){ 
@@ -394,13 +401,7 @@
           });
 
         });
-
       </script>
-
-
-
-
-
       <!-- Page level custom scripts -->
       <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
       <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
