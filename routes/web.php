@@ -11,6 +11,9 @@
 |
 */
 
+
+Auth::routes();
+Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index')->name('home');
 
 
@@ -40,4 +43,3 @@ Route::group(['prefix' => '/admin'], function () {
 Route::get('uploadfile','HomeController@uploadFile');
 Route::post('uploadfile','HomeController@uploadFilePost');
 
-// Auth::routes();

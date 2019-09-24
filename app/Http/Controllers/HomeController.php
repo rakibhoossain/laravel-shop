@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::orderBy('id', 'desc')->get();
-        return view('shop.home')->with('products', $products);
+        return view('home')->with('products', $products);
     }
     /** Return view to upload file */
     public function uploadFile(){

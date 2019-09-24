@@ -1,4 +1,4 @@
-@extends('admin.index')
+@extends('admin.layouts.admin')
 @section('content')
 <div class="card">
   <h5 class="card-header">Products</h5>

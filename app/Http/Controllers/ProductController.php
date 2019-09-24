@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index(){
     	$products = Product::orderBy('id', 'desc')->get();
-    	return view('admin.layout.products')->with('products', $products);
+    	return view('admin.product.index')->with('products', $products);
 
     }
 
@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.create.product');
+        return view('admin.product.create');
     }
 
     /**
@@ -47,33 +47,11 @@ class ProductController extends Controller
         ]);
 
         $product = new Product;
-
-        $product->title = $request->title;
-        $product->category_id = 0;
-        $product->brand_id = 0;
-        $product->slug = Str::slug($request->title);
-        $product->description = $request->description;
-        $product->quantity = $request->quantity;
-        $product->price = $request->price;
-        $product->offer_price = $request->offer_price;
-        $product->status = 0;
-        $product->admin_id = 0;
-        $product->save();
-
+        $this->saveProduct($product, $request);
+        
         //save image
         if ($request->hasFile('image')) {
-
-            foreach( $request->file('image') as $image){
-                $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
-                $location = public_path('images/product/'.$img);
-                Image::make($image)->resize(360, 431)->save($location);
-
-                $productImage = new ProductImage;
-                $productImage->product_id = $product->id;
-                $productImage->image = $img;
-                $productImage->save();
-            }
-
+            $this->saveProductImage( $request->file('image'), $product);
         }
 
         return back()->with('success','You have successfully created a product.');
@@ -99,7 +77,7 @@ class ProductController extends Controller
     public function edit(Request $request)
     {
         $product = Product::find($request->id);
-        return view('admin.edit.product')->with('product', $product);
+        return view('admin.product.edit')->with('product', $product);
     }
 
     /**
@@ -121,41 +99,11 @@ class ProductController extends Controller
         $product = Product::find($request->id);
 
         if ($product) {
-            $product->title = $request->title;
-            $product->category_id = 0;
-            $product->brand_id = 0;
-            $product->slug = Str::slug($request->title);
-            $product->description = $request->description;
-            $product->quantity = $request->quantity;
-            $product->price = $request->price;
-            $product->offer_price = $request->offer_price;
-            $product->status = 0;
-            $product->admin_id = 0;
-            $product->save();
+            $this->saveProduct($product, $request);
 
             if ($request->hasFile('image')) {
-
-                if( $product->images ){
-                    foreach ($product->images as $image) {
-                        $imgDestroy = public_path('images/product/'.$image->image);
-                        if ( file_exists($imgDestroy)  ) {
-                            unlink($imgDestroy);
-                        }
-                        $image->delete();
-                    }
-                }
-
-                foreach( $request->file('image') as $image){
-                    $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
-                    $location = public_path('images/product/'.$img);
-                    Image::make($image)->resize(360, 431)->save($location);
-                    
-                    $productImage = new ProductImage;
-                    $productImage->product_id = $product->id;
-                    $productImage->image = $img;
-                    $productImage->save();
-                }
-
+                $this->deletProductImage($product);
+                $this->saveProductImage( $request->file('image'), $product);
             }
         }
 
@@ -172,19 +120,52 @@ class ProductController extends Controller
     {
         $product = Product::find($request->id);
         if ($product) {
-            if( $product->images ){
-                foreach ($product->images as $image) {
-                    $imgDestroy = public_path('images/product/'.$image->image);
-                    if ( file_exists($imgDestroy)  ) {
-                        unlink($imgDestroy);
-                    }
-                    $image->delete();  
-                }
-            }
+            $this->deletProductImage($product);
             $product->delete();
             return back()->with('success','You have successfully delete a product.');  
         }
         
+    }
+
+
+    private function deletProductImage($product){
+        if( $product->images ){
+            foreach ($product->images as $image) {
+                $imgDestroy = public_path('images/product/'.$image->image);
+                if ( file_exists($imgDestroy)  ) {
+                    unlink($imgDestroy);
+                }
+                $image->delete();  
+            }
+        }
+
+    }
+
+    private function saveProductImage($files, $product){
+        foreach( $files as $image){
+            $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
+            $location = public_path('images/product/'.$img);
+            Image::make($image)->resize(360, 431)->save($location);
+            
+            $productImage = new ProductImage;
+            $productImage->product_id = $product->id;
+            $productImage->image = $img;
+            $productImage->save();
+        }
+    }
+
+    private function saveProduct($product, $request){
+        $product->title = $request->title;
+        $product->category_id = 0;
+        $product->brand_id = 0;
+        $product->slug = Str::slug($request->title);
+        $product->description = $request->description;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->offer_price = $request->offer_price;
+        $product->status = 0;
+        $product->admin_id = 0;
+        $product->save();
     }
 
 }
