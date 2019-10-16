@@ -6,6 +6,9 @@ use Illuminate\Support\Str;
 use App\Category;
 use Illuminate\Http\Request;
 use Image;
+
+use Helper;
+
 class CategoryController extends Controller
 {
     /**
@@ -26,11 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
-        $data = array(
-            'parentCategories'=> $this->categoryList()
-            );
-        return view('admin.product.category.create')->with($data);
+        return view('admin.product.category.create');
     }
 
     /**
@@ -86,7 +85,7 @@ class CategoryController extends Controller
         $category = Category::find($request->id);
         $data = array(
             'category'=>$category,
-            'parentCategories'=> $this->categoryList()
+            'parentCategories'=> Helper::productCategoryList() //TODO:: modify later
             );
         return view('admin.product.category.edit')->with($data);
     }
@@ -147,19 +146,6 @@ class CategoryController extends Controller
                 unlink($imgDestroy);
             }
         }
-    }
-
-    private function categoryList()
-    {
-        return Category::orderBy('id', 'desc')->get();
-    
-    }
-
-    //frontend cat supply
-    public  static function productCategoryList()
-    {
-        return Category::orderBy('id', 'desc')->get();
-    
     }
 
 }

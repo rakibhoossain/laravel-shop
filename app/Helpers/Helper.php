@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Category;
+use App\Brand;
 class Helper
 {
 	/**
@@ -28,5 +30,19 @@ class Helper
 	    }
 	    return $url;
 	}
+
+	//frontend cat supply
+    public static function productCategoryList()
+    {
+        return Category::orderBy('id', 'desc')->get();
+    
+    }
+
+    //frontend brands supply
+    public static function productBrandList()
+    {
+        return Brand::orderBy('id', 'desc')->get();
+    
+    }
 
 }

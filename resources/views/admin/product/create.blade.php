@@ -31,7 +31,7 @@
         <div class="form-group col-md-4">
           <select class="form-control" name="category_id">
             <option value="">Select category</option>
-            @foreach(App\Http\Controllers\CategoryController::productCategoryList() as $cat)
+            @foreach(Helper::productCategoryList() as $cat)
               <option value="{{$cat->id}}">{{$cat->name}}</option>
             @endforeach
           </select>
@@ -39,7 +39,7 @@
         <div class="form-group col-md-4">
           <select class="form-control" name="brand_id">
             <option value="">Select brand</option>
-            @foreach(App\Http\Controllers\BrandController::productBrandList() as $brand)
+            @foreach(Helper::productBrandList() as $brand)
               <option value="{{$brand->id}}">{{$brand->name}}</option>
             @endforeach
           </select>

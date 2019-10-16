@@ -18,7 +18,7 @@
         <div class="form-group col-md-4">
           <select class="form-control" name="parent_id">
             <option value="">Parent category</option>
-            @foreach($parentCategories as $cat)
+            @foreach(Helper::productCategoryList() as $cat)
               <option value="{{$cat->id}}">{{$cat->name}}</option>
             @endforeach
           </select>

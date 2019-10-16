@@ -147,18 +147,4 @@ class BrandController extends Controller
         }
     }
 
-
-
-
-
-
-    //frontend brands supply
-    public  static function productBrandList()
-    {
-        return Brand::orderBy('id', 'desc')->get();
-    
-    }
-
-
-
 }
