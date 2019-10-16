@@ -1,0 +1,36 @@
+@extends('admin.layouts.admin')
+@section('content')
+<div class="card">
+  <h5 class="card-header">Edit brand</h5>
+  <div class="card-body">
+    <form method="post" action="{{ route('admin.product.brand.update', $brand->id) }}" enctype="multipart/form-data">
+      {{csrf_field()}}
+      <div class="form-group">
+        <label for="inputName" class="col-form-label">Name</label>
+        <input id="inputName" type="text" name="name" class="form-control" value="{{$brand->name}}">
+      </div>
+      <div class="form-group">
+        <label for="inputDescription">Description</label>
+        <textarea class="form-control" id="inputDescription" name="description" rows="3">{{$brand->description}}</textarea>
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-md-4">
+
+        <div class="custom-file mb-3">
+          <input type="file" class="custom-file-input" name="image" id="inputImage" multiple>
+          <label class="custom-file-label" for="inputImage">File Input</label>
+        </div>
+        <img class="rounded float-left" src="{{asset('images/product-brand/'.$brand->image)}}" alt="{{$brand->name}}" width="200" height="200"/>
+        </div>
+      </div>
+
+
+      <div class="form-group mb-3">
+        <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+@endsection

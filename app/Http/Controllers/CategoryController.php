@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Category;
 use Illuminate\Http\Request;
 use Image;
@@ -46,6 +47,7 @@ class CategoryController extends Controller
 
         $category = new Category;
         $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
         $category->description = $request->description;
         $category->parent_id = $request->parent_id;
 
@@ -104,6 +106,7 @@ class CategoryController extends Controller
 
         $category = Category::find($request->id);
         $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
         $category->description = $request->description;
         $category->parent_id = $request->parent_id;
 
@@ -147,6 +150,13 @@ class CategoryController extends Controller
     }
 
     private function categoryList()
+    {
+        return Category::orderBy('id', 'desc')->get();
+    
+    }
+
+    //frontend cat supply
+    public  static function productCategoryList()
     {
         return Category::orderBy('id', 'desc')->get();
     

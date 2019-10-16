@@ -30,9 +30,9 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-fw fa-tachometer-alt"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">@auth {{ Auth::user()->name }} @endauth</div>
+        <div class="sidebar-brand-text mx-3">Dashboard</div>
       </a>
 
       <!-- Divider -->
@@ -40,18 +40,18 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="{{route('admin')}}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-        </li>
+        <a class="nav-link" href="{{route('home')}}">
+          <i class="fas fa-laugh-wink"></i>
+          <span>Home</span>
+        </a>
+      </li>
+
+
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-
         <!-- Heading -->
-        <div class="sidebar-heading">
-          Interface
-        </div>
+        <div class="sidebar-heading">Shop</div>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -83,6 +83,28 @@
           </div>
         </li>
 
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBrand" aria-expanded="true" aria-controls="collapseBrand">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Brands</span>
+          </a>
+          <div id="collapseBrand" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Brand Options:</h6>
+              <a class="collapse-item" href="{{route('admin.product.brand')}}">Brands</a>
+              <a class="collapse-item" href="{{route('admin.product.brand.create')}}">Add brand</a>
+            </div>
+          </div>
+        </li>
+
+
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">Admin</div>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
@@ -98,6 +120,12 @@
             </div>
           </div>
         </li>
+
+
+
+
+
+
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
@@ -287,7 +315,7 @@
                 <li class="nav-item dropdown no-arrow">
                   <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">@auth {{ Auth::user()->name }} @endauth</span>
-                    <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                    <img class="img-profile rounded-circle" src="@auth {{ Helper::get_gravatar(Auth::user()->email) }} @endauth">
                   </a>
                   <!-- Dropdown - User Information -->
                   <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

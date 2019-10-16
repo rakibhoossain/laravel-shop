@@ -45,6 +45,18 @@ Route::group(['prefix' => '/admin'], function () {
 			Route::post('/delete/{id}', 'CategoryController@destroy')->name('admin.product.category.destroy');
 		});
 
+		Route::group(['prefix' => '/brand'], function () {
+			Route::get('/', 'BrandController@index')->name('admin.product.brand');
+			Route::get('/create', 'BrandController@create')->name('admin.product.brand.create');
+			Route::post('/store', 'BrandController@store')->name('admin.product.brand.store');
+			
+			Route::get('/edit/{id}', 'BrandController@edit')->name('admin.product.brand.edit');
+
+			Route::post('/update/{id}', 'BrandController@update')->name('admin.product.brand.update');
+
+			Route::post('/delete/{id}', 'BrandController@destroy')->name('admin.product.brand.destroy');
+		});
+
 
 
 	});
@@ -54,6 +66,9 @@ Route::group(['prefix' => '/admin'], function () {
 Route::group(['prefix' => '/shop'], function () {
 	Route::get('/', 'ShopController@index')->name('shop');
 	Route::get('/single/{slug}', 'ShopController@show')->name('shop.single');
+
+	Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');
+	Route::get('/brand/{slug}', 'ShopController@brandProduct')->name('shop.brand');
 
 
 	Route::get('/search', 'ShopController@search')->name('shop.search');

@@ -31,12 +31,24 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <select class="form-control" name="category_id">
-            <option>Default select</option>
+            <option>Select category</option>
+
+            @foreach(App\Http\Controllers\CategoryController::productCategoryList() as $cat)
+              <option value="{{$cat->id}}" {{ ( $cat->id == $product->category_id) ? 'selected' : '' }} >{{$cat->name}}</option>
+            @endforeach
+
+
+
+
+
           </select>
         </div>
         <div class="form-group col-md-4">
           <select class="form-control" name="brand_id">
-            <option>Default select</option>
+            <option>Select brand</option>
+            @foreach(App\Http\Controllers\BrandController::productBrandList() as $brand)
+              <option value="{{$brand->id}}" {{ ( $brand->id == $product->brand_id) ? 'selected' : '' }} >{{$brand->name}}</option>
+            @endforeach
           </select>
         </div>
         <div class="form-group col-md-4">

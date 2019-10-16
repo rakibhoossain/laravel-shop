@@ -67,11 +67,12 @@
               <h3>{{$product->title}}</h3>
               <h2>${{$product->price}}</h2>
               <ul class="list">
-                <li>
-                  <a class="active" href="#">
-                    <span>Category</span> : Household</a
-                  >
-                </li>
+                @if($category)
+                  <li><a class="active" href="{{route('shop.category', $category->slug)}}"><span>Category</span> : {{$category->name}}</a></li>
+                @endif
+                @if($brand)
+                  <li><a class="active" href="{{route('shop.brand', $brand->slug)}}"><span>Brand</span> : {{$brand->name}}</a></li>
+                @endif
                 <li>
                   <a href="{{route('shop.single', $product->slug)}}"> <span>Availibility</span> : {{$product->quantity}} In Stock</a>
                 </li>

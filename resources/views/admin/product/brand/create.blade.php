@@ -1,9 +1,9 @@
 @extends('admin.layouts.admin')
 @section('content')
 <div class="card">
-  <h5 class="card-header">Add category</h5>
+  <h5 class="card-header">Add brand</h5>
   <div class="card-body">
-    <form method="post" action="{{ route('admin.product.category.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('admin.product.brand.store') }}" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="form-group">
         <label for="inputName" class="col-form-label">Name</label>
@@ -15,14 +15,7 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group col-md-4">
-          <select class="form-control" name="parent_id">
-            <option value="">Parent category</option>
-            @foreach($parentCategories as $cat)
-              <option value="{{$cat->id}}">{{$cat->name}}</option>
-            @endforeach
-          </select>
-        </div>
+
         <div class="form-group col-md-4">
 
         <div class="custom-file mb-3">
@@ -35,7 +28,7 @@
 
 
       <div class="form-group mb-3">
-        <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Add category</button>
+        <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Add brand</button>
       </div>
     </form>
   </div>

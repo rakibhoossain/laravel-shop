@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 @section('content')
 <div class="card">
-  <h5 class="card-header">Products</h5>
+  <h5 class="card-header">Categories</h5>
   <div class="card-body">
     @if(count($categories)>0)
     <table class="table table-striped table-hover">
@@ -57,7 +57,7 @@
       </tbody>
     </table>
     @else
-      <h2>No category found</h2>
+      <h2>No category found <a href="{{route('admin.product.category.create')}}">Add category</a></h2>
     @endif
   </div>
 </div>

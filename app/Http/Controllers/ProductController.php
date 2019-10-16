@@ -77,6 +77,7 @@ class ProductController extends Controller
     public function edit(Request $request)
     {
         $product = Product::find($request->id);
+
         return view('admin.product.edit')->with('product', $product);
     }
 
@@ -156,8 +157,8 @@ class ProductController extends Controller
 
     private function saveProduct($product, $request){
         $product->title = $request->title;
-        $product->category_id = 0;
-        $product->brand_id = 0;
+        $product->category_id = $request->category_id;
+        $product->brand_id = $request->brand_id;
         $product->slug = Str::slug($request->title);
         $product->description = $request->description;
         $product->quantity = $request->quantity;

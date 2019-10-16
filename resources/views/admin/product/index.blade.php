@@ -55,7 +55,7 @@
       </tbody>
     </table>
     @else
-      <h2>No product found</h2>
+      <h2>No product found <a href="{{route('admin.product.create')}}">Add product</a></h2>
     @endif
   </div>
 </div>

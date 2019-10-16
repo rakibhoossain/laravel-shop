@@ -95,9 +95,13 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="{{route('home')}}">Home</a>
                 </li>
+
+                @auth
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('admin')}}">Admin</a>
                 </li>
+                @endauth
+
                 <li class="nav-item submenu dropdown">
                   <a href="{{route('shop')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Shop</a>
@@ -106,7 +110,7 @@
                       <a class="nav-link" href="{{route('shop')}}">Shop Category</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="single-product.html">Product Details</a>
+                      <a class="nav-link" href="single-product.html">Product brands</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="checkout.html">Product Checkout</a>
