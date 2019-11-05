@@ -96,12 +96,12 @@
                   <a class="nav-link" href="{{route('home')}}">Home</a>
                 </li>
 
-                @auth
+                @if(Auth::user()->is_admin)
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('admin')}}">Admin</a>
                 </li>
-                @endauth
-
+                @endif
+                
                 <li class="nav-item submenu dropdown">
                   <a href="{{route('shop')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Shop</a>
@@ -226,6 +226,25 @@
 </div>
 </header>
 <!--================Header Menu Area =================-->
+
+
+
+<div class="section-block" id="basicform">
+  @if ($message = Session::get('success'))
+  <div class="alert alert-success alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>{{ $message }}</strong>
+  </div>
+  @endif
+
+   @if ($message = Session::get('error'))
+  <div class="alert alert-danger">
+    <strong>{{ $message }}</strong>
+  </div>
+  @endif
+</div>
+
+
 
 @yield('content')
 
