@@ -7,7 +7,7 @@
             <div class="widgets_inner">
               <ul class="list">
 
-                @foreach(App\Http\Controllers\CategoryController::productCategoryList() as $cat)
+                @foreach(Helper::productCategoryList() as $cat)
                 <li>
                   <a href="{{route('shop.category', $cat->slug)}}">{{$cat->name}}</a>
                 </li>
@@ -23,21 +23,11 @@
             </div>
             <div class="widgets_inner">
               <ul class="list">
+                @foreach(Helper::productBrandList() as $cat)
                 <li>
-                  <a href="#">Apple</a>
+                  <a href="{{route('shop.brand', $cat->slug)}}">{{$cat->name}}</a>
                 </li>
-                <li>
-                  <a href="#">Asus</a>
-                </li>
-                <li class="active">
-                  <a href="#">Gionee</a>
-                </li>
-                <li>
-                  <a href="#">Micromax</a>
-                </li>
-                <li>
-                  <a href="#">Samsung</a>
-                </li>
+                @endforeach
               </ul>
             </div>
           </aside>

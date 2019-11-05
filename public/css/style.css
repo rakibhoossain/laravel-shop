@@ -554,7 +554,6 @@ ul {
 ============================================================================================ */
 
 .home_banner_area {
-  background: url(/images/banner-bg.jpg?cbb34c03c158a3c6918b56deb2080554) no-repeat center bottom;
   background-size: cover;
   position: relative;
   z-index: 1;
@@ -738,7 +737,6 @@ ul {
 ============================================================================================ */
 
 .offer_area {
-  background: url(/images/offer-bg.png?e118888312d47e6e9bdfc80ee8860b26) no-repeat center;
   background-size: cover;
 }
 

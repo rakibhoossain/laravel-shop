@@ -52,7 +52,12 @@
         <hr class="sidebar-divider">
         <!-- Heading -->
         <div class="sidebar-heading">Shop</div>
-
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('admin.product.order')}}">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Order</span>
+          </a>
+        </li>
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct" aria-expanded="true" aria-controls="collapseProduct">

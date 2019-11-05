@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <!--================Home Banner Area =================-->
-<section class="home_banner_area mb-40">
+<section class="home_banner_area mb-40" style="background: url({{asset('img/banner/banner-bg.jpg')}}) no-repeat center;">
   <div class="banner_inner d-flex align-items-center">
     <div class="container">
       <div class="banner_content row">
@@ -122,7 +122,7 @@
 <!--================ End Feature Product Area =================-->
 
 <!--================ Offer Area =================-->
-<section class="offer_area">
+<section class="offer_area" style="background: url({{asset('img/offer-bg.png')}}) no-repeat center;">
   <div class="container">
     <div class="row justify-content-center">
       <div class="offset-lg-4 col-lg-6 text-center">

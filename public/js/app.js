@@ -49529,10 +49529,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Laravel\practice\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\Laravel\practice\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! D:\Laravel\practice\resources\sass\shop\style.scss */"./resources/sass/shop/style.scss");
-module.exports = __webpack_require__(/*! D:\Laravel\practice\resources\sass\admin\admin.scss */"./resources/sass/admin/admin.scss");
+__webpack_require__(/*! C:\wamp64\www\laravel\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\wamp64\www\laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\laravel\resources\sass\shop\style.scss */"./resources/sass/shop/style.scss");
+module.exports = __webpack_require__(/*! C:\wamp64\www\laravel\resources\sass\admin\admin.scss */"./resources/sass/admin/admin.scss");
 
 
 /***/ })
