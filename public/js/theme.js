@@ -167,7 +167,7 @@
             $(cart_single_total).text( single_total + single_price);
 
         }else{
-            if(val>0) {
+            if(val>1) {
                $(qty).val(--val);
                $(cart_single_total).text( single_total - single_price);
            } 
@@ -196,7 +196,9 @@
     function cart_subtotal(){
         let total = 0.0;
         $('#cart_item_list>.single_cart_item').each(function(){
-            total += parseInt($(this).find('.cart_single_total').text());
+            let val = parseInt($(this).find('.cart_single_total').text());
+            if(isNaN( val ) || val == '') return false;
+            total += val;
         });
 
         $('#subtotal_cart_price').text(total);

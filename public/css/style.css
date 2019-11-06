@@ -4606,6 +4606,7 @@ h6 {
   font-family: "Roboto", sans-serif;
   color: #797979;
   border-bottom: 0px !important;
+  width: 100%;
 }
 
 .cart_inner .table tbody tr td {
@@ -4640,13 +4641,17 @@ h6 {
   margin-bottom: 0px;
 }
 
+.cart_inner .table tbody tr td .cart_single_total {
+  min-width: 90px;
+}
+
 .cart_inner .table tbody tr td .product_count {
   margin-bottom: 0px;
 }
 
 .cart_inner .table tbody tr td .product_count input {
   width: 100px;
-  padding-left: 30px;
+  padding-left: 25px;
   height: 40px;
   outline: none;
   box-shadow: none;
@@ -4696,10 +4701,6 @@ h6 {
   width: 60px;
 }
 
-.cart_inner .table tbody tr.bottom_button td .cupon_text {
-  margin-left: -446px;
-}
-
 .cart_inner .table tbody tr.bottom_button td .cupon_text input {
   width: 200px;
   padding: 0px 15px;
@@ -4710,7 +4711,6 @@ h6 {
   color: #cccccc;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
-  margin-right: -3px;
   outline: none;
   box-shadow: none;
 }
@@ -4855,7 +4855,7 @@ h6 {
 }
 
 .cart_inner .table tbody tr.out_button_area .checkout_btn_inner {
-  margin-left: -388px;
+  text-align: right;
 }
 
 .cart_inner .table tbody tr.out_button_area .checkout_btn_inner .main_btn {
@@ -4875,6 +4875,7 @@ h6 {
   color: #2a2a2a;
   text-transform: uppercase;
   font-weight: 500;
+  cursor: pointer;
 }
 
 /* End Cart Area css

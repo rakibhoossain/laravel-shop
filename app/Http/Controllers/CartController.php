@@ -19,7 +19,10 @@ class CartController extends Controller
         return view('shop.cart')->with('carts', $carts);
     }
 
-
+    /**
+     * Add to cart from btn
+     *
+     */
     public function addTo(Request $request){
 
         $product = Product::where('slug', $request->slug)->first();
@@ -46,9 +49,78 @@ class CartController extends Controller
             $cart->save();
         }
         return back()->with('success','Product added to cart.');       
+    }     
+
+    /**
+     * Add to cart from single product page
+     *
+     */
+    public function singleToAdd(Request $request){
+
+        $product = Product::where('slug', $request->slug)->first();
+
+        // $request->validate([
+        //     'name'      =>  'required|max:150',
+        // ]);
+
+
+        $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->where('product_id', $product->id)->first();
+
+        if($already_cart) {
+            $already_cart->quantity = $already_cart->quantity + $request->qty;
+            $already_cart->price = ($product->offer_price * $request->qty) + $already_cart->price ;
+            $already_cart->save();
+            
+        }else{
+            
+            $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
+            $cart->product_id = $product->id;
+            $cart->price = ($product->offer_price * $request->qty);
+            $cart->quantity = $request->qty;
+            $cart->save();
+        }
+        return back()->with('success','Product added to cart.');       
+    }    
+
+    /**
+     * Delete cart from cart page
+     *
+     */
+    public function addToDelete(Request $request){
+        $cart = Cart::find($request->id);
+        if ($cart) {
+            $cart->delete();
+            return back()->with('success','Cart removed!');  
+        }
+        return back()->with('error','Invalid card');       
+    }     
+
+    /**
+     * Cart update from cart page
+     *
+     */
+    public function addToUpdate(Request $request){
+        if($request->qty){
+            foreach ($request->qty as $k=>$qty) {
+                $id = $request->qty_id[$k];
+                $cart = Cart::find($id);
+                if ($qty>0) {
+                    $cart->quantity = $qty;
+                    $cart->price = $cart->product->offer_price * $qty;
+                    $cart->save();
+                }
+            }
+            return back()->with('success','Cart updated!');
+        }else{
+            return back()->with('error','Cart Invalid!');
+        }     
     } 
 
-
+    /**
+     * Cart checkout
+     *
+     */
     public function checkout()
     {
      

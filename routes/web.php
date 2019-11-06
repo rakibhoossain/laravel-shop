@@ -80,6 +80,12 @@ Route::group(['prefix' => '/shop'], function () {
 	Route::group(['prefix' => '/cart', 'middleware' => ['auth']], function () {
 		Route::get('/', 'CartController@index')->name('cart');
 		Route::get('/product/{slug}', 'CartController@addTo')->name('cart.add');
+		Route::post('/product', 'CartController@singleToAdd')->name('cart.singleToAdd');
+
+		
+		Route::get('/product/delete/{id}', 'CartController@addToDelete')->name('cart.delete');
+		Route::post('/product/update/', 'CartController@addToUpdate')->name('cart.update');
+
 		Route::get('/checkout', 'CartController@checkout')->name('cart.checkout');
 		Route::post('/order', 'OrderController@store')->name('cart.order');
 	});

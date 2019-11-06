@@ -787,6 +787,7 @@
           font-family: $body-font;
           color: $text-color;
           border-bottom: 0px !important;
+          width: 100%;
         }
       }
     }
@@ -819,11 +820,14 @@
             font-family: $body-font;
             margin-bottom: 0px;
           }
+          .cart_single_total {
+            min-width: 90px;
+          }
           .product_count {
             margin-bottom: 0px;
             input {
               width: 100px;
-              padding-left: 30px;
+              padding-left: 25px;
               height: 40px;
               outline: none;
               box-shadow: none;
@@ -871,7 +875,7 @@
               width: 60px;
             }
             .cupon_text {
-              margin-left: -446px;
+              //text-align: right;
               input {
                 width: 200px;
                 padding: 0px 15px;
@@ -882,7 +886,6 @@
                 color: #cccccc;
                 font-family: $body-font;
                 font-weight: normal;
-                margin-right: -3px;
                 outline: none;
                 box-shadow: none;
                 @include placeholder {
@@ -1002,7 +1005,7 @@
         }
         &.out_button_area {
           .checkout_btn_inner {
-            margin-left: -388px;
+            text-align: right;
             .main_btn {
               height: 40px;
               padding: 0px 30px;
@@ -1026,6 +1029,7 @@
   color: $title-color;
   text-transform: uppercase;
   font-weight: 500;
+  cursor: pointer;
 }
 
 /* End Cart Area css
