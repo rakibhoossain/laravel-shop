@@ -108,24 +108,10 @@
                 </li>
                 @endauth
 
-                <li class="nav-item submenu dropdown">
-                  <a href="{{route('shop')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Shop</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{route('shop')}}">Shop Category</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="single-product.html">Product brands</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="checkout.html">Product Checkout</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="cart.html">Shopping Cart</a>
-                    </li>
-                  </ul>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('shop')}}">Shop</a>
                 </li>
+
                 <li class="nav-item submenu dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Blog</a>
@@ -135,18 +121,6 @@
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="single-blog.html">Blog Details</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item submenu dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Pages</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="tracking.html">Tracking</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="elements.html">Elements</a>
                     </li>
                   </ul>
                 </li>

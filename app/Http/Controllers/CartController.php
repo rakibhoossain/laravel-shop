@@ -15,8 +15,7 @@ class CartController extends Controller
      */
     public function index()
     {
-
-        $carts = Cart::orderBy('id')->get();
+        $carts = Cart::where('user_id', auth()->user()->id)->get();
         return view('shop.cart')->with('carts', $carts);
     }
 
@@ -25,19 +24,54 @@ class CartController extends Controller
 
         $product = Product::where('slug', $request->slug)->first();
 
-
         // $request->validate([
         //     'name'      =>  'required|max:150',
         // ]);
 
-        $cart = new Cart;
-        $cart->user_id = auth()->user()->id;
-        $cart->product_id = $product->id;
-        $cart->price = $product->offer_price;
-        $cart->quantity = 1;
-        $cart->save();
+
+        $already_cart = Cart::where('user_id', auth()->user()->id)->where('product_id', $product->id)->first();
+
+        if($already_cart) {
+            $already_cart->quantity = $already_cart->quantity + 1;
+            $already_cart->price = $product->offer_price + $already_cart->price ;
+            $already_cart->save();
+            
+        }else{
+            
+            $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
+            $cart->product_id = $product->id;
+            $cart->price = $product->offer_price;
+            $cart->quantity = 1;
+            $cart->save();
+        }
         return back()->with('success','Product added to cart.');       
     } 
+
+
+    public function checkout()
+    {
+     
+        $orders = Cart::where('user_id', auth()->user()->id)->get();
+        
+        if ($orders->isEmpty()) {
+
+           $data = array(
+                'orders'=>[],
+                'total_price'=> 0.00
+            ); 
+          
+        }else{
+            $total_price = Cart::where('user_id', auth()->user()->id)->sum('price');
+            $data = array(
+                'orders'=>$orders,
+                'total_price'=> $total_price
+            );            
+        }
+
+        return view('shop.checkout')->with($data);
+    }
+
 
     /**
      * Show the form for creating a new resource.

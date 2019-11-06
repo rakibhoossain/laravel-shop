@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Category;
 use App\Brand;
 use App\Cart;
+use Auth;
 class Helper
 {
 	/**
@@ -49,7 +50,8 @@ class Helper
     //frontend cart count
     public static function cartCount()
     {
-        return Cart::orderBy('id')->get()->count();;
+    	if(Auth::check()) return Cart::where('user_id', auth()->user()->id)->sum('quantity');
+    	else return 0;
     
     }
 

@@ -248,7 +248,7 @@ ul {
   right: 0;
   top: 0;
   content: attr(data-count);
-  font-size: 40%;
+  font-size: 14px;
   padding: 0.2em;
   border-radius: 50%;
   line-height: 1em;

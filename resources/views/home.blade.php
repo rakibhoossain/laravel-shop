@@ -96,9 +96,6 @@
               <a href="{{route('shop.single', $product->slug)}}">
                 <i class="ti-eye"></i>
               </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
               <a href="{{route('cart.add', $product->slug)}}">
                 <i class="ti-shopping-cart"></i>
               </a>

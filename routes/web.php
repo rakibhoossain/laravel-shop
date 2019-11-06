@@ -74,13 +74,15 @@ Route::group(['prefix' => '/shop'], function () {
 	Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');
 	Route::get('/brand/{slug}', 'ShopController@brandProduct')->name('shop.brand');
 
-	Route::get('/cart', 'CartController@index')->name('cart');
-	Route::get('/cart/{slug}', 'CartController@addTo')->name('cart.add');
-
-
 	Route::get('/search', 'ShopController@search')->name('shop.search');
 
-	Route::group(['prefix' => '/account'], function () {
+	Route::group(['prefix' => '/cart', 'middleware' => ['auth']], function () {
+		Route::get('/', 'CartController@index')->name('cart');
+		Route::get('/product/{slug}', 'CartController@addTo')->name('cart.add');
+		Route::get('/checkout', 'CartController@checkout')->name('cart.checkout');
+	});
+
+	Route::group(['prefix' => '/account', 'middleware' => ['auth']], function () {
 		Route::get('/', 'AccountController@index')->name('account');
 	});
 
