@@ -164,12 +164,12 @@
 
         if (opt=='add') {
             $(qty).val(++val);
-            $(cart_single_total).text( single_total + single_price);
+            $(cart_single_total).text( (single_total + single_price).toFixed(2));
 
         }else{
             if(val>1) {
                $(qty).val(--val);
-               $(cart_single_total).text( single_total - single_price);
+               $(cart_single_total).text( (single_total - single_price).toFixed(2));
            } 
         }
 
@@ -188,7 +188,7 @@
 
         let val = parseInt( $(el).val() );
         if(isNaN( val )) return false;
-        $(cart_single_total).text( single_price * val);
+        $(cart_single_total).text( (single_price * val).toFixed(2));
 
         cart_subtotal();
     }
@@ -196,12 +196,12 @@
     function cart_subtotal(){
         let total = 0.0;
         $('#cart_item_list>.single_cart_item').each(function(){
-            let val = parseInt($(this).find('.cart_single_total').text());
+            let val = parseFloat($(this).find('.cart_single_total').text());
             if(isNaN( val ) || val == '') return false;
             total += val;
         });
 
-        $('#subtotal_cart_price').text(total);
+        $('#subtotal_cart_price').text((total).toFixed(2));
     }
     cart_subtotal();
 
