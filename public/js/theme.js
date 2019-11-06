@@ -141,20 +141,22 @@
         $('.cart_u.reduced').click(function(){
             cart_count_update(this, '');
         });
+
+        $('.product_count>.qty').keyup(function(){
+            cart_update_keyup(this);
+        });
+
+
     });
 
     function cart_count_update(el, opt){
-        let single_cart_item = $(el).parents().find('.single_cart_item')[0];
-        let cart_single_price = $(single_cart_item).children('.cart_single_price');
-        let cart_single_total = $(single_cart_item).children('.cart_single_total');
+        let single_cart_item = $(el).parent().parent().parent('.single_cart_item');
 
-        console.log($(single_cart_item));
+        let cart_single_price = $(single_cart_item).find('.cart_single_price');
+        let cart_single_total = $(single_cart_item).find('.cart_single_total');
 
-
-        console.log($(cart_single_price).val());
-        console.log($(cart_single_total).val());
-
-
+        let single_price = parseFloat($(cart_single_price).text());
+        let single_total = parseFloat($(cart_single_total).text());
 
         let qty = $(el).parent('.product_count').children('.qty');
         let val = parseInt( $(qty).val() );
@@ -162,11 +164,44 @@
 
         if (opt=='add') {
             $(qty).val(++val);
+            $(cart_single_total).text( single_total + single_price);
+
         }else{
-            if(val>0) $(qty).val(--val);
+            if(val>0) {
+               $(qty).val(--val);
+               $(cart_single_total).text( single_total - single_price);
+           } 
         }
+
+        cart_subtotal();
+
     }
 
+    function cart_update_keyup(el){
+        let single_cart_item = $(el).parent().parent().parent('.single_cart_item');
+
+        let cart_single_price = $(single_cart_item).find('.cart_single_price');
+        let cart_single_total = $(single_cart_item).find('.cart_single_total');
+
+        let single_price = parseFloat($(cart_single_price).text());
+        let single_total = parseFloat($(cart_single_total).text());
+
+        let val = parseInt( $(el).val() );
+        if(isNaN( val )) return false;
+        $(cart_single_total).text( single_price * val);
+
+        cart_subtotal();
+    }
+
+    function cart_subtotal(){
+        let total = 0.0;
+        $('#cart_item_list>.single_cart_item').each(function(){
+            total += parseInt($(this).find('.cart_single_total').text());
+        });
+
+        $('#subtotal_cart_price').text(total);
+    }
+    cart_subtotal();
 
     /*----------------------------------------------------*/
     /*  Members Slider

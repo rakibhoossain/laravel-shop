@@ -38,7 +38,7 @@
                   <th scope="col">Total</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="cart_item_list">
 
                 @foreach($carts as $cart)
 
@@ -65,7 +65,6 @@
                       <input
                         type="text"
                         name="qty"
-                        id="sst"
                         maxlength="12"
                         value="{{$cart->quantity}}"
                         title="Quantity:"
@@ -110,7 +109,7 @@
                     <h5>Subtotal</h5>
                   </td>
                   <td>
-                    <h5>$2160.00</h5>
+                    <h5 id="subtotal_cart_price">0.00</h5>
                   </td>
                 </tr>
                 <tr class="shipping_area">
