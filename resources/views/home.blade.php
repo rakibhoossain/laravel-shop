@@ -99,7 +99,7 @@
               <a href="#">
                 <i class="ti-heart"></i>
               </a>
-              <a href="#">
+              <a href="{{route('cart.add', $product->slug)}}">
                 <i class="ti-shopping-cart"></i>
               </a>
             </div>

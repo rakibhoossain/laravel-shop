@@ -70,13 +70,24 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 Route::group(['prefix' => '/shop'], function () {
 	Route::get('/', 'ShopController@index')->name('shop');
 	Route::get('/single/{slug}', 'ShopController@show')->name('shop.single');
-
+	
 	Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');
 	Route::get('/brand/{slug}', 'ShopController@brandProduct')->name('shop.brand');
 
+	Route::get('/cart', 'CartController@index')->name('cart');
+	Route::get('/cart/{slug}', 'CartController@addTo')->name('cart.add');
+
 
 	Route::get('/search', 'ShopController@search')->name('shop.search');
+
+	Route::group(['prefix' => '/account'], function () {
+		Route::get('/', 'AccountController@index')->name('account');
+	});
+
+
 });
+
+
 
 
 

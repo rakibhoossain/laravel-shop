@@ -35,6 +35,24 @@
                 color: $primary-color;
             }
         }
+        .cart-icon {
+            .fa[data-count] {
+                &:after {
+                    position:absolute;
+                    right:0;
+                    top:0;
+                    content: attr(data-count);
+                    font-size:14px;
+                    padding:.2em;
+                    border-radius:50%;
+                    line-height:1em;
+                    color: white;
+                    background: #71cd14;
+                    text-align:center;
+                    min-width: 1em;
+                }
+            }
+        }
         .nav {
             @media (max-width: 992px) {
                 float: left;

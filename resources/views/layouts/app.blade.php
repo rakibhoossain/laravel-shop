@@ -79,7 +79,7 @@
         <nav class="navbar navbar-expand-lg navbar-light w-100">
           <!-- Brand and toggle get grouped for better mobile display -->
           <a class="navbar-brand logo_h" href="{{route('home')}}">
-            <img src="img/logo.png" alt="" />
+            <img src="{{asset('img/logo.png')}}" alt="" />
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,12 +96,18 @@
                   <a class="nav-link" href="{{route('home')}}">Home</a>
                 </li>
 
-                @if(Auth::user()->is_admin)
+                @auth @if(Auth::user()->is_admin)
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('admin')}}">Admin</a>
                 </li>
-                @endif
-                
+                @endif @endauth
+
+                @auth
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('account')}}">Account</a>
+                </li>
+                @endauth
+
                 <li class="nav-item submenu dropdown">
                   <a href="{{route('shop')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Shop</a>
@@ -174,13 +180,16 @@
                 </div>
               </li>
 
-
-
-
               <li class="nav-item">
-                <a href="#" class="icons">
-                  <i class="ti-shopping-cart"></i>
+                @if(Helper::cartCount()>0)
+                <a href="{{route('cart')}}" class="icons cart-icon">
+                  <span class="fa fa-stack fa-1x has-badge" data-count="{{Helper::cartCount()}}">
+                    <i class="fa ti-shopping-cart"></i>
+                  </span>
                 </a>
+                @else
+                <a href="{{route('cart')}}" class="icons"><i class="fa ti-shopping-cart"></i></a>
+                @endif
               </li>
 
               <li class="nav-item">

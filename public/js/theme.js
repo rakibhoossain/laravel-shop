@@ -130,6 +130,45 @@
 
 
     /*----------------------------------------------------*/
+    /*  Cart item update
+    /*----------------------------------------------------*/
+    $(document).ready(function(){
+
+        $('.cart_u.increase').click(function(){
+            cart_count_update(this, 'add');
+        });
+
+        $('.cart_u.reduced').click(function(){
+            cart_count_update(this, '');
+        });
+    });
+
+    function cart_count_update(el, opt){
+        let single_cart_item = $(el).parents().find('.single_cart_item')[0];
+        let cart_single_price = $(single_cart_item).children('.cart_single_price');
+        let cart_single_total = $(single_cart_item).children('.cart_single_total');
+
+        console.log($(single_cart_item));
+
+
+        console.log($(cart_single_price).val());
+        console.log($(cart_single_total).val());
+
+
+
+        let qty = $(el).parent('.product_count').children('.qty');
+        let val = parseInt( $(qty).val() );
+        if(isNaN( val )) return false;
+
+        if (opt=='add') {
+            $(qty).val(++val);
+        }else{
+            if(val>0) $(qty).val(--val);
+        }
+    }
+
+
+    /*----------------------------------------------------*/
     /*  Members Slider
     /*----------------------------------------------------*/
     function product_slider() {

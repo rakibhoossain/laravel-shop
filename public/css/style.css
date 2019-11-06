@@ -243,6 +243,21 @@ ul {
   color: #71cd14;
 }
 
+.header_area .navbar .cart-icon .fa[data-count]:after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: attr(data-count);
+  font-size: 40%;
+  padding: 0.2em;
+  border-radius: 50%;
+  line-height: 1em;
+  color: white;
+  background: #71cd14;
+  text-align: center;
+  min-width: 1em;
+}
+
 @media (max-width: 992px) {
   .header_area .navbar .nav {
     float: left;

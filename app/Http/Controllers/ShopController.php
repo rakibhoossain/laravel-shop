@@ -31,8 +31,7 @@ class ShopController extends Controller
         );
     	return view('shop.single')->with($data);
 
-    }        
-
+    }
 
     public function categoryProduct(Request $request){
 

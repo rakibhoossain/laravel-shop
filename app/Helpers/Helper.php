@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Category;
 use App\Brand;
+use App\Cart;
 class Helper
 {
 	/**
@@ -42,6 +43,13 @@ class Helper
     public static function productBrandList()
     {
         return Brand::orderBy('id', 'desc')->get();
+    
+    }
+
+    //frontend cart count
+    public static function cartCount()
+    {
+        return Cart::orderBy('id')->get()->count();;
     
     }
 
