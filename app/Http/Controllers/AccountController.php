@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Order;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -23,7 +23,25 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('shop.account.home');
+        return view('shop.account.index');
+    }    
+
+    public function order()
+    {
+        $orders = Order::orderBy('status', 'desc')->where('user_id', auth()->user()->id)->get();
+        return view('shop.account.order.index')->with('orders', $orders);
+    }    
+
+    public function orderView(Request $request)
+    {
+        $order = Order::where('user_id', auth()->user()->id)->where('id', $request->id)->first();
+        return view('shop.account.order.view')->with('order', $order);
+    }    
+
+    public function orderEdit(Request $request)
+    {
+        $order = Order::where('user_id', auth()->user()->id)->where('id', $request->id)->first();
+        return view('shop.account.order.view')->with('order', $order);
     }
 
     /**

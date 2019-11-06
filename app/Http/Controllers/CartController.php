@@ -15,7 +15,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = Cart::where('user_id', auth()->user()->id)->get();
+        $carts = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->get();      
         return view('shop.cart')->with('carts', $carts);
     }
 
@@ -29,7 +29,7 @@ class CartController extends Controller
         // ]);
 
 
-        $already_cart = Cart::where('user_id', auth()->user()->id)->where('product_id', $product->id)->first();
+        $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->where('product_id', $product->id)->first();
 
         if($already_cart) {
             $already_cart->quantity = $already_cart->quantity + 1;
@@ -52,7 +52,7 @@ class CartController extends Controller
     public function checkout()
     {
      
-        $orders = Cart::where('user_id', auth()->user()->id)->get();
+        $orders = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->get();
         
         if ($orders->isEmpty()) {
 
@@ -62,7 +62,7 @@ class CartController extends Controller
             ); 
           
         }else{
-            $total_price = Cart::where('user_id', auth()->user()->id)->sum('price');
+            $total_price = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price');
             $data = array(
                 'orders'=>$orders,
                 'total_price'=> $total_price

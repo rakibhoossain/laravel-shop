@@ -4893,9 +4893,10 @@ h6 {
   margin-bottom: 0px;
 }
 
-.check_title h2 a {
+.check_title h2 label {
   color: #71cd14;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .returning_customer p {

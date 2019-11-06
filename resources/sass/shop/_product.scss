@@ -1046,9 +1046,10 @@
     line-height: 40px;
     padding-left: 30px;
     margin-bottom: 0px;
-    a {
+    label {
       color: $primary-color;
       text-decoration: underline;
+      cursor: pointer;
     }
   }
 }

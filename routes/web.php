@@ -46,7 +46,8 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 		});
 
 		Route::group(['prefix' => '/order'], function () {
-			Route::get('/', 'CategoryController@index')->name('admin.product.order');
+			Route::get('/', 'OrderController@index')->name('admin.product.order');
+			Route::get('/edit/{id}', 'OrderController@edit')->name('admin.product.order.edit');
 		});
 
 		Route::group(['prefix' => '/brand'], function () {
@@ -80,10 +81,14 @@ Route::group(['prefix' => '/shop'], function () {
 		Route::get('/', 'CartController@index')->name('cart');
 		Route::get('/product/{slug}', 'CartController@addTo')->name('cart.add');
 		Route::get('/checkout', 'CartController@checkout')->name('cart.checkout');
+		Route::post('/order', 'OrderController@store')->name('cart.order');
 	});
 
 	Route::group(['prefix' => '/account', 'middleware' => ['auth']], function () {
 		Route::get('/', 'AccountController@index')->name('account');
+		Route::get('/order', 'AccountController@order')->name('account.order');
+		Route::get('/order/view/{id}', 'AccountController@orderView')->name('account.order.view');
+		Route::get('/order/edit/{id}', 'AccountController@orderEdit')->name('account.order.edit');
 	});
 
 

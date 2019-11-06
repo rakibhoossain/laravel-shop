@@ -22,8 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->text('description')->nullable();
             $table->integer('quantity')->default(1);
-            $table->integer('price');
-            $table->integer('offer_price')->nullable();
+            $table->decimal('price', 20, 2);
+            $table->decimal('offer_price', 20, 2);
             $table->tinyInteger('status')->default(0);
             $table->integer('admin_id')->unsigned();
 

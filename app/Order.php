@@ -18,8 +18,8 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function items()
+    public function cart()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(Cart::class);
     }
 }

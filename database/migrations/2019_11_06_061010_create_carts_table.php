@@ -20,7 +20,7 @@ class CreateCartsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedInteger('quantity')->default(1);
-            $table->decimal('price', 20, 6);
+            $table->decimal('price', 20, 2);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

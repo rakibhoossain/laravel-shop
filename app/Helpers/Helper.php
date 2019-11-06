@@ -50,7 +50,7 @@ class Helper
     //frontend cart count
     public static function cartCount()
     {
-    	if(Auth::check()) return Cart::where('user_id', auth()->user()->id)->sum('quantity');
+    	if(Auth::check()) return Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('quantity');
     	else return 0;
     
     }
