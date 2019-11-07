@@ -25,12 +25,14 @@ class CartController extends Controller
      */
     public function addTo(Request $request){
 
+        if (empty($request->slug)) {
+            return back()->withErrors('Invalid product!');
+        }
+        
         $product = Product::where('slug', $request->slug)->first();
-
-        // $request->validate([
-        //     'name'      =>  'required|max:150',
-        // ]);
-
+        if (empty($product)) {
+            return back()->withErrors('Invalid product!');
+        }
 
         $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->where('product_id', $product->id)->first();
 
@@ -66,6 +68,10 @@ class CartController extends Controller
 
         $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->where('product_id', $product->id)->first();
 
+        if ($request->qty < 1) {
+            return back()->withErrors('Invalid quantity.');
+        }
+
         if($already_cart) {
             $already_cart->quantity = $already_cart->quantity + $request->qty;
             $already_cart->price = ($product->offer_price * $request->qty) + $already_cart->price ;
@@ -93,7 +99,7 @@ class CartController extends Controller
             $cart->delete();
             return back()->with('success','Cart removed!');  
         }
-        return back()->with('error','Invalid card');       
+        return back()->withErrors('Invalid card');       
     }     
 
     /**
@@ -102,18 +108,28 @@ class CartController extends Controller
      */
     public function addToUpdate(Request $request){
         if($request->qty){
+
+            $error = array();
+            $success = '';
+
             foreach ($request->qty as $k=>$qty) {
+
                 $id = $request->qty_id[$k];
+
                 $cart = Cart::find($id);
-                if ($qty>0) {
+
+                if ($qty>0 && $cart) {
                     $cart->quantity = $qty;
                     $cart->price = $cart->product->offer_price * $qty;
                     $cart->save();
+                    $success = 'Cart updated!';
+                }else{
+                    $error[] = 'Cart Invalid!';
                 }
             }
-            return back()->with('success','Cart updated!');
+            return back()->withErrors($error)->with('success', $success);
         }else{
-            return back()->with('error','Cart Invalid!');
+            return back()->withErrors('Cart Invalid!');
         }     
     } 
 

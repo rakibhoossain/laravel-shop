@@ -5172,6 +5172,70 @@ h6 {
   color: #2a2a2a;
 }
 
+.order_box .payment_item .cashondelivary {
+  display: none;
+}
+
+.order_box .payment_item .paymentoption {
+  display: none;
+}
+
+.order_box .payment_item .paymentoption .bKash {
+  display: none;
+}
+
+.order_box .payment_item .paymentoption .rocket {
+  display: none;
+}
+
+.order_box .payment_item.cash .paymentoption {
+  display: none;
+}
+
+.order_box .payment_item.cash .paymentoption .bKash {
+  display: none;
+}
+
+.order_box .payment_item.cash .paymentoption .rocket {
+  display: none;
+}
+
+.order_box .payment_item.bKash .cashondelivary {
+  display: none;
+}
+
+.order_box .payment_item.bKash .paymentoption {
+  display: block;
+}
+
+.order_box .payment_item.bKash .paymentoption .bKash {
+  display: block;
+}
+
+.order_box .payment_item.bKash .paymentoption .rocket {
+  display: none;
+}
+
+.order_box .payment_item.cash .cashondelivary {
+  display: block;
+}
+
+.order_box .payment_item.rocket .cashondelivary {
+  display: none;
+}
+
+.order_box .payment_item.rocket .paymentoption {
+  display: block;
+}
+
+.order_box .payment_item.rocket .paymentoption .bKash {
+  display: none;
+}
+
+.order_box .payment_item.rocket .paymentoption .rocket {
+  display: block;
+}
+
 .order_box .payment_item h4 {
   font-size: 14px;
   text-transform: uppercase;

@@ -82,6 +82,7 @@ Route::group(['prefix' => '/shop'], function () {
 		Route::get('/product/{slug}', 'CartController@addTo')->name('cart.add');
 		Route::post('/product', 'CartController@singleToAdd')->name('cart.singleToAdd');
 
+		Route::get('/product', 'CartController@index'); // handling only
 		
 		Route::get('/product/delete/{id}', 'CartController@addToDelete')->name('cart.delete');
 		Route::post('/product/update/', 'CartController@addToUpdate')->name('cart.update');

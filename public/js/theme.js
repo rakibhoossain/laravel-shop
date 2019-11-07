@@ -147,6 +147,18 @@
         });
 
 
+
+        //pament option
+        $('input[name=paymentoption]').click(function(){
+            $(this).parents('.payment_item').removeClass('bKash cash rocket').addClass($(this).val() +' active');
+        });
+
+
+
+
+
+// $('input[name=choice]:checked')     .val().toLowerCase().replace(/\s+/, "-");
+
     });
 
     function cart_count_update(el, opt){

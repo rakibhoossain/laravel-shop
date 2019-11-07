@@ -42,12 +42,10 @@
               <form class="row contact_form" action="{{ route('cart.order') }}" method="post">
                 {{csrf_field()}}
                 <div class="col-md-6 form-group p_star">
-                  <input type="text" class="form-control" name="first_name" />
-                  <span class="placeholder" data-placeholder="First name"></span>
+                  <input type="text" class="form-control" name="first_name" placeholder="First name"/>
                 </div>
                 <div class="col-md-6 form-group p_star">
-                  <input type="text" class="form-control" name="last_name" />
-                  <span class="placeholder" data-placeholder="Last name"></span>
+                  <input type="text" class="form-control" name="last_name" placeholder="Last name"/>
                 </div>
 {{--                 <div class="col-md-12 form-group">
                   <input
@@ -59,8 +57,7 @@
                   />
                 </div> --}}
                 <div class="col-md-6 form-group p_star">
-                  <input type="text" class="form-control" name="phone_number" />
-                  <span class="placeholder" data-placeholder="Phone number" ></span>
+                  <input type="text" class="form-control" name="phone_number" placeholder="Phone number"/>
                 </div>
 {{--                 <div class="col-md-6 form-group p_star">
                   <input type="text" class="form-control" name="compemailany" />
@@ -83,12 +80,10 @@
                   </select>
                 </div>
                 <div class="col-md-12 form-group p_star">
-                  <input type="text" class="form-control" name="city" />
-                  <span class="placeholder" data-placeholder="Town/City"></span>
+                  <input type="text" class="form-control" name="city" placeholder="Town/City"/>
                 </div>
                 <div class="col-md-12 form-group p_star">
-                  <input type="text" class="form-control" name="address"/>
-                  <span class="placeholder" data-placeholder="Address"></span>
+                  <input type="text" class="form-control" name="address" placeholder="Address"/>
                 </div>
 
 
@@ -154,29 +149,94 @@
                     </a>
                   </li>
                 </ul>
-                <div class="payment_item">
-                  <div class="radion_btn">
-                    <input type="radio" id="f-option5" name="selector" />
-                    <label for="f-option5">Check payments</label>
-                    <div class="check"></div>
-                  </div>
+
+
+{{--                 <div class="payment_item active">
+
                   <p>
                     Please send a check to Store Name, Store Street, Store Town,
                     Store State / County, Store Postcode.
                   </p>
-                </div>
-                <div class="payment_item active">
+                </div> --}}
+
+                <div class="payment_item">
                   <div class="radion_btn">
-                    <input type="radio" id="f-option6" name="selector" />
-                    <label for="f-option6">Paypal </label>
+                    <input type="radio" id="f-cashon" name="paymentoption" value="cash"/>
+                    <label for="f-cashon">Cash on Delivery </label>
                     <img src="{{asset('img/product/single-product/card.jpg')}}" alt="" />
                     <div class="check"></div>
                   </div>
+                  <div class="radion_btn">
+                    <input type="radio" id="f-bkash" name="paymentoption" value="bKash"/>
+                    <label for="f-bkash">bKash </label>
+                    <img src="{{asset('img/product/single-product/card.jpg')}}" alt="" />
+                    <div class="check"></div>
+                  </div>
+                  <div class="radion_btn">
+                    <input type="radio" id="f-rocket" name="paymentoption"  value="rocket"/>
+                    <label for="f-rocket">Rocket </label>
+                    <img src="{{asset('img/product/single-product/card.jpg')}}" alt="" />
+                    <div class="check"></div>
+                  </div>
+
+                  <div class="paymentoption">
+
+                    
+                    <div class="bKash">
+                      <p>Bkash</p>
+                    </div>
+
+                    <div class="rocket">
+                        <p>rocket</p>
+                    </div>
+
+                    <div class="mt-10 mb-10">
+                        <input type="text" name="transectionId" placeholder="Transaction ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Transaction ID'" class="single-input">
+                    </div>
+                  </div>
+
+                  <div class="cashondelivary">
+                    <p>cashondelivary</p>
+                  </div>
+                </div>
+
+
+<style type="text/css">
+
+/*.payment_item .cashondelivary,
+.payment_item .paymentoption>.bKash,
+.payment_item .paymentoption>.rocket,
+.payment_item.bkash .cashondelivary,
+.payment_item.rocket .cashondelivary,
+.payment_item.cash .paymentoption {
+  display:none;
+}  
+.payment_item.cash .cashondelivary,
+.payment_item.bkash .paymentoption>.bKash,
+.payment_item.rocket .paymentoption>.rocket,
+.payment_item.bkash .paymentoption,
+.payment_item.rocket .paymentoption {
+  display:block;
+}*/  
+
+</style>
+
+
+
+
+
+
+
+{{--                 <div class="payment_item active">
+
                   <p>
                     Please send a check to Store Name, Store Street, Store Town,
                     Store State / County, Store Postcode.
                   </p>
-                </div>
+                </div> --}}
+
+
+
                 <div class="creat_account">
                   <input type="checkbox" id="f-option4" name="selector" />
                   <label for="f-option4">I’ve read and accept the </label>

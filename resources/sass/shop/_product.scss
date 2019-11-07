@@ -1293,6 +1293,63 @@
     }
   }
   .payment_item {
+    .cashondelivary {
+      display:none;
+    }
+    .paymentoption {
+      display:none;
+      .bKash {
+        display:none;
+      }
+      .rocket {
+        display:none;
+      }
+    }
+    &.cash {
+      .paymentoption {
+        display:none;
+        .bKash {
+          display:none;
+        }
+        .rocket {
+          display:none;
+        }
+      }  
+    }
+    &.bKash {
+      .cashondelivary {
+        display:none;
+      }
+      .paymentoption {
+        display:block;
+        .bKash {
+          display:block;
+        }
+        .rocket {
+          display:none;
+        }
+      }
+    }
+    &.cash {
+      .cashondelivary {
+        display:block;
+      }
+    }
+    &.rocket {
+      .cashondelivary {
+        display:none;
+      }
+      .paymentoption {
+        display:block;
+        .bKash {
+          display:none;
+        }
+        .rocket {
+          display:block;
+        }
+      }  
+    }
+
     h4 {
       font-size: 14px;
       text-transform: uppercase;

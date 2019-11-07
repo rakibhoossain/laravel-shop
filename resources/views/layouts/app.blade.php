@@ -212,7 +212,7 @@
 
 
 
-<div class="section-block" id="basicform">
+<div class="section-block">
   @if ($message = Session::get('success'))
   <div class="alert alert-success alert-block">
     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -220,12 +220,22 @@
   </div>
   @endif
 
-   @if ($message = Session::get('error'))
-  <div class="alert alert-danger">
-    <strong>{{ $message }}</strong>
-  </div>
+  @if (count($errors) > 0)
+      <div class="alert alert-danger alert-block">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
   @endif
 </div>
+
+
+
+
+
 
 
 
