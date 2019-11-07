@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Cart;
+use App\Payment;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -47,7 +48,7 @@ class OrderController extends Controller
             'post_code'      =>  'required',
             'phone_number'      =>  'required',
             'shipping'      =>  'required|string|min:3',
-            'paymentoption'      =>  'required|string|min:3',
+            'paymentoption'      =>  'required|in:cash,bKash,rocket',
             // 'transectionId'      =>  'string|min:3',
         ]);
 
@@ -55,12 +56,13 @@ class OrderController extends Controller
             return back()->withErrors('Cart empty!');
         }
 
-        $paymentType = $request->paymentoption;
-        if ($paymentType === 'bKash' || $paymentType === 'rocket') {
-            
+        $payment_method = $request->paymentoption;
+        $transectionId = null;
+
+        if ($payment_method === 'bKash' || $payment_method === 'rocket') {   
+            if(empty($request->transectionId)) return back()->withErrors('Transection id empty!');
             $transectionId = $request->transectionId;
         }
-        
 
         $order = new Order;
         $order->order_number = 'ORD-'.strtoupper(uniqid());
@@ -69,9 +71,6 @@ class OrderController extends Controller
         $order->status = 'pending';
         $order->grand_total = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price'); //TODO add shiping price
         $order->item_count = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('quantity');
-        $order->payment_status = 0;
-        $order->payment_method = $request->paymentoption;
-
         $order->first_name = $request->first_name;
         $order->last_name = $request->last_name;
         $order->address = $request->address;
@@ -80,10 +79,19 @@ class OrderController extends Controller
         $order->post_code = $request->post_code;
         $order->phone_number = $request->phone_number;
         $order->notes = $request->notes;
-
         $order->save();
-
         Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
+
+        $payment = new Payment;
+        $payment->user_id = auth()->user()->id;
+        $payment->order_id = $order->id;
+
+        $payment->payment_method = $payment_method;
+        $payment->transection_id = $transectionId;
+        $payment->status = 0;
+        $payment->save();
+        Order::find($order->id)->where('user_id', auth()->user()->id)->update(['payment_id' => $payment->id]);
+
         return back()->with('success','Your order success!.');
     }
 
@@ -93,9 +101,14 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Request $request)
     {
-        //
+        $order = Order::find($request->id);
+
+        $data = array(
+            'order'=>$order,
+            );
+        return view('admin.order.show')->with($data);
     }
 
     /**

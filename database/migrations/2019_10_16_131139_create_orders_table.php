@@ -16,7 +16,6 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-
             $table->string('order_number')->unique();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
@@ -25,8 +24,8 @@ class CreateOrdersTable extends Migration
             $table->decimal('grand_total', 20, 2);
             $table->unsignedInteger('item_count');
 
-            $table->boolean('payment_status')->default(1);
-            $table->string('payment_method')->nullable();
+            $table->unsignedInteger('payment_id')->nullable();
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null');
 
             $table->string('first_name');
             $table->string('last_name');
@@ -36,9 +35,6 @@ class CreateOrdersTable extends Migration
             $table->string('post_code');
             $table->string('phone_number');
             $table->text('notes')->nullable();
-
-
-
             
             $table->timestamps();
         });

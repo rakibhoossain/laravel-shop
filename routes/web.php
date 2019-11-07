@@ -47,6 +47,7 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 
 		Route::group(['prefix' => '/order'], function () {
 			Route::get('/', 'OrderController@index')->name('admin.product.order');
+			Route::get('/show/{id}', 'OrderController@show')->name('admin.product.order.show');
 			Route::get('/edit/{id}', 'OrderController@edit')->name('admin.product.order.edit');
 		});
 

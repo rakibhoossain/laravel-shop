@@ -35,29 +35,8 @@
           <td>{{$order->grand_total}}</td>
 
           <td>
-            <a class="btn btn-primary" href="{{ route('admin.product.order.edit', $order->id )}}">Edit</a>
-            <a class="btn btn-danger" data-toggle="modal" href="#delModal{{$order->id}}">Delete</a>
+            <a class="btn btn-primary" href="{{ route('admin.product.order.show', $order->id )}}">View</a>
           </td>
-
-          <!-- Modal {{$order_count}} -->
-{{--           <div class="modal fade" id="delModal{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$order->id}}Label" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="#delModal{{$order->id}}Label">Delete brand</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form method="post" action="{{ route('admin.product.brand.destroy',$order->id) }}">
-                  {{csrf_field()}}
-                    <button type="submit" class="btn btn-danger">Parmanent delete brand</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div> --}}
 
         </tr>
         @php ++$order_count; @endphp
