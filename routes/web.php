@@ -102,8 +102,13 @@ Route::group(['prefix' => '/shop'], function () {
 });
 
 
+// Route::group(['prefix' => '/post'], function () {
 
+// });
 
+// Route::group(['prefix' => '/page'], function () {
+
+// });
 
 
 Route::get('uploadfile','HomeController@uploadFile');

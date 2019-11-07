@@ -58,19 +58,17 @@ class CartController extends Controller
      *
      */
     public function singleToAdd(Request $request){
+        $request->validate([
+            'slug'      =>  'required',
+            'qty'      =>  'required',
+        ]);
 
         $product = Product::where('slug', $request->slug)->first();
-
-        // $request->validate([
-        //     'name'      =>  'required|max:150',
-        // ]);
-
+        if ( ($request->qty < 1) || empty($product) ) {
+            return back()->withErrors('Something wrong. Try again!');
+        }    
 
         $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->where('product_id', $product->id)->first();
-
-        if ($request->qty < 1) {
-            return back()->withErrors('Invalid quantity.');
-        }
 
         if($already_cart) {
             $already_cart->quantity = $already_cart->quantity + $request->qty;

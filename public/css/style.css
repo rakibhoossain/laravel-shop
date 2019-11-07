@@ -5305,6 +5305,7 @@ h6 {
   display: block;
   line-height: 38px;
   text-transform: uppercase;
+  width: 100%;
 }
 
 /* End Cart Area css

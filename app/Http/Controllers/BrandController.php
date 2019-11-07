@@ -61,12 +61,6 @@ class BrandController extends Controller
         return back()->with('success','You have successfully created a brand.');
     }
 
-
-
-
-
-
-
     /**
      * Display the specified resource.
      *

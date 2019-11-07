@@ -146,18 +146,15 @@
             cart_update_keyup(this);
         });
 
-
-
-        //pament option
+        //payment option
         $('input[name=paymentoption]').click(function(){
             $(this).parents('.payment_item').removeClass('bKash cash rocket').addClass($(this).val() +' active');
         });
-
-
-
-
-
-// $('input[name=choice]:checked')     .val().toLowerCase().replace(/\s+/, "-");
+        $('.shipping select[name=shipping]').change(function(){
+            let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
+            let subtotal = parseFloat( $('.order_sutotal').data('price') ); 
+            $('#order_total_price span').text( (subtotal + cost).toFixed(2) );
+        });
 
     });
 

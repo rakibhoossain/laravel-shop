@@ -35,12 +35,20 @@
           <input type="text" id="checkout_coupon" placeholder="Enter coupon code" />
           <a class="tp_btn" href="#">Apply Coupon</a>
         </div>
+
+
+
+        <form class="" action="{{ route('cart.order') }}" method="post">
+        {{csrf_field()}}
         <div class="billing_details">
           <div class="row">
             <div class="col-lg-8">
               <h3>Billing Details</h3>
-              <form class="row contact_form" action="{{ route('cart.order') }}" method="post">
-                {{csrf_field()}}
+
+
+
+
+              <div class="row contact_form">
                 <div class="col-md-6 form-group p_star">
                   <input type="text" class="form-control" name="first_name" placeholder="First name"/>
                 </div>
@@ -99,23 +107,16 @@
                   </div>
                   <textarea class="form-control" name="notes" rows="1" placeholder="Order Notes"></textarea>
                 </div>
-
-<button type="submit">Send</button>
-
-              </form>
-
-
-
-
+              </div>
             </div>
+
             <div class="col-lg-4">
               <div class="order_box">
                 <h2>Your Order</h2>
                 <ul class="list">
                   <li>
-                    <a href="#"
-                      >Product
-                      <span>Total</span>
+                    <a href="{{route('cart')}}">
+                      Product <span>Total</span>
                     </a>
                   </li>
 
@@ -130,25 +131,34 @@
 
                 </ul>
                 <ul class="list list_2">
-                  <li>
-                    <a href="#"
-                      >Subtotal
-                      <span>{{$total_price}}</span>
+                  <li class="order_sutotal" data-price="{{$total_price}}">
+                    <a href="{{route('cart')}}">
+                      Subtotal <span>{{$total_price}}</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="#"
-                      >Shipping
-                      <span>Flat rate: $50.00</span>
-                    </a>
+                  <li class="shipping">
+                    <span>Shipping</span>
+                    <div class="input-group-icon">
+                      <div class="icon">
+                        <i class="fa fa-plane" aria-hidden="true"></i>
+                      </div>
+                      <div class="form-select">
+                        <select name="shipping">
+                          <option value="">Select</option>
+                          <option value="flat" data-price="10">Flat: 10.00</option>
+                          <option value="normal" data-price="15">Normal: 15.00</option>
+                          <option value="fast" data-price="25">Fast: 25.00</option>
+                        </select>
+                      </div>
+                    </div>
                   </li>
-                  <li>
-                    <a href="#"
-                      >Total
-                      <span>$2210.00</span>
+                  <li id="order_total_price">
+                    <a href="{{route('cart')}}">
+                      Total <span>{{$total_price}}</span>
                     </a>
                   </li>
                 </ul>
+
 
 
 {{--                 <div class="payment_item active">
@@ -181,7 +191,7 @@
 
                   <div class="paymentoption">
 
-                    
+
                     <div class="bKash">
                       <p>Bkash</p>
                     </div>
@@ -203,21 +213,35 @@
 
 <style type="text/css">
 
-/*.payment_item .cashondelivary,
-.payment_item .paymentoption>.bKash,
-.payment_item .paymentoption>.rocket,
-.payment_item.bkash .cashondelivary,
-.payment_item.rocket .cashondelivary,
-.payment_item.cash .paymentoption {
-  display:none;
-}  
-.payment_item.cash .cashondelivary,
-.payment_item.bkash .paymentoption>.bKash,
-.payment_item.rocket .paymentoption>.rocket,
-.payment_item.bkash .paymentoption,
-.payment_item.rocket .paymentoption {
-  display:block;
-}*/  
+/*.order_box .list_2 li a {
+    text-transform: uppercase;
+    color: #2a2a2a;
+    font-weight: 500;
+}*/
+
+
+.order_box .list_2 li.shipping {
+  display: inline-flex;
+  width: 100%;
+  font-size: 14px;
+  border-bottom: 1px solid #eeeeee;
+  justify-content: space-between;
+}
+.order_box .list_2 li.shipping span{
+  color: #2a2a2a;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.order_box .list_2 li.shipping>span {
+    line-height: 40px;
+}
+.order_box .list_2 li.shipping .input-group-icon {
+    width: 100%;
+    margin-left: 10px;
+}
+.form-select .nice-select .list {
+    z-index: 99;
+}
 
 </style>
 
@@ -238,15 +262,23 @@
 
 
                 <div class="creat_account">
-                  <input type="checkbox" id="f-option4" name="selector" />
-                  <label for="f-option4">I’ve read and accept the </label>
+                  <input type="checkbox" id="condition" name="condition" />
+                  <label for="condition">I’ve read and accept the </label>
                   <a href="#">terms & conditions*</a>
                 </div>
-                <a class="main_btn" href="#">Proceed to Paypal</a>
+                <button class="main_btn" type="submit">Proceed</button>
               </div>
             </div>
           </div>
         </div>
+
+        </form>
+
+
+
+
+
+
       </div>
     </section>
     <!--================End Checkout Area =================-->

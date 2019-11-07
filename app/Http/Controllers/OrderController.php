@@ -38,21 +38,39 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'first_name'      =>  'required',
+            'last_name'      =>  'required',
+            'address'      =>  'required',
+            'city'      =>  'required',
+            'country'      =>  'required|string',
+            'post_code'      =>  'required',
+            'phone_number'      =>  'required',
+            'shipping'      =>  'required|string|min:3',
+            'paymentoption'      =>  'required|string|min:3',
+            // 'transectionId'      =>  'string|min:3',
+        ]);
 
+        if ( empty(Cart::where('user_id', auth()->user()->id)->where('order_id', null)->first()) ) {
+            return back()->withErrors('Cart empty!');
+        }
 
-        // $request->validate([
-        //     'name'      =>  'required|max:150',
-        // ]);
+        $paymentType = $request->paymentoption;
+        if ($paymentType === 'bKash' || $paymentType === 'rocket') {
+            
+            $transectionId = $request->transectionId;
+        }
+        
 
         $order = new Order;
         $order->order_number = 'ORD-'.strtoupper(uniqid());
         $order->user_id = auth()->user()->id;
 
         $order->status = 'pending';
-        $order->grand_total = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price');
+        $order->grand_total = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price'); //TODO add shiping price
         $order->item_count = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('quantity');
         $order->payment_status = 0;
-        $order->payment_method = null;
+        $order->payment_method = $request->paymentoption;
 
         $order->first_name = $request->first_name;
         $order->last_name = $request->last_name;
