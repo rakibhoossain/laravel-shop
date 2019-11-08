@@ -5,6 +5,8 @@ namespace App\Helpers;
 use App\Category;
 use App\Brand;
 use App\Cart;
+use App\Order;
+use App\Shipping;
 use Auth;
 class Helper
 {
@@ -52,6 +54,45 @@ class Helper
     {
     	if(Auth::check()) return Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('quantity');
     	else return 0;
+    
+    }
+
+    //frontend cart count
+    public static function orderCount($id)
+    {
+    	if(Auth::check()) return Cart::where('user_id', auth()->user()->id)->where('order_id', $id)->sum('quantity');
+    	else return 0;
+    
+    }
+
+    //frontend order price
+    public static function orderPrice($id)
+    {
+    	if(Auth::check()){
+            $order_price = (float)Cart::where('user_id', auth()->user()->id)->where('order_id', $id)->sum('price');
+            if ($order_price) {
+                return number_format((float)($order_price), 2, '.', '');
+            }else return 0;
+        }else return 0;
+    }
+
+    //frontend grand price
+    public static function grandPrice($id)
+    {
+        if(Auth::check()){
+            $order = Order::find($id)->first();
+            if ($order) {
+                $shipping_price = (float)$order->shipping->price; 
+                $order_price = self::orderPrice($id);
+                return number_format((float)($order_price + $shipping_price), 2, '.', '');
+            }else return 0;
+        }else return 0;
+    }
+
+    //frontend shipping
+    public static function shiping()
+    {
+        return Shipping::orderBy('id', 'desc')->get();
     
     }
 

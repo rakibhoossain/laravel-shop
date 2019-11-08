@@ -3760,6 +3760,63 @@ h6 {
 
 /*----------------------------------------------------*/
 
+/* Product order
+============================================================================================ */
+
+.confirmation_part .single_confirmation_details {
+  background-color: #f4f4f4;
+  padding: 35px 40px;
+  height: 100%;
+}
+
+.confirmation_part .single_confirmation_details h4 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+  text-transform: capitalize;
+  margin-bottom: 16px;
+}
+
+.confirmation_part .single_confirmation_details ul li {
+  position: relative;
+  text-transform: capitalize;
+  padding-left: 55%;
+  margin-bottom: 3px;
+}
+
+.confirmation_part .single_confirmation_details ul li p {
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 21px;
+  color: #777;
+}
+
+.confirmation_part .order_details_iner {
+  margin-top: 50px;
+  background-color: #f4f4f4;
+  padding: 30px 30px 15px;
+  text-transform: capitalize;
+}
+
+.confirmation_part .order_details_iner h3 {
+  font-size: 18px;
+}
+
+.confirmation_part .order_details_iner table thead {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.confirmation_part .order_details_iner table thead th {
+  color: #222;
+  font-size: 16px;
+}
+
+.confirmation_part .order_details_iner table tfoot {
+  border-top: 1px solid #ddd;
+}
+
 /* Feature Product Area css
 ============================================================================================ */
 

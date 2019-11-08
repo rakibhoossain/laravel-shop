@@ -47,7 +47,7 @@ class OrderController extends Controller
             'country'      =>  'required|string',
             'post_code'      =>  'required',
             'phone_number'      =>  'required',
-            'shipping'      =>  'required|string|min:3',
+            'shipping'      =>  'required',
             'paymentoption'      =>  'required|in:cash,bKash,rocket',
             // 'transectionId'      =>  'string|min:3',
         ]);
@@ -69,8 +69,8 @@ class OrderController extends Controller
         $order->user_id = auth()->user()->id;
 
         $order->status = 'pending';
-        $order->grand_total = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price'); //TODO add shiping price
-        $order->item_count = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('quantity');
+
+        $order->shipping_id = $request->shipping;
         $order->first_name = $request->first_name;
         $order->last_name = $request->last_name;
         $order->address = $request->address;
@@ -88,11 +88,11 @@ class OrderController extends Controller
 
         $payment->payment_method = $payment_method;
         $payment->transection_id = $transectionId;
-        $payment->status = 0;
+        $payment->status = 'unpaid';
         $payment->save();
         Order::find($order->id)->where('user_id', auth()->user()->id)->update(['payment_id' => $payment->id]);
 
-        return back()->with('success','Your order success!.');
+        return redirect()->route('shop')->with('success','Your order success!.');
     }
 
     /**

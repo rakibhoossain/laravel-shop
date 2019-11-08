@@ -1,3 +1,59 @@
+/* Product order
+============================================================================================ */
+
+.confirmation_part {
+  .single_confirmation_details {
+    background-color: #f4f4f4;
+    padding: 35px 40px;
+    height: 100%;
+    h4 {
+      font-size: 18px;
+      font-weight: 500;
+      color: #222;
+      text-transform: capitalize;
+      margin-bottom: 16px;
+    }
+    ul {
+      li {
+        position: relative;
+        text-transform: capitalize;
+        padding-left: 55%;
+        margin-bottom: 3px;
+        p {
+          position: absolute;
+          left: 0;
+          top: 0;
+          line-height: 21px;
+          color: #777;
+        }
+      }
+    }
+  }
+  .order_details_iner {
+    margin-top: 50px;
+    background-color: #f4f4f4;
+    padding: 30px 30px 15px;
+    text-transform: capitalize;
+    h3 {
+      font-size: 18px;
+    }
+    table {
+      thead {
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        th {
+          color: #222;
+          font-size: 16px;
+        }
+      }
+      tfoot {
+        border-top: 1px solid #ddd;
+      }
+    }
+  }
+}
+
+
 /* Feature Product Area css
 ============================================================================================ */
 

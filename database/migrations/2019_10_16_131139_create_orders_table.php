@@ -21,11 +21,12 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->enum('status', ['pending', 'processing', 'completed', 'decline'])->default('pending');
-            $table->decimal('grand_total', 20, 2);
-            $table->unsignedInteger('item_count');
 
             $table->unsignedInteger('payment_id')->nullable();
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null');
+
+            $table->unsignedInteger('shipping_id')->nullable();
+            $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('set null');
 
             $table->string('first_name');
             $table->string('last_name');

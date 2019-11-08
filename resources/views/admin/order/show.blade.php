@@ -20,8 +20,9 @@
           <td>{{$order->order_number}}</td>
           <td>{{$order->user->name}}</td>
           
-          <td>{{$order->item_count}}</td>
-          <td>{{$order->grand_total}}</td>
+          <td>{{Helper::orderCount($order->id)}}</td>
+          <td>{{Helper::grandPrice($order->id)}}</td>
+          
           <td>
             <a class="btn btn-primary" href="{{ route('admin.product.order.edit', $order->id )}}">Edit</a>
             <a class="btn btn-danger" data-toggle="modal" href="#delModal2">Delete</a>

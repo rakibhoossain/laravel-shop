@@ -9,7 +9,7 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'order_number', 'user_id', 'status', 'grand_total', 'item_count', 'payment_id',
+        'order_number', 'user_id', 'status', 'shipping_id', 'payment_id',
         'first_name', 'last_name', 'address', 'city', 'country', 'post_code', 'phone_number', 'notes'
     ];
 
@@ -26,5 +26,9 @@ class Order extends Model
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'payment_id');
+    }
+    public function shipping()
+    {
+        return $this->belongsTo(Shipping::class, 'shipping_id');
     }
 }

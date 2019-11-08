@@ -26,7 +26,8 @@ class CreatePaymentsTable extends Migration
             $table->enum('payment_method', ['cash', 'bKash', 'rocket'])->default('cash');
             $table->string('transection_id')->nullable();
 
-            $table->boolean('status')->default(1);
+            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
+
             $table->text('notes')->nullable();
 
             $table->timestamps();

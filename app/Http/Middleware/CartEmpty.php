@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Helper;
 
-class IsAdmin
+class CartEmpty
 {
     /**
      * Handle an incoming request.
@@ -15,9 +16,9 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user() && auth()->user()->is_admin == 1){
+        if(Helper::cartCount() > 0){
             return $next($request);
         }
-        return redirect('home')->withErrors("You don't have admin access.");
+        return redirect('shop')->withErrors("Cart empty!");
     }
 }

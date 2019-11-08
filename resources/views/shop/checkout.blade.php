@@ -145,9 +145,9 @@
                       <div class="form-select">
                         <select name="shipping">
                           <option value="">Select</option>
-                          <option value="flat" data-price="10">Flat: 10.00</option>
-                          <option value="normal" data-price="15">Normal: 15.00</option>
-                          <option value="fast" data-price="25">Fast: 25.00</option>
+                          @foreach(Helper::shiping() as $shiping)
+                          <option value="{{$shiping->id}}" data-price="{{$shiping->price}}">{{$shiping->type}}: {{$shiping->price}}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>

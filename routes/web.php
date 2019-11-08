@@ -79,16 +79,16 @@ Route::group(['prefix' => '/shop'], function () {
 	Route::get('/search', 'ShopController@search')->name('shop.search');
 
 	Route::group(['prefix' => '/cart', 'middleware' => ['auth']], function () {
-		Route::get('/', 'CartController@index')->name('cart');
+		Route::get('/', 'CartController@index')->name('cart')->middleware('cart_empty');
 		Route::get('/product/{slug}', 'CartController@addTo')->name('cart.add');
 		Route::post('/product', 'CartController@singleToAdd')->name('cart.singleToAdd');
 
-		Route::get('/product', 'CartController@index'); // handling only
+		Route::get('/product', 'CartController@index')->middleware('cart_empty'); // handling only
 		
 		Route::get('/product/delete/{id}', 'CartController@addToDelete')->name('cart.delete');
 		Route::post('/product/update/', 'CartController@addToUpdate')->name('cart.update');
 
-		Route::get('/checkout', 'CartController@checkout')->name('cart.checkout');
+		Route::get('/checkout', 'CartController@checkout')->name('cart.checkout')->middleware('cart_empty');
 		Route::post('/order', 'OrderController@store')->name('cart.order');
 	});
 
