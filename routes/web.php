@@ -22,6 +22,9 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 	
 	Route::group(['prefix' => '/'], function () {
 		Route::get('/', 'AdminController@index')->name('admin');
+		Route::get('/notification/{id}', 'ShopNotificationController@show')->name('admin.notification');
+		Route::get('/notification/delete/{id}', 'ShopNotificationController@delete')->name('admin.notification.delete');
+		Route::get('/notification/', 'ShopNotificationController@index')->name('admin.notifications');
 	});
 
 	Route::group(['prefix' => '/product'], function () {
@@ -49,6 +52,7 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 			Route::get('/', 'OrderController@index')->name('admin.product.order');
 			Route::get('/show/{id}', 'OrderController@show')->name('admin.product.order.show');
 			Route::get('/edit/{id}', 'OrderController@edit')->name('admin.product.order.edit');
+			Route::get('/destroy/{id}', 'OrderController@destroy')->name('admin.product.order.destroy');
 		});
 
 		Route::group(['prefix' => '/brand'], function () {

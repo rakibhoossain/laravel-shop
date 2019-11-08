@@ -19,8 +19,8 @@
           <td>{{$order->order_number}}</td>
           <td>{{$order->user->name}}</td>
           
-          <td>{{Helper::orderCount($order->id)}}</td>
-          <td>{{Helper::grandPrice($order->id)}}</td>
+          <td>{{Helper::orderCount($order->id, $order->user->id)}}</td>
+          <td>{{Helper::grandPrice($order->id, $order->user->id)}}</td>
 
         </tr>
 

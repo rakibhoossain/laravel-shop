@@ -49,27 +49,33 @@ class Helper
     
     }
 
+
+    // static $user_id = auth()->user()->id;
+
     //frontend cart count
-    public static function cartCount()
-    {
-    	if(Auth::check()) return Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('quantity');
+    public static function cartCount( $user_id ='' )
+    {   
+        if ($user_id == '') $user_id = auth()->user()->id;
+    	if(Auth::check()) return Cart::where('user_id', $user_id)->where('order_id', null)->sum('quantity');
     	else return 0;
     
     }
 
     //frontend cart count
-    public static function orderCount($id)
+    public static function orderCount($id, $user_id='' )
     {
-    	if(Auth::check()) return Cart::where('user_id', auth()->user()->id)->where('order_id', $id)->sum('quantity');
+    	if ($user_id == '') $user_id = auth()->user()->id;
+        if(Auth::check()) return Cart::where('user_id', $user_id)->where('order_id', $id)->sum('quantity');
     	else return 0;
     
     }
 
     //frontend order price
-    public static function orderPrice($id)
+    public static function orderPrice($id, $user_id='' )
     {
+        if ($user_id == '') $user_id = auth()->user()->id;
     	if(Auth::check()){
-            $order_price = (float)Cart::where('user_id', auth()->user()->id)->where('order_id', $id)->sum('price');
+            $order_price = (float)Cart::where('user_id', $user_id)->where('order_id', $id)->sum('price');
             if ($order_price) {
                 return number_format((float)($order_price), 2, '.', '');
             }else return 0;
@@ -77,13 +83,14 @@ class Helper
     }
 
     //frontend grand price
-    public static function grandPrice($id)
+    public static function grandPrice($id, $user_id='' )
     {
+        if ($user_id == '') $user_id = auth()->user()->id;
         if(Auth::check()){
             $order = Order::find($id)->first();
             if ($order) {
                 $shipping_price = (float)$order->shipping->price; 
-                $order_price = self::orderPrice($id);
+                $order_price = self::orderPrice($id, $user_id);
                 return number_format((float)($order_price + $shipping_price), 2, '.', '');
             }else return 0;
         }else return 0;

@@ -67,7 +67,7 @@
       </tbody>
     </table>
     @else
-      <h2>No brand found <a href="{{route('admin.product.brand.create')}}">Add brand</a></h2>
+      <h2>No order found <a href="{{route('shop')}}">Shopping now!</a></h2>
     @endif
   </div>
 </div>

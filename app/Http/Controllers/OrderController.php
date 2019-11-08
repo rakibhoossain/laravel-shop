@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\Cart;
 use App\Payment;
+use App\User;
 use Illuminate\Http\Request;
+use Notification;
+use App\Notifications\ShopNotification;
 
 class OrderController extends Controller
 {
@@ -16,7 +19,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('status', 'desc')->get();
+        $orders = Order::orderBy('status', 'desc')->paginate(10);
         return view('admin.order.index')->with('orders', $orders);
     }
 
@@ -92,8 +95,22 @@ class OrderController extends Controller
         $payment->save();
         Order::find($order->id)->where('user_id', auth()->user()->id)->update(['payment_id' => $payment->id]);
 
+
+        $users = User::where('is_admin', 1)->get();
+        $details = [
+            'title' => 'New order created!',
+            'actionURL' => route('admin.product.order.show', $order->id),
+            'fas' => 'fa-file-alt'
+        ];
+        Notification::send($users, new ShopNotification($details));
+
+
+
+
         return redirect()->route('shop')->with('success','Your order success!.');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -146,8 +163,14 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Request $request)
     {
-        //
+        $order = Order::find($request->id);
+        if ($order) {
+            $order->delete();
+            return redirect()->route('admin.product.order')->with('success','You have successfully delete an order.');
+        }else{
+            return redirect()->route('admin.product.order')->withErrors('Invalid order!.');
+        }
     }
 }
