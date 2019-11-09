@@ -55,26 +55,29 @@ class Helper
     //frontend cart count
     public static function cartCount( $user_id ='' )
     {   
-        if ($user_id == '') $user_id = auth()->user()->id;
-    	if(Auth::check()) return Cart::where('user_id', $user_id)->where('order_id', null)->sum('quantity');
-    	else return 0;
-    
+    	if(Auth::check()) {
+            if ($user_id == '') $user_id = auth()->user()->id;
+            return Cart::where('user_id', $user_id)->where('order_id', null)->sum('quantity');
+        }else return 0;
     }
 
     //frontend cart count
     public static function orderCount($id, $user_id='' )
     {
-    	if ($user_id == '') $user_id = auth()->user()->id;
-        if(Auth::check()) return Cart::where('user_id', $user_id)->where('order_id', $id)->sum('quantity');
-    	else return 0;
+        if(Auth::check()) {
+          if ($user_id == '') $user_id = auth()->user()->id;  
+          return Cart::where('user_id', $user_id)->where('order_id', $id)->sum('quantity');   
+        }else return 0;
+    	
     
     }
 
     //frontend order price
     public static function orderPrice($id, $user_id='' )
     {
-        if ($user_id == '') $user_id = auth()->user()->id;
+        
     	if(Auth::check()){
+            if ($user_id == '') $user_id = auth()->user()->id;
             $order_price = (float)Cart::where('user_id', $user_id)->where('order_id', $id)->sum('price');
             if ($order_price) {
                 return number_format((float)($order_price), 2, '.', '');
@@ -85,8 +88,8 @@ class Helper
     //frontend grand price
     public static function grandPrice($id, $user_id='' )
     {
-        if ($user_id == '') $user_id = auth()->user()->id;
         if(Auth::check()){
+            if ($user_id == '') $user_id = auth()->user()->id;
             $order = Order::find($id)->first();
             if ($order) {
                 $shipping_price = (float)$order->shipping->price; 
