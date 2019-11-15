@@ -457,6 +457,7 @@
                       return meta.row + meta.settings._iDisplayStart + 1;
                     }  
                   },
+                  { data: 'image' },
                   { data: 'title' },
                   { data: 'price' },
                   { data: 'offer_price' },

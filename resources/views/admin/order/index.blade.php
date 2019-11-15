@@ -3,10 +3,8 @@
 <div class="card">
   <h5 class="card-header">Orders</h5>
   <div class="card-body">
-
     @if($order)
-
-      <table id="order_table" class="table table-striped table-hover">
+      <table id="order_table" class="table table-striped table-hover admin-table">
         <thead>
           <tr>
             <th>S\N:</th>
@@ -21,12 +19,9 @@
           </tr>
         </thead>
       </table>
-
     @else
       <h2>Order Empty!</h2>
     @endif
   </div>
-
-
 </div>
 @endsection

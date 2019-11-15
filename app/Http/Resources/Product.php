@@ -17,6 +17,7 @@ class Product extends JsonResource
         // return parent::toArray($request);
 
         return [
+            'image'=> "<img class='tiny-img' src='".asset('images/product/'.$this->images[0]->image)."' alt='".$this->title."'/>",
             'title' => $this->title,
             'price' => $this->price,
             'offer_price' => $this->offer_price,

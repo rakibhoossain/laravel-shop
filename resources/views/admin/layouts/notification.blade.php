@@ -4,7 +4,7 @@
   <h5 class="card-header">Notifications</h5>
   <div class="card-body">
     @if(count(Auth::user()->Notifications)>0)
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover admin-table">
       <thead>
         <tr>
           <th scope="col">#</th>

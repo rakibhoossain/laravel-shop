@@ -34,3 +34,18 @@
     }
   }
 }
+.admin-table {
+  tbody{
+    tr {
+      text-transform: capitalize;
+      td {
+        vertical-align: middle;
+        padding: 0.2rem 0.5rem;
+      }
+      .tiny-img {
+        width: 65px;
+        height: 65px;
+      }
+    }  
+  }
+}
