@@ -39,7 +39,7 @@
     {{ session('status') }}
   </div>
   @endif
-
+<div id="app">
   <header class="header_area">
     <div class="top_menu">
       <div class="container">
@@ -313,6 +313,7 @@
   </div>
 </footer>
 <!--================ End footer Area  =================-->
+</div> <!--End app -->
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

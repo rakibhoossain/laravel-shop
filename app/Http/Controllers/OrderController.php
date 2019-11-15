@@ -9,6 +9,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Notification;
 use App\Notifications\ShopNotification;
+use Datatables;
+
+use App\Http\Resources\OrderCollection;
 
 class OrderController extends Controller
 {
@@ -19,9 +22,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('status', 'desc')->paginate(10);
+        $orders = Order::orderBy('status', 'desc')->paginate(11);
         return view('admin.order.index')->with('orders', $orders);
     }
+
+
+    public function ordersList()
+    {   
+        return new OrderCollection( Order::all() );
+        // $orders = Order::orderBy('status', 'desc')->get()->toArray();
+        // return datatables()->of($orders)->make(true);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

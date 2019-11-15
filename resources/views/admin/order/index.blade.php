@@ -54,6 +54,27 @@
             </nav>
           </div>
     
+
+
+
+<div class="">
+  <table id="data_table" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Status</th>
+                <th>Payment status</th>
+                <th>Payment method</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+
     @else
       <h2>Order Empty!</h2>
     @endif

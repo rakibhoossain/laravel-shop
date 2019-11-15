@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class, //datatable
         /*
          * Application Service Providers...
          */
@@ -228,6 +229,8 @@ return [
 
         'Image' => Intervention\Image\Facades\Image::class,
         'Helper' => App\Helpers\Helper::class,
+
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

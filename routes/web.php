@@ -53,6 +53,9 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 			Route::get('/show/{id}', 'OrderController@show')->name('admin.product.order.show');
 			Route::get('/edit/{id}', 'OrderController@edit')->name('admin.product.order.edit');
 			Route::get('/destroy/{id}', 'OrderController@destroy')->name('admin.product.order.destroy');
+
+			Route::get('/users-list', 'OrderController@ordersList')->name('admin.product.order.list'); 
+
 		});
 
 		Route::group(['prefix' => '/brand'], function () {
