@@ -27,6 +27,35 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 		Route::get('/notification/', 'ShopNotificationController@index')->name('admin.notifications');
 	});
 
+
+
+
+		Route::group(['prefix' => '/post'], function () {
+			Route::get('/', 'PostController@index')->name('admin.post');
+			Route::get('/create', 'PostController@create')->name('admin.post.create');
+			Route::post('/store', 'PostController@store')->name('admin.post.store');
+			Route::get('/edit/{id}', 'PostController@edit')->name('admin.post.edit');
+			Route::get('/show/{id}', 'PostController@show')->name('admin.post.show');
+
+			Route::post('/update/{id}', 'PostController@update')->name('admin.post.update');
+			Route::get('/delete/{id}', 'PostController@destroy')->name('admin.post.destroy');
+			Route::get('/list', 'PostController@postList')->name('admin.post.list');
+
+			// Route::group(['prefix' => '/category'], function () {
+			// 	Route::get('/', 'CategoryController@index')->name('admin.post.category');
+			// 	Route::get('/create', 'CategoryController@create')->name('admin.post.category.create');
+			// 	Route::post('/store', 'CategoryController@store')->name('admin.post.category.store');
+				
+			// 	Route::get('/edit/{id}', 'CategoryController@edit')->name('admin.post.category.edit');
+
+			// 	Route::post('/update/{id}', 'CategoryController@update')->name('admin.post.category.update');
+
+			// 	Route::post('/delete/{id}', 'CategoryController@destroy')->name('admin.post.category.destroy');
+			// });
+
+		});
+
+
 	Route::group(['prefix' => '/product'], function () {
 
 		Route::get('/', 'ProductController@index')->name('admin.product');
@@ -85,6 +114,12 @@ Route::group(['prefix' => '/shop'], function () {
 	Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');
 	Route::get('/brand/{slug}', 'ShopController@brandProduct')->name('shop.brand');
 
+
+	Route::get('/track/', 'OrderController@ordersTrackIndex')->name('shop.track');
+	Route::post('/track/order', 'OrderController@ordersTrack')->name('shop.track.order');
+
+	
+
 	Route::get('/search', 'ShopController@search')->name('shop.search');
 
 	Route::group(['prefix' => '/cart', 'middleware' => ['auth']], function () {
@@ -110,6 +145,21 @@ Route::group(['prefix' => '/shop'], function () {
 
 
 });
+
+
+Route::group(['prefix' => '/blog'], function () {
+	Route::get('/', 'BlogController@index')->name('blog');
+	Route::get('/post/{slug}', 'BlogController@show')->name('blog.single');
+	
+	// Route::get('/single/{slug}', 'ShopController@show')->name('shop.single');
+	
+	// Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');
+
+	// Route::get('/search', 'ShopController@search')->name('shop.search');
+
+});
+
+
 
 
 // Route::group(['prefix' => '/post'], function () {

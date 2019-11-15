@@ -1,33 +1,21 @@
 @extends('admin.layouts.admin')
 @section('content')
 <div class="card">
-  <h5 class="card-header">Add Product</h5>
+  <h5 class="card-header">Add Post</h5>
   <div class="card-body">
-    <form method="post" action="{{ route('admin.product.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('admin.post.store') }}" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="form-group">
         <label for="inputTitle" class="col-form-label">Title</label>
         <input id="inputTitle" type="text" name="title" class="form-control">
       </div>
       <div class="form-group">
-        <label for="inputDescription">Description</label>
-        <textarea class="form-control rich-editor" id="inputDescription" name="description" rows="3"></textarea>
+        <label for="inputDescription">Body</label>
+        <textarea class="form-control rich-editor" id="inputBody" name="body" rows="3"></textarea>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="inputPrice" class="col-form-label">Price</label>
-          <input id="inputPrice" type="number" name="price" class="form-control" placeholder="Numbers">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputOfferPrice" class="col-form-label">Offer price</label>
-          <input id="inputOfferPrice" type="number" name="offer_price" class="form-control" placeholder="Numbers">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputQuantity" class="col-form-label">Quantity</label>
-          <input id="inputQuantity" type="number" name="quantity" class="form-control" placeholder="Numbers">
-        </div>
-      </div>
-      <div class="form-row">
+
+
+{{--       <div class="form-row">
         <div class="form-group col-md-4">
           <select class="form-control" name="category_id">
             <option value="">Select category</option>
@@ -43,13 +31,15 @@
               <option value="{{$brand->id}}">{{$brand->name}}</option>
             @endforeach
           </select>
-        </div>
-        <div class="form-group col-md-4">
+        </div> --}}
+
+{{--         <div class="form-group col-md-4">
           <select class="form-control" name="status">
             <option>Default select</option>
           </select>
-        </div>
-      </div>
+        </div> --}}
+
+      {{-- </div> --}}
 
 
 
@@ -69,7 +59,7 @@
 
 
 
-        <div class="input-group control-group increment mb-3" id="imageuUpload">
+{{--         <div class="input-group control-group increment mb-3" id="imageuUpload">
           <input type="file" name="image[]" class="form-control">
           <div class="input-group-btn"> 
             <button class="btn btn-success" id="add_image_field" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
@@ -83,7 +73,7 @@
               <button class="btn btn-danger remove_image_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
             </div>
           </div>
-        </div>
+        </div> --}}
 
 
 

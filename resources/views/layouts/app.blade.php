@@ -59,7 +59,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="tracking.html">
+                  <a href="{{route('shop.track')}}">
                     track order
                   </a>
                 </li>
@@ -112,18 +112,10 @@
                   <a class="nav-link" href="{{route('shop')}}">Shop</a>
                 </li>
 
-                <li class="nav-item submenu dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Blog</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="single-blog.html">Blog Details</a>
-                    </li>
-                  </ul>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('blog')}}">Blog</a>
                 </li>
+
                 <li class="nav-item">
                   <a class="nav-link" href="contact.html">Contact</a>
                 </li>

@@ -108,6 +108,46 @@
 
 
 
+
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">Posts</div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost" aria-expanded="true" aria-controls="collapsePost">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Posts</span>
+          </a>
+          <div id="collapsePost" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Product Options:</h6>
+              <a class="collapse-item" href="{{route('admin.post')}}">Posts</a>
+              <a class="collapse-item" href="{{route('admin.post.create')}}">Add posts</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+{{--         <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePostCategory" aria-expanded="true" aria-controls="collapsePostCategory">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Category</span>
+          </a>
+          <div id="collapsePostCategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Category Options:</h6>
+              <a class="collapse-item" href="{{route('admin.product.category')}}">Categories</a>
+              <a class="collapse-item" href="{{route('admin.product.category.create')}}">Add category</a>
+            </div>
+          </div>
+        </li> --}}
+
+
+
+
         <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Heading -->
@@ -127,10 +167,6 @@
             </div>
           </div>
         </li>
-
-
-
-
 
 
 
@@ -406,6 +442,9 @@
       <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
       <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+      <!-- Tinymce-->
+      <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
       <!-- Custom scripts for all pages-->
       <script src="{{ asset('js/admin.js') }}"></script>
 
@@ -414,6 +453,8 @@
 
       <script type="text/javascript">
         $(document).ready(function() {
+
+          tinymce.init({ selector:'textarea.rich-editor' });
 
           $("#add_image_field").click(function(){ 
             const html = $(".clone_image").html();
@@ -462,6 +503,19 @@
                   { data: 'price' },
                   { data: 'offer_price' },
                   { data: 'quantity' },
+                  { data: 'action', 'searchable': false, 'orderable': false }
+              ],
+          } );        
+
+        $('#post_table').DataTable( {
+              ajax: '{{route('admin.post.list')}}',
+              columns: [
+                  { "data": null,"sortable": false, 
+                    render: function (data, type, row, meta) {
+                      return meta.row + meta.settings._iDisplayStart + 1;
+                    }  
+                  },
+                  { data: 'title' },
                   { data: 'action', 'searchable': false, 'orderable': false }
               ],
           } );

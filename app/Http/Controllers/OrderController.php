@@ -34,7 +34,22 @@ class OrderController extends Controller
         // return datatables()->of($orders)->make(true);
     }
 
+    public function ordersTrack(Request $request)
+    {   
 
+        $order = Order::where('order_number', $request->order_number)->first();
+        if ($order) {
+            return back()->with('success','Order: '.$order->status);
+        }else{
+            return back()->withErrors('Invalid order number!.');
+        }
+    }
+
+    public function ordersTrackIndex()
+    {   
+
+        return view('shop.track');
+    }
 
     /**
      * Show the form for creating a new resource.
