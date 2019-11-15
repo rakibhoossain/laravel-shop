@@ -34,7 +34,9 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 		Route::post('/store', 'ProductController@store')->name('admin.product.store');
 		Route::get('/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
 		Route::post('/update/{id}', 'ProductController@update')->name('admin.product.update');
-		Route::post('/delete/{id}', 'ProductController@destroy')->name('admin.product.destroy');
+		Route::get('/delete/{id}', 'ProductController@destroy')->name('admin.product.destroy');
+
+		Route::get('/list', 'ProductController@productList')->name('admin.product.list');
 
 		Route::group(['prefix' => '/category'], function () {
 			Route::get('/', 'CategoryController@index')->name('admin.product.category');
@@ -54,7 +56,7 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 			Route::get('/edit/{id}', 'OrderController@edit')->name('admin.product.order.edit');
 			Route::get('/destroy/{id}', 'OrderController@destroy')->name('admin.product.order.destroy');
 
-			Route::get('/users-list', 'OrderController@ordersList')->name('admin.product.order.list'); 
+			Route::get('/list', 'OrderController@ordersList')->name('admin.product.order.list'); 
 
 		});
 

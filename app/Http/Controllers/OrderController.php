@@ -9,7 +9,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Notification;
 use App\Notifications\ShopNotification;
-use Datatables;
 
 use App\Http\Resources\OrderCollection;
 
@@ -22,8 +21,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('status', 'desc')->paginate(11);
-        return view('admin.order.index')->with('orders', $orders);
+        $order = Order::first();
+        return view('admin.order.index')->with('order', $order);
+        
     }
 
 
@@ -134,11 +134,7 @@ class OrderController extends Controller
     public function show(Request $request)
     {
         $order = Order::find($request->id);
-
-        $data = array(
-            'order'=>$order,
-            );
-        return view('admin.order.show')->with($data);
+        return view('admin.order.show')->with('order', $order);
     }
 
     /**

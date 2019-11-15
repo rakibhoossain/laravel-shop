@@ -8,6 +8,8 @@ use App\Product;
 use App\ProductImage;
 use Image;
 
+use App\Http\Resources\ProductCollection;
+
 class ProductController extends Controller
 {
 	/**
@@ -16,8 +18,13 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-    	$products = Product::orderBy('id', 'desc')->get();
-    	return view('admin.product.index')->with('products', $products);
+    	$product = Product::first();
+    	return view('admin.product.index')->with('product', $product);
+
+    }
+
+    public function productList(){
+        return new ProductCollection( Product::all() );
 
     }
 

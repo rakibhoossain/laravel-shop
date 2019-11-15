@@ -338,10 +338,10 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
               <!-- Page Heading -->
-              <div class="d-sm-flex align-items-center justify-content-between mb-4">
+{{--               <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-              </div> 
+              </div> --}} 
               @include('admin.partials.alert')         
               @yield('content')
 
@@ -424,47 +424,50 @@
             $(this).parents(".control-group").remove();
           });
 
+           $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+
+          $('#order_table').DataTable( {
+              ajax: '{{route('admin.product.order.list')}}',
+              columns: [
+                  { "data": null,"sortable": false, 
+                    render: function (data, type, row, meta) {
+                      return meta.row + meta.settings._iDisplayStart + 1;
+                    }  
+                  },
+                  { data: 'order_number' },
+                  { data: 'status' },
+                  { data: 'payment_status' },
+                  { data: 'payment_method' },
+                  { data: 'name' },
+                  { data: 'order_count' },
+                  { data: 'grand_price' },
+                  { data: 'action', 'searchable': false, 'orderable': false }
+              ],
+          } );
+
+        $('#product_table').DataTable( {
+              ajax: '{{route('admin.product.list')}}',
+              columns: [
+                  { "data": null,"sortable": false, 
+                    render: function (data, type, row, meta) {
+                      return meta.row + meta.settings._iDisplayStart + 1;
+                    }  
+                  },
+                  { data: 'title' },
+                  { data: 'price' },
+                  { data: 'offer_price' },
+                  { data: 'quantity' },
+                  { data: 'action', 'searchable': false, 'orderable': false }
+              ],
+          } );
 
 
 
 
-     $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });
-
-
-
-
-$('#data_table').DataTable( {
-    ajax: '{{route('admin.product.order.list')}}',
-    columns: [
-        { data: 'order_number' },
-        { data: 'status' },
-        { data: 'payment_status' },
-        { data: 'payment_method' },
-        { data: 'name' },
-        { data: 'order_count' },
-        { data: 'grand_price' }
-    ],
-} );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          // $('#data_table').DataTable();
 
         });
       </script>

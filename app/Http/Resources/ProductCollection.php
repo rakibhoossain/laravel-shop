@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class OrderCollection extends ResourceCollection
+class ProductCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,13 +15,8 @@ class OrderCollection extends ResourceCollection
     public function toArray($request)
     {
         // return parent::toArray($request);
-
         return [
             'data' => $this->collection,
         ];
-
-
-
-
     }
 }
