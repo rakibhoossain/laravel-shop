@@ -583,13 +583,13 @@
           <div class="short_details">
             <div class="meta-top d-flex">
               <a href="#">By {{$post->user->name}}</a>
-              <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
+              <a href="{{route('blog.single', $post->slug)}}#comments-area"><i class="ti-comments-smiley"></i>{{count($post->allComments)}} Comments</a>
             </div>
             <a class="d-block" href="{{route('blog.single', $post->slug)}}">
               <h4>{{$post->title}}</h4>
             </a>
             <div class="text-wrap">
-              {{$post->body}}
+              {{Str::words(strip_tags($post->body),16)}}
             </div>
             <a href="{{route('blog.single', $post->slug)}}" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
           </div>

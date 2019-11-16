@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -43,11 +44,19 @@ class CommentController extends Controller
 
         $comment = new Comment;
         $comment->body = $request->body;
-        $comment->user_id = auth()->user()->id;
         $comment->post_id = $request->post_id;
         if ($request->parent_id) {
             $comment->parent_id = $request->parent_id;
         }
+
+        if(Auth::check()){
+            $comment->user_id = auth()->user()->id;
+        }else{
+            $comment->name = $request->name;
+            $comment->email = $request->email;
+            $comment->website = $request->website;            
+        }
+
         $comment->save();
         return back()->with('success','You have successfully commented.');
 

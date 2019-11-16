@@ -7,7 +7,11 @@
             <div class="single-comment justify-content-between d-flex">
                 <div class="user justify-content-between d-flex">
                     <div class="thumb">
+                    @if($comment->user)
                         <img src="{{Helper::get_gravatar($comment->user->email)}}" alt="{{$comment->user->name}}">
+                    @else
+                        <img src="{{Helper::get_gravatar($comment->email)}}" alt="{{ $comment->name }}">
+                    @endif
                     </div>
                     <div class="desc">
                         <p class="comment">
@@ -17,7 +21,11 @@
                         <div class="d-flex justify-content-between">
                             <div class="d-flex align-items-center">
                                 <h5>
+                                @if($comment->user)
                                     <a href="#">{{ $comment->user->name }}</a>
+                                @else
+                                    <a href="{{$comment->website}}" target="blank">{{ $comment->name }}</a>
+                                @endif
                                 </h5>
                                 <p class="date">{{date_format($comment->updated_at,"F D, Y")}} at {{date_format($comment->updated_at,"g:i a")}}</p>
 

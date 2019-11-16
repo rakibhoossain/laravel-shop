@@ -35,8 +35,8 @@
                       <div class="blog_details">
                           <h2>{{$post->title}}</h2>
                           <ul class="blog-info-link mt-3 mb-4">
-                              <li><a href="#"><i class="ti-user"></i> Travel, Lifestyle</a></li>
-                              <li><a href="#"><i class="ti-comments"></i> 03 Comments</a></li>
+                              <li><a href="#"><i class="ti-user"></i>{{$post->user->name}}</a></li>
+                              <li><a href="{{route('blog.single', $post->slug)}}#comments-area"><i class="ti-comments"></i> {{count($post->allComments)}} Comments</a></li>
 
                               <li>
                                 <i class="ti-comments"></i>
@@ -118,8 +118,8 @@
                     </div>
                   </div>
 
-                  <div class="comments-area">
-                    <h4> {{count($post->comments)}} Comments</h4>
+                  <div class="comments-area" id="comments-area">
+                    <h4> {{count($post->allComments)}} Comments</h4>
                     @include('blog.comments', ['comments' => $post->comments, 'post_id' => $post->id, 'depth' => 3])
                   </div>
                   <div class="comment-form" id="commentFormContainer">
@@ -135,7 +135,8 @@
                             </div>
                           </div>
 
-{{--                           <div class="col-sm-6">
+                          @guest
+                          <div class="col-sm-6">
                             <div class="form-group">
                               <input class="form-control" name="name" id="name" type="text" placeholder="Name">
                             </div>
@@ -149,7 +150,8 @@
                             <div class="form-group">
                               <input class="form-control" name="website" id="website" type="text" placeholder="Website">
                             </div>
-                          </div> --}}
+                          </div>
+                          @endguest
 
                         </div>
                         <div class="form-group">
@@ -157,6 +159,9 @@
                         </div>
                       </form>
                   </div>
+
+
+
               </div>
               <div class="col-lg-4">
                 @include('layouts.sidebar')

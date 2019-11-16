@@ -229,6 +229,7 @@ return [
 
         'Image' => Intervention\Image\Facades\Image::class,
         'Helper' => App\Helpers\Helper::class,
+        'Str' => Illuminate\Support\Str::class,
 
         // 'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
