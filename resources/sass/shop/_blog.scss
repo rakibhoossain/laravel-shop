@@ -1099,8 +1099,8 @@
     }
     .comment-list {
         padding-bottom: 48px;
-        &:last-child {
-            padding-bottom: 0px;
+        .comment_form {
+            margin-top: 15px;
         }
         &.left-padding {
             padding-left: 25px;

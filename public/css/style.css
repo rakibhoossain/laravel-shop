@@ -1854,8 +1854,8 @@ ul {
   padding-bottom: 48px;
 }
 
-.comments-area .comment-list:last-child {
-  padding-bottom: 0px;
+.comments-area .comment-list .comment_form {
+  margin-top: 15px;
 }
 
 .comments-area .comment-list.left-padding {
