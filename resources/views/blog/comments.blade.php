@@ -1,4 +1,7 @@
 @foreach($comments as $comment)
+
+@php $dep = $depth-1; @endphp
+
     <div class="display-comment" @if($comment->parent_id != null) style="margin-left:40px;" @endif>
         <div class="comment-list">
             <div class="single-comment justify-content-between d-flex">
@@ -19,17 +22,20 @@
                                 <p class="date">{{date_format($comment->updated_at,"F D, Y")}} at {{date_format($comment->updated_at,"g:i a")}}</p>
 
                             </div>
-
+                            
+                            @if($dep)
                             <div class="reply-btn">
                                 <a href="#" class="btn-reply reply text-uppercase" data-id="{{ $comment->id }}">Reply</a>
                                 <a href="#" class="btn-reply cancel text-uppercase" style="display: none;">Cancel</a>
                             </div>
+                            @endif
+
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-        @include('blog.comments', ['comments' => $comment->replies])
+        @include('blog.comments', ['comments' => $comment->replies, 'depth' => $dep])
     </div>
 @endforeach

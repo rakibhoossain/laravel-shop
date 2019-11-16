@@ -119,8 +119,8 @@
                   </div>
 
                   <div class="comments-area">
-                    <h4>{{count($post->comments)}} Comments</h4>
-                    @include('blog.comments', ['comments' => $post->comments, 'post_id' => $post->id])
+                    <h4> {{count($post->comments)}} Comments</h4>
+                    @include('blog.comments', ['comments' => $post->comments, 'post_id' => $post->id, 'depth' => 3])
                   </div>
                   <div class="comment-form" id="commentFormContainer">
                       <h4>Leave a Reply</h4>
