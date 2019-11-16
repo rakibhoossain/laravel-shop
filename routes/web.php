@@ -148,6 +148,8 @@ Route::group(['prefix' => '/shop'], function () {
 Route::group(['prefix' => '/blog'], function () {
 	Route::get('/', 'BlogController@index')->name('blog');
 	Route::get('/post/{slug}', 'BlogController@show')->name('blog.single');
+
+	Route::post('/comment', 'CommentController@store')->name('comments.store');
 	
 	// Route::get('/single/{slug}', 'ShopController@show')->name('shop.single');
 	

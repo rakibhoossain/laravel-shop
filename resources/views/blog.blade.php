@@ -43,20 +43,16 @@
                         </div>
 
                         <div class="blog_details">
-                            <a class="d-inline-block" href="{{route('blog.single', $post->slug)}}">
-                                <h2>{{$post->title}}</h2>
-                            </a>
-                            <p>
+                          <a class="d-inline-block" href="{{route('blog.single', $post->slug)}}"><h2>{{$post->title}}</h2></a>
 
+                          <p>
                             excertp
-
                             {{$post->body}}
-
-                            </p>
-                            <ul class="blog-info-link">
-                                <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-user"></i> {{$post->user->name}}</a></li>
-                                <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-comments"></i> 03 Comments</a></li>
-                            </ul>
+                          </p>
+                          <ul class="blog-info-link">
+                              <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-user"></i> {{$post->user->name}}</a></li>
+                              <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-comments"></i> 03 Comments</a></li>
+                          </ul>
                         </div>
                     </article>
                   @endforeach

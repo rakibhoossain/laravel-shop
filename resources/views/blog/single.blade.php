@@ -119,102 +119,23 @@
                   </div>
 
                   <div class="comments-area">
-                      <h4>05 Comments</h4>
-                      <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                          <div class="user justify-content-between d-flex">
-                              <div class="thumb">
-                                  <img src="{{asset('img/blog/c1.png')}}" alt="">
-                              </div>
-                              <div class="desc">
-                                  <p class="comment">
-                                    Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser 
-                                  </p>
-
-                                  <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                      <h5>
-                                        <a href="#">Emilly Blunt</a>
-                                      </h5>
-                                      <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    </div>
-
-                                    <div class="reply-btn">
-                                      <a href="#" class="btn-reply text-uppercase">reply</a>
-                                    </div>
-                                  </div>
-                                  
-                              </div>
-                          </div>
-                      </div>
-                      </div>
-                      <div class="comment-list">
-                          <div class="single-comment justify-content-between d-flex">
-                              <div class="user justify-content-between d-flex">
-                                  <div class="thumb">
-                                      <img src="{{asset('img/blog/c2.png')}}" alt="">
-                                  </div>
-                                  <div class="desc">
-                                      <p class="comment">
-                                        Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser 
-                                      </p>
-    
-                                      <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                          <h5>
-                                            <a href="#">Emilly Blunt</a>
-                                          </h5>
-                                          <p class="date">December 4, 2017 at 3:12 pm </p>
-                                        </div>
-    
-                                        <div class="reply-btn">
-                                          <a href="#" class="btn-reply text-uppercase">reply</a>
-                                        </div>
-                                      </div>
-                                      
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="comment-list">
-                          <div class="single-comment justify-content-between d-flex">
-                              <div class="user justify-content-between d-flex">
-                                  <div class="thumb">
-                                      <img src="{{asset('img/blog/c3.png')}}" alt="">
-                                  </div>
-                                  <div class="desc">
-                                      <p class="comment">
-                                        Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser 
-                                      </p>
-    
-                                      <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                          <h5>
-                                            <a href="#">Emilly Blunt</a>
-                                          </h5>
-                                          <p class="date">December 4, 2017 at 3:12 pm </p>
-                                        </div>
-    
-                                        <div class="reply-btn">
-                                          <a href="#" class="btn-reply text-uppercase">reply</a>
-                                        </div>
-                                      </div>
-                                      
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                    <h4>{{count($post->comments)}} Comments</h4>
+                    @include('blog.comments', ['comments' => $post->comments, 'post_id' => $post->id])
                   </div>
-                  <div class="comment-form">
+                  <div class="comment-form" id="commentFormContainer">
                       <h4>Leave a Reply</h4>
-                      <form class="form-contact comment_form" action="#" id="commentForm">
+                      <form  method="post" class="form-contact comment_form" action="{{ route('comments.store'   ) }}" id="commentForm">
+                        {{csrf_field()}}
                         <div class="row">
                           <div class="col-12">
-                            <div class="form-group">
-                                <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                            <div class="form-group comment_form_body">
+                                <textarea class="form-control w-100" name="body" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                                <input type="hidden" name="parent_id" id="parent_id" value="" />
                             </div>
                           </div>
-                          <div class="col-sm-6">
+
+{{--                           <div class="col-sm-6">
                             <div class="form-group">
                               <input class="form-control" name="name" id="name" type="text" placeholder="Name">
                             </div>
@@ -228,10 +149,11 @@
                             <div class="form-group">
                               <input class="form-control" name="website" id="website" type="text" placeholder="Website">
                             </div>
-                          </div>
+                          </div> --}}
+
                         </div>
                         <div class="form-group">
-                          <button type="submit" class="main_btn">Send Message</button>
+                          <button type="submit" class="main_btn"><span class="comment_btn comment">Comment</span><span class="comment_btn reply" style="display: none;">Reply</span></button>
                         </div>
                       </form>
                   </div>

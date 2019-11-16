@@ -49,6 +49,12 @@ class Helper
     
     }
 
+    // public static function postCommentTotal($post)
+    // {
+    //     return Post_category::orderBy('id', 'desc')->get();
+    
+    // }
+
 
     //frontend brands supply
     public static function productBrandList()
