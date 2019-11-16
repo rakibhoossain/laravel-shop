@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
-use App\Category;
+use App\Post_category;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Str;
 use Image;
 
-class CategoryController extends Controller
+class PostCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
-        return view('admin.product.category.index')->with('categories', $categories);
+        $categories = Post_category::orderBy('id', 'desc')->get();
+        return view('admin.post.category.index')->with('categories', $categories);
     }
 
     /**
@@ -27,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.product.category.create');
+        return view('admin.post.category.create');
     }
 
     /**
@@ -41,7 +42,7 @@ class CategoryController extends Controller
         $request->validate([
             'name'      =>  'required|max:150',
         ]);
-        $category = new Category;
+        $category = new Post_category;
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
         $category->description = $request->description;
@@ -63,10 +64,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Post_category  $post_category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Post_category $post_category)
     {
         //
     }
@@ -74,20 +75,20 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Post_category  $post_category
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request)
     {
-        $category = Category::find($request->id);
-        return view('admin.product.category.edit')->with('category', $category);
+        $category = Post_category::find($request->id);
+        return view('admin.post.category.edit')->with('category', $category);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Post_category  $post_category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -96,7 +97,7 @@ class CategoryController extends Controller
             'name'      =>  'required|max:150',
         ]);
 
-        $category = Category::find($request->id);
+        $category = Post_category::find($request->id);
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
         $category->description = $request->description;
@@ -105,7 +106,7 @@ class CategoryController extends Controller
         //save image
         if ($request->hasFile('image')) {
 
-            $this->deletProductCategoryImage($category);
+            $this->deletPostCategoryImage($category);
             $image = $request->file('image');
             $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
             $location = public_path('images/category/'.$img);
@@ -115,24 +116,23 @@ class CategoryController extends Controller
         $category->save();
         return back()->with('success','You have successfully update a category.');
     }
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Post_category  $post_category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        $category = Category::find($request->id);
+        $category = Post_category::find($request->id);
         if ($category) {
-            $this->deletProductCategoryImage($category);
+            $this->deletPostCategoryImage($category);
             $category->delete();
             return back()->with('success','You have successfully delete a category.');  
         }
     }
 
-    private function deletProductCategoryImage($category){
+    private function deletPostCategoryImage($category){
         if( $category->image ){
             $imgDestroy = public_path('images/category/'.$category->image);
             if ( file_exists($imgDestroy)  ) {

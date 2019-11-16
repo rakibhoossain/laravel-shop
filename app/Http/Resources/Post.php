@@ -18,7 +18,7 @@ class Post extends JsonResource
 
         return [
             'title' => $this->title,
-            'action' => "<a class='btn btn-primary' href=".route('admin.post.show', $this->id ).">View</a> <a class='btn btn-warning' href=".route('admin.post.edit', $this->id ).">Edit</a> <a class='btn btn-danger' href=".route('admin.post.destroy', $this->id ).">Delete</a>",
+            'action' => "<a class='btn btn-primary' href=".route('blog.single', $this->slug ).">View</a> <a class='btn btn-warning' href=".route('admin.post.edit', $this->id ).">Edit</a> <a class='btn btn-danger' href=".route('admin.post.destroy', $this->id ).">Delete</a>",
         ];
 
 

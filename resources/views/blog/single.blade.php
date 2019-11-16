@@ -30,13 +30,21 @@
               <div class="col-lg-8 posts-list">
                   <div class="single-post">
                           <div class="feature-img">
-                              <img class="img-fluid" src="{{asset('img/blog/main-blog/m-blog-1.jpg')}}" alt="">
+                              <img class="img-fluid" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}" />
                           </div>
                       <div class="blog_details">
                           <h2>{{$post->title}}</h2>
                           <ul class="blog-info-link mt-3 mb-4">
                               <li><a href="#"><i class="ti-user"></i> Travel, Lifestyle</a></li>
                               <li><a href="#"><i class="ti-comments"></i> 03 Comments</a></li>
+
+                              <li>
+                                <i class="ti-comments"></i>
+                                @foreach($post->terms as $term)
+                                  <a href="#">{{ $term->category->name }}</a>
+                                @endforeach
+                              </li>
+
                             </ul>
                             {!! html_entity_decode($post->body) !!}
                       </div>

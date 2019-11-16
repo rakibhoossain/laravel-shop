@@ -33,7 +33,9 @@
                   @foreach($posts as $post)
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="img/blog/main-blog/m-blog-3.jpg" alt="">
+                            @if($post->image)
+                              <img class="card-img rounded-0" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}">
+                            @endif
                             <a href="{{route('blog.single', $post->slug)}}" class="blog_item_date">
                                 <h3>{{date_format($post->updated_at,"d")}}</h3>
                                 <p>{{date_format($post->updated_at,"M")}}</p>
@@ -52,7 +54,7 @@
 
                             </p>
                             <ul class="blog-info-link">
-                                <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-user"></i> Travel, Lifestyle</a></li>
+                                <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-user"></i> {{$post->user->name}}</a></li>
                                 <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-comments"></i> 03 Comments</a></li>
                             </ul>
                         </div>

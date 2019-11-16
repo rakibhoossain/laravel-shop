@@ -85,13 +85,9 @@
       <div class="col-lg-4 col-md-6">
         <div class="single-product">
           <div class="product-img">
-            @php $i = 1; @endphp
-            @foreach($product->images as $image)
-            @if($i>0)
-            <img class="img-fluid w-100" src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" />
+            @if($product->images)
+            <img class="img-fluid w-100" src="{{asset('images/product/'.$product->images[0]->image)}}" alt="{{$product->title}}" />
             @endif
-            @php --$i; @endphp
-            @endforeach
             <div class="p_icon">
               <a href="{{route('shop.single', $product->slug)}}">
                 <i class="ti-eye"></i>
@@ -534,80 +530,75 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-4 col-md-6">
-        <div class="single-blog">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b1.jpg" alt="">
-          </div>
-          <div class="short_details">
-            <div class="meta-top d-flex">
-              <a href="#">By Admin</a>
-              <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
-            </div>
-            <a class="d-block" href="single-blog.html">
-              <h4>Ford clever bed stops your sleeping
-              partner hogging the whole</h4>
-            </a>
-            <div class="text-wrap">
-              <p>
-                Let one fifth i bring fly to divided face for bearing the divide unto seed winged divided light
-                Forth.
-              </p>
-            </div>
-            <a href="#" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-lg-4 col-md-6">
-        <div class="single-blog">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b2.jpg" alt="">
-          </div>
-          <div class="short_details">
-            <div class="meta-top d-flex">
-              <a href="#">By Admin</a>
-              <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
-            </div>
-            <a class="d-block" href="single-blog.html">
-              <h4>Ford clever bed stops your sleeping
-              partner hogging the whole</h4>
-            </a>
-            <div class="text-wrap">
-              <p>
-                Let one fifth i bring fly to divided face for bearing the divide unto seed winged divided light
-                Forth.
-              </p>
-            </div>
-            <a href="#" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
-          </div>
-        </div>
-      </div>
 
+
+
+{{--     <div class="row">
+      @foreach($products as $product)
       <div class="col-lg-4 col-md-6">
-        <div class="single-blog">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b3.jpg" alt="">
+        <div class="single-product">
+          <div class="product-img">
+            @if($product->images)
+            <img class="img-fluid w-100" src="{{asset('images/product/'.$product->images[0]->image)}}" alt="{{$product->title}}" />
+            @endif
+            <div class="p_icon">
+              <a href="{{route('shop.single', $product->slug)}}">
+                <i class="ti-eye"></i>
+              </a>
+              <a href="{{route('cart.add', $product->slug)}}">
+                <i class="ti-shopping-cart"></i>
+              </a>
+            </div>
           </div>
-          <div class="short_details">
-            <div class="meta-top d-flex">
-              <a href="#">By Admin</a>
-              <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
-            </div>
-            <a class="d-block" href="single-blog.html">
-              <h4>Ford clever bed stops your sleeping
-              partner hogging the whole</h4>
+          <div class="product-btm">
+            <a href="{{route('shop.single', $product->slug)}}" class="d-block">
+              <h4>{{$product->title}}</h4>
             </a>
-            <div class="text-wrap">
-              <p>
-                Let one fifth i bring fly to divided face for bearing the divide unto seed winged divided light
-                Forth.
-              </p>
+            <div class="mt-3">
+              <span class="mr-4">${{$product->offer_price}}</span>
+              <del>${{$product->price}}</del>
             </div>
-            <a href="#" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
           </div>
         </div>
       </div>
+      @endforeach
+    </div> --}}
+
+
+
+
+
+
+
+
+      @foreach($posts as $post)
+      <div class="col-lg-4 col-md-6">
+        <div class="single-blog">
+          <div class="thumb">
+            @if($post->image)
+              <img class="img-fluid" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}">
+            @endif
+          </div>
+          <div class="short_details">
+            <div class="meta-top d-flex">
+              <a href="#">By {{$post->user->name}}</a>
+              <a href="#"><i class="ti-comments-smiley"></i>2 Comments</a>
+            </div>
+            <a class="d-block" href="{{route('blog.single', $post->slug)}}">
+              <h4>{{$post->title}}</h4>
+            </a>
+            <div class="text-wrap">
+              {{$post->body}}
+            </div>
+            <a href="{{route('blog.single', $post->slug)}}" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
+          </div>
+        </div>
+      </div>
+      @endforeach
+
+
+      
     </div>
   </div>
 </section>

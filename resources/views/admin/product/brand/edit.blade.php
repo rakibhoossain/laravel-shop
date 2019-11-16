@@ -22,7 +22,7 @@
           <input type="file" class="custom-file-input" name="image" id="inputImage" multiple>
           <label class="custom-file-label" for="inputImage">File Input</label>
         </div>
-        <img class="rounded float-left" src="{{asset('images/product-brand/'.$brand->image)}}" alt="{{$brand->name}}" width="200" height="200"/>
+        <img class="rounded float-left" src="{{asset('images/brand/'.$brand->image)}}" alt="{{$brand->name}}" width="200" height="200"/>
         </div>
       </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -24,8 +25,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->get();
-        return view('home')->with('products', $products);
+        $products = Product::orderBy('id', 'desc')->limit(3)->get();
+        $posts = Post::orderBy('id', 'desc')->limit(3)->get();
+
+        $data = [
+            'products' => $products,
+            'posts' => $posts,
+
+        ];
+        return view('home')->with($data);
     }
     /** Return view to upload file */
     public function uploadFile(){

@@ -52,7 +52,7 @@ class BrandController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
-            $location = public_path('images/product-brand/'.$img);
+            $location = public_path('images/brand/'.$img);
 
             Image::make($image)->resize(360, 431)->save($location);
             $brand->image = $img;
@@ -108,7 +108,7 @@ class BrandController extends Controller
             $this->deletProductBrandImage($brand);
             $image = $request->file('image');
             $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
-            $location = public_path('images/product-brand/'.$img);
+            $location = public_path('images/brand/'.$img);
             Image::make($image)->resize(360, 431)->save($location);
             $brand->image = $img;
         }
@@ -134,7 +134,7 @@ class BrandController extends Controller
 
     private function deletProductBrandImage($brand){
         if( $brand->image ){
-            $imgDestroy = public_path('images/product-brand/'.$brand->image);
+            $imgDestroy = public_path('images/brand/'.$brand->image);
             if ( file_exists($imgDestroy)  ) {
                 unlink($imgDestroy);
             }

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Category;
+use App\Post_category;
 use App\Brand;
 use App\Cart;
 use App\Order;
@@ -41,6 +42,13 @@ class Helper
         return Category::orderBy('id', 'desc')->get();
     
     }
+
+    public static function postCategoryList()
+    {
+        return Post_category::orderBy('id', 'desc')->get();
+    
+    }
+
 
     //frontend brands supply
     public static function productBrandList()

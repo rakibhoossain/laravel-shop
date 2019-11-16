@@ -16,6 +16,42 @@
       </div>
 
 
+ {{-- @if($category->parent_id == $cat->id) selected @endif  --}}
+
+
+@foreach($post->terms as $term)
+
+    {{var_dump($term->category->name)}}
+{{-- $values != "" && $values .= ","; --}}
+
+@endforeach
+
+
+
+
+      <div class="form-row">
+        {{-- multiple korte hobe --}}
+        <div class="form-group col-md-4">
+          <select class="form-control" name="category">
+            <option value="">Post category</option>
+            @foreach(Helper::postCategoryList() as $cat)
+              <option value="{{$cat->id}}">{{$cat->name}}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+
+        <div class="custom-file mb-3">
+          <input type="file" class="custom-file-input" name="image" id="inputImage" multiple>
+          <label class="custom-file-label" for="inputImage">File Input</label>
+        </div>
+        @if($post->image)
+          <img class="rounded float-left" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}" width="200" height="200"/>
+        @endif
+        </div>
+        </div>
+      </div>
+
       <div class="form-group mb-3">
         <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Update</button>
       </div>

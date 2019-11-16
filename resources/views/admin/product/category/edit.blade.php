@@ -18,7 +18,7 @@
         <div class="form-group col-md-4">
           <select class="form-control" name="parent_id">
             <option value="">Default select</option>
-            @foreach($parentCategories as $cat)
+            @foreach(Helper::productCategoryList() as $cat)
               <option value="{{$cat->id}}" @if($category->parent_id == $cat->id) selected @endif >{{$cat->name}}</option>
             @endforeach
           </select>
@@ -29,7 +29,7 @@
           <input type="file" class="custom-file-input" name="image" id="inputImage" multiple>
           <label class="custom-file-label" for="inputImage">File Input</label>
         </div>
-        <img class="rounded float-left" src="{{asset('images/product-category/'.$category->image)}}" alt="{{$category->name}}" width="200" height="200"/>
+        <img class="rounded float-left" src="{{asset('images/category/'.$category->image)}}" alt="{{$category->name}}" width="200" height="200"/>
         </div>
       </div>
 

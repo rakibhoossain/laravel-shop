@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Post_Category_Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Image;
 
 use App\Http\Resources\PostCollection;
 
@@ -57,8 +59,23 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
         $post->body = $request->body;
         $post->user_id = auth()->user()->id;
-        
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
+            $location = public_path('images/post/'.$img);
+
+            Image::make($image)->resize(360, 431)->save($location);
+            $post->image = $img;
+        }
+
         $post->save();
+
+        $post_cat_rel = new Post_Category_Relation;
+        $post_cat_rel->post_id = $post->id;
+        $post_cat_rel->post_categories_id = $request->category;
+        $post_cat_rel->save();
+
         return back()->with('success','You have successfully created a post.');
 
     }
@@ -106,6 +123,20 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
         $post->body = $request->body;
 
+            if ($request->hasFile('image')) {
+                $this->deletPostImage($post);
+
+                $image = $request->file('image');
+                $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
+                $location = public_path('images/post/'.$img);
+                Image::make($image)->resize(360, 431)->save($location);
+                $post->image = $img;
+            }
+
+
+
+
+
         $post->save();
         return back()->with('success','You have successfully update a post.');
     }
@@ -120,8 +151,20 @@ class PostController extends Controller
     {
         $post = Post::find($request->id);
         if ($post) {
+            deletPostImage($post);
             $post->delete();
             return back()->with('success','You have successfully delete a post.');  
+            
         }
     }
+
+    private function deletPostImage($post){
+        if( $post->image ){
+            $imgDestroy = public_path('images/post/'.$post->image);
+            if ( file_exists($imgDestroy)  ) {
+                unlink($imgDestroy);
+            }
+        }
+    }
+
 }

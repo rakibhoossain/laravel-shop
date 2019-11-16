@@ -14,21 +14,20 @@
         </tr>
       </thead>
       <tbody>
-        @php $brandt_count = 1; @endphp
         @foreach($brands as $brand)
 
         <tr>
-          <td scope="row">{{$brandt_count}}</td>
+          <td scope="row">{{$loop->index +1 }}</td>
           <td>{{$brand->name}}</td>
           <td>
-            <img class="rounded float-left" src="{{asset('images/product-brand/'.$brand->image)}}" alt="{{$brand->name}}" width="40" height="40"/>
+            <img class="rounded float-left" src="{{asset('images/brand/'.$brand->image)}}" alt="{{$brand->name}}" width="40" height="40"/>
           </td>
           <td>
             <a class="btn btn-primary" href="{{ route('admin.product.brand.edit', $brand->id )}}">Edit</a>
             <a class="btn btn-danger" data-toggle="modal" href="#delModal{{$brand->id}}">Delete</a>
           </td>
 
-          <!-- Modal {{$brandt_count}} -->
+          <!-- Modal {{$loop->index +1 }} -->
           <div class="modal fade" id="delModal{{$brand->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$brand->id}}Label" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -49,7 +48,6 @@
           </div>
 
         </tr>
-        @php ++$brandt_count; @endphp
         @endforeach
 
       </tbody>

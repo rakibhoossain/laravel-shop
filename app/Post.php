@@ -16,4 +16,14 @@ class Post extends Model
     {
          return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
+
+    public function terms(){
+   		return $this->hasMany(Post_Category_Relation::class);
+   }
+
+   public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }
