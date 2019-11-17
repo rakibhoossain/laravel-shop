@@ -30,6 +30,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedInteger('parent_id')->nullable();
             $table->text('body');
 
+            $table->enum('status', ['approved', 'pending', 'spam'])->default('pending');
+
             $table->timestamps();
         });
     }

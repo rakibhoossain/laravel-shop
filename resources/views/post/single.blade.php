@@ -3,23 +3,7 @@
 
 @if($post)
 <!--================Home Banner Area =================-->
-<section class="banner_area">
-  <div class="banner_inner d-flex align-items-center">
-    <div class="container">
-      <div class="banner_content d-md-flex justify-content-between align-items-center">
-        <div class="mb-3 mb-md-0">
-          <h2>Blog</h2>
-          <p>Very us move be blessed multiply night</p>
-        </div>
-        <div class="page_link">
-          <a href="index.html">Home</a>
-          <a href="category.html">Blog</a>
-          <a href="category.html">Women Fashion</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+@include('layouts.breadcrumb', ['title' => $post->title, 'description' => 'Description'])
 <!--================End Home Banner Area =================-->
 
 
@@ -36,7 +20,7 @@
                           <h2>{{$post->title}}</h2>
                           <ul class="blog-info-link mt-3 mb-4">
                               <li><a href="#"><i class="ti-user"></i>{{$post->user->name}}</a></li>
-                              <li><a href="{{route('blog.single', $post->slug)}}#comments-area"><i class="ti-comments"></i> {{count($post->allComments)}} Comments</a></li>
+                              <li><a href="{{route('post.single', $post->slug)}}#comments-area"><i class="ti-comments"></i> {{count($post->allComments)}} Comments</a></li>
 
                               <li>
                                 <i class="ti-comments"></i>
@@ -53,7 +37,7 @@
                     <div class="d-sm-flex justify-content-between text-center">
                       <p class="like-info"><span class="align-middle"><i class="ti-heart"></i></span> Lily and 4 people like this</p>
                       <div class="col-sm-4 text-center my-2 my-sm-0">
-                        <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span> 06 Comments</p>
+                        <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span>{{count($post->allComments)}} Comments</p>
                       </div>
                       <ul class="social-icons">
                         <li><a href="#"><i class="ti-facebook"></i></a></li>
@@ -119,8 +103,8 @@
                   </div>
 
                   <div class="comments-area" id="comments-area">
-                    <h4> {{count($post->allComments)}} Comments</h4>
-                    @include('blog.comments', ['comments' => $post->comments, 'post_id' => $post->id, 'depth' => 3])
+                    <h4>{{count($post->allComments)}} Comments</h4>
+                    @include('post.comments', ['comments' => $post->comments, 'post_id' => $post->id, 'depth' => 3])
                   </div>
                   <div class="comment-form" id="commentFormContainer">
                       <h4>Leave a Reply</h4>
@@ -148,7 +132,7 @@
                           </div>
                           <div class="col-12">
                             <div class="form-group">
-                              <input class="form-control" name="website" id="website" type="text" placeholder="Website">
+                              <input class="form-control" name="website" id="website" type="text" value="" placeholder="Website">
                             </div>
                           </div>
                           @endguest

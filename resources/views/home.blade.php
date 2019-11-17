@@ -82,32 +82,7 @@
 
     <div class="row">
       @foreach($products as $product)
-      <div class="col-lg-4 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            @if($product->images)
-            <img class="img-fluid w-100" src="{{asset('images/product/'.$product->images[0]->image)}}" alt="{{$product->title}}" />
-            @endif
-            <div class="p_icon">
-              <a href="{{route('shop.single', $product->slug)}}">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="{{route('cart.add', $product->slug)}}">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="{{route('shop.single', $product->slug)}}" class="d-block">
-              <h4>{{$product->title}}</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">${{$product->offer_price}}</span>
-              <del>${{$product->price}}</del>
-            </div>
-          </div>
-        </div>
-      </div>
+        @include('layouts.product', ['product' => $product])
       @endforeach
     </div>
   </div>
@@ -583,15 +558,15 @@
           <div class="short_details">
             <div class="meta-top d-flex">
               <a href="#">By {{$post->user->name}}</a>
-              <a href="{{route('blog.single', $post->slug)}}#comments-area"><i class="ti-comments-smiley"></i>{{count($post->allComments)}} Comments</a>
+              <a href="{{route('post.single', $post->slug)}}#comments-area"><i class="ti-comments-smiley"></i>{{count($post->allComments)}} Comments</a>
             </div>
-            <a class="d-block" href="{{route('blog.single', $post->slug)}}">
+            <a class="d-block" href="{{route('post.single', $post->slug)}}">
               <h4>{{$post->title}}</h4>
             </a>
             <div class="text-wrap">
               {{Str::words(strip_tags($post->body),16)}}
             </div>
-            <a href="{{route('blog.single', $post->slug)}}" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
+            <a href="{{route('post.single', $post->slug)}}" class="blog_btn">Learn More <span class="ml-2 ti-arrow-right"></span></a>
           </div>
         </div>
       </div>

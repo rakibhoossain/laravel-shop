@@ -3,23 +3,7 @@
 
 @if(count($posts)>0 )
 <!--================Home Banner Area =================-->
-<section class="banner_area">
-  <div class="banner_inner d-flex align-items-center">
-    <div class="container">
-      <div class="banner_content d-md-flex justify-content-between align-items-center">
-        <div class="mb-3 mb-md-0">
-          <h2>Blog</h2>
-          <p>Very us move be blessed multiply night</p>
-        </div>
-        <div class="page_link">
-          <a href="index.html">Home</a>
-          <a href="category.html">Blog</a>
-          <a href="category.html">Women Fashion</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+@include('layouts.breadcrumb', ['title' => 'Post', 'description' => 'Description'])
 <!--================End Home Banner Area =================-->
 
 
@@ -36,20 +20,20 @@
                             @if($post->image)
                               <img class="card-img rounded-0" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}">
                             @endif
-                            <a href="{{route('blog.single', $post->slug)}}" class="blog_item_date">
+                            <a href="{{route('post.single', $post->slug)}}" class="blog_item_date">
                                 <h3>{{date_format($post->updated_at,"d")}}</h3>
                                 <p>{{date_format($post->updated_at,"M")}}</p>
                             </a>
                         </div>
 
                         <div class="blog_details">
-                          <a class="d-inline-block" href="{{route('blog.single', $post->slug)}}"><h2>{{$post->title}}</h2></a>
+                          <a class="d-inline-block" href="{{route('post.single', $post->slug)}}"><h2>{{$post->title}}</h2></a>
                           <p>
                             {{Str::words(strip_tags($post->body),16)}}
                           </p>
                           <ul class="blog-info-link">
-                              <li><a href="{{route('blog.single', $post->slug)}}"><i class="ti-user"></i> {{$post->user->name}}</a></li>
-                              <li><a href="{{route('blog.single', $post->slug)}}#comments-area"><i class="ti-comments"></i> {{count($post->allComments)}} Comments</a></li>
+                              <li><a href="{{route('post.single', $post->slug)}}"><i class="ti-user"></i> {{$post->user->name}}</a></li>
+                              <li><a href="{{route('post.single', $post->slug)}}#comments-area"><i class="ti-comments"></i> {{count($post->allComments)}} Comments</a></li>
                           </ul>
                         </div>
                     </article>

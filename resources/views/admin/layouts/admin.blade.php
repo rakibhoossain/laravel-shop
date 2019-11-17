@@ -145,7 +145,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{route('admin.product.order')}}">
+          <a class="nav-link" href="{{route('admin.comments')}}">
             <i class="fas fa-fw fa-cog"></i>
             <span>Comments</span>
           </a>
@@ -540,9 +540,23 @@
                   { data: 'title' },
                   { data: 'action', 'searchable': false, 'orderable': false }
               ],
+          } );        
+
+        $('#comment_table').DataTable( {
+              ajax: '{{route('admin.comments.list')}}',
+              columns: [
+                  { "data": null,"sortable": false, 
+                    render: function (data, type, row, meta) {
+                      return meta.row + meta.settings._iDisplayStart + 1;
+                    }  
+                  },
+                  { data: 'author' },
+                  { data: 'content' },
+                  { data: 'restonse_to' },
+                  { data: 'date' },
+                  { data: 'action', 'searchable': false, 'orderable': false }
+              ],
           } );
-
-
 
 
 

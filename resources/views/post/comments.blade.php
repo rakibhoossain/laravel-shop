@@ -27,7 +27,7 @@
                                     <a href="{{$comment->website}}" target="blank">{{ $comment->name }}</a>
                                 @endif
                                 </h5>
-                                <p class="date">{{date_format($comment->updated_at,"F D, Y")}} at {{date_format($comment->updated_at,"g:i a")}}</p>
+                                <p class="date">{{date_format($comment->created_at,"F D, Y")}} at {{date_format($comment->created_at,"g:i a")}}</p>
 
                             </div>
                             
@@ -44,6 +44,6 @@
                 </div>
             </div>
         </div>
-        @include('blog.comments', ['comments' => $comment->replies, 'depth' => $dep])
+        @include('post.comments', ['comments' => $comment->replies, 'depth' => $dep])
     </div>
 @endforeach

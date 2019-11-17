@@ -120,4 +120,11 @@ class Helper
     
     }
 
+    //frontend shipping
+    public static function currency()
+    {
+        return '€';
+    
+    }
+
 }

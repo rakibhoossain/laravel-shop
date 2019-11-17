@@ -2,24 +2,7 @@
 @section('content')
 
     <!--================Home Banner Area =================-->
-    <section class="banner_area">
-      <div class="banner_inner d-flex align-items-center">
-        <div class="container">
-          <div
-            class="banner_content d-md-flex justify-content-between align-items-center"
-          >
-            <div class="mb-3 mb-md-0">
-              <h2>Product Checkout</h2>
-              <p>Very us move be blessed multiply night</p>
-            </div>
-            <div class="page_link">
-              <a href="index.html">Home</a>
-              <a href="checkout.html">Product Checkout</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    @include('layouts.breadcrumb', ['title' => 'Product Checkout', 'description' => 'Results'])
     <!--================End Home Banner Area =================-->
 
     <!--================Checkout Area =================-->
@@ -124,16 +107,16 @@
                   <li>
                     <a href="{{route('shop.single', $order->product->slug)}}">{{$order->product->title}}
                       <span class="middle">x {{$order->quantity}}</span>
-                      <span class="last">{{$order->price}}</span>
+                      <span class="last">{{$order->price}}{{Helper::currency()}}</span>
                     </a>
                   </li>
                   @endforeach
 
                 </ul>
                 <ul class="list list_2">
-                  <li class="order_sutotal" data-price="{{$total_price}}">
+                  <li class="order_sutotal" data-price="{{$total_price}}" data-currency="{{Helper::currency()}}">
                     <a href="{{route('cart')}}">
-                      Subtotal <span>{{$total_price}}</span>
+                      Subtotal <span>{{$total_price}}{{Helper::currency()}}</span>
                     </a>
                   </li>
                   <li class="shipping">
@@ -146,7 +129,7 @@
                         <select name="shipping">
                           <option value="">Select</option>
                           @foreach(Helper::shiping() as $shiping)
-                          <option value="{{$shiping->id}}" data-price="{{$shiping->price}}">{{$shiping->type}}: {{$shiping->price}}</option>
+                          <option value="{{$shiping->id}}" data-price="{{$shiping->price}}">{{$shiping->type}}: {{$shiping->price}}{{Helper::currency()}}</option>
                           @endforeach
                         </select>
                       </div>
@@ -154,7 +137,7 @@
                   </li>
                   <li id="order_total_price">
                     <a href="{{route('cart')}}">
-                      Total <span>{{$total_price}}</span>
+                      Total <span>{{$total_price}}{{Helper::currency()}}</span>
                     </a>
                   </li>
                 </ul>

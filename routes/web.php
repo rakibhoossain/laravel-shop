@@ -25,6 +25,14 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 		Route::get('/notification/{id}', 'ShopNotificationController@show')->name('admin.notification');
 		Route::get('/notification/delete/{id}', 'ShopNotificationController@delete')->name('admin.notification.delete');
 		Route::get('/notification/', 'ShopNotificationController@index')->name('admin.notifications');
+
+		Route::group(['prefix' => '/comments'], function () {
+			Route::get('/', 'CommentController@index')->name('admin.comments');
+			Route::get('/delete/{id}', 'CommentController@destroy')->name('admin.comments.destroy');
+
+			Route::get('/list', 'CommentController@commentsList')->name('admin.comments.list');
+		});
+
 	});
 
 
@@ -108,6 +116,8 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 Route::group(['prefix' => '/shop'], function () {
 	Route::get('/', 'ShopController@index')->name('shop');
 	Route::get('/single/{slug}', 'ShopController@show')->name('shop.single');
+
+	Route::get('/list', 'ShopController@itemList')->name('shop.product.list');
 	
 	Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');
 	Route::get('/brand/{slug}', 'ShopController@brandProduct')->name('shop.brand');
@@ -115,8 +125,6 @@ Route::group(['prefix' => '/shop'], function () {
 
 	Route::get('/track/', 'OrderController@ordersTrackIndex')->name('shop.track');
 	Route::post('/track/order', 'OrderController@ordersTrack')->name('shop.track.order');
-
-	
 
 	Route::get('/search', 'ShopController@search')->name('shop.search');
 
@@ -145,9 +153,9 @@ Route::group(['prefix' => '/shop'], function () {
 });
 
 
-Route::group(['prefix' => '/blog'], function () {
-	Route::get('/', 'BlogController@index')->name('blog');
-	Route::get('/post/{slug}', 'BlogController@show')->name('blog.single');
+Route::group(['prefix' => '/post'], function () {
+	Route::get('/', 'BlogController@index')->name('post');
+	Route::get('/{slug}', 'BlogController@show')->name('post.single');
 
 	Route::post('/comment', 'CommentController@store')->name('comments.store');
 	

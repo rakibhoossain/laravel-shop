@@ -7,24 +7,7 @@
       {{$product->title}}
     @endsection
     <!--================Home Banner Area =================-->
-    <section class="banner_area">
-      <div class="banner_inner d-flex align-items-center">
-        <div class="container">
-          <div
-            class="banner_content d-md-flex justify-content-between align-items-center"
-          >
-            <div class="mb-3 mb-md-0">
-              <h2>Product Details</h2>
-              <p>Very us move be blessed multiply night</p>
-            </div>
-            <div class="page_link">
-              <a href="index.html">Home</a>
-              <a href="single-product.html">Product Details</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    @include('layouts.breadcrumb', ['title' => $product->title, 'description' => 'Description'])
     <!--================End Home Banner Area =================-->
 
     <!--================Single Product Area =================-->
@@ -36,26 +19,22 @@
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 
                 <ol class="carousel-indicators">
-                @php $slide = 0; @endphp
                 @foreach($product->images as $image)
-                  <li data-target="#carouselExampleIndicators" data-slide-to="{{$slide}}" @if($slide == 0) class="active" @endif>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="{{$loop->index}}" @if($loop->index == 0) class="active" @endif>
                     <img src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" width="60" height="60" />
                   </li>
-                  @php ++$slide; @endphp
                 @endforeach
                 </ol>
 
-                @php $carousel = 0; @endphp
                 <div class="carousel-inner">
                   @foreach($product->images as $image)
-                  <div class="carousel-item @if($carousel == 0) active @endif">
+                  <div class="carousel-item @if($loop->index == 0) active @endif">
                     <img
                       class="d-block w-100"
                       src="{{asset('images/product/'.$image->image)}}"
                       alt="{{$product->title}}"
                     />
                   </div>
-                  @php ++$carousel; @endphp
                   @endforeach
                 </div>
 
@@ -67,23 +46,21 @@
               <h3>{{$product->title}}</h3>
               <h2>${{$product->price}}</h2>
               <ul class="list">
-                @if($category)
-                  <li><a class="active" href="{{route('shop.category', $category->slug)}}"><span>Category</span> : {{$category->name}}</a></li>
+                @if($product->category)
+                  <li><a class="active" href="{{route('shop.category', $product->category->slug)}}"><span>Category</span> : {{$product->category->name}}</a></li>
                 @endif
-                @if($brand)
-                  <li><a class="active" href="{{route('shop.brand', $brand->slug)}}"><span>Brand</span> : {{$brand->name}}</a></li>
+                @if($product->brand)
+                  <li><a class="active" href="{{route('shop.brand', $product->brand->slug)}}"><span>Brand</span> : {{$product->brand->name}}</a></li>
                 @endif
                 <li>
                   <a href="{{route('shop.single', $product->slug)}}"> <span>Availibility</span> : {{$product->quantity}} In Stock</a>
                 </li>
               </ul>
-              {{-- <p>
-                 {{$product->description}}</p> --}}
+               <p>
+                 {{Str::words(strip_tags($product->description),16)}}
+               </p>
 
-                {{-- {!! html_entity_decode($product->description) !!}
-               --}}
-
-              <form method="post" action="{{ route('cart.singleToAdd') }}">
+              <form method="post" action="{{ route('cart.singleToAdd') }}" class="mt-10">
                 {{csrf_field()}}
                 <div class="product_count">
                   <label for="qty">Quantity:</label>

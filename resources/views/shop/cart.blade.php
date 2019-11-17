@@ -2,24 +2,7 @@
 @section('content')
 
     <!--================Home Banner Area =================-->
-    <section class="banner_area">
-      <div class="banner_inner d-flex align-items-center">
-        <div class="container">
-          <div
-            class="banner_content d-md-flex justify-content-between align-items-center"
-          >
-            <div class="mb-3 mb-md-0">
-              <h2>Cart</h2>
-              <p>Very us move be blessed multiply night</p>
-            </div>
-            <div class="page_link">
-              <a href="index.html">Home</a>
-              <a href="cart.html">Cart</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    @include('layouts.breadcrumb', ['title' => 'Cart', 'description' => 'Results'])
     <!--================End Home Banner Area =================-->
 
 
@@ -64,7 +47,7 @@
                       </div>
                     </td>
                     <td>
-                      <h5 class="cart_single_price">{{$cart->product->offer_price}}</h5>
+                      <h5 class="cart_single_price"><span class="money">{{$cart->product->offer_price}}</span>{{Helper::currency()}}</h5>
                     </td>
                     <td>
                       <div class="product_count">
@@ -76,7 +59,7 @@
                       </div>
                     </td>
                     <td>
-                      <h5 class="cart_single_total">{{$cart->price}}</h5>
+                      <h5 class="cart_single_total"><span class="money">{{$cart->price}}</span>{{Helper::currency()}}</h5>
                     </td>
                     <td>
                       <a href="{{route('cart.delete', $cart->id)}}" class="btn btn-danger">Delete</a>
@@ -105,7 +88,7 @@
                     <h5>Subtotal</h5>
                   </td>
                   <td>
-                    <h5 id="subtotal_cart_price">0.00</h5>
+                    <h5 id="subtotal_cart_price"><span class="money">0.00</span>{{Helper::currency()}}</h5>
                   </td>
                 </tr>
                 <tr class="out_button_area">

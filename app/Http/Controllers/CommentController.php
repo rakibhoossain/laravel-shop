@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\CommentCollection;
+use Notification;
+use App\Notifications\ShopNotification;
 
 class CommentController extends Controller
 {
@@ -15,8 +19,15 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comment = Comment::first();
+        return view('admin.comment.index')->with('comment', $comment);
     }
+
+    public function commentsList()
+    {   
+        return new CommentCollection( Comment::all() );
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,11 +47,21 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::check()){
+            $request->validate([
+                'body'      =>  'required',
+                'post_id'      =>  'required',
+            ]);
+        }else{
+            $request->validate([
+                'body'      =>  'required',
+                'post_id'      =>  'required',
+                'name'      =>  'required',
+                'email'      =>  'required',
+            ]);
+        }
 
-
-        $request->validate([
-            'body'      =>  'required',
-        ]);
+        
 
         $comment = new Comment;
         $comment->body = $request->body;
@@ -58,6 +79,15 @@ class CommentController extends Controller
         }
 
         $comment->save();
+
+        $users = User::where('is_admin', 1)->get();
+        $details = [
+            'title' => 'New Comment!',
+            'actionURL' => route('admin.comments'),  //TODO add id
+            'fas' => 'fa-comment'
+        ];
+        Notification::send($users, new ShopNotification($details)); 
+
         return back()->with('success','You have successfully commented.');
 
     }
@@ -102,8 +132,14 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request)
     {
-        //
+        $comment = Comment::find($request->id);
+        if ($comment) {
+            $comment->delete();
+            return redirect()->route('admin.comments')->with('success','You have successfully delete a comment.');
+        }else{
+            return redirect()->route('admin.comments')->withErrors('Invalid comment!.');
+        }
     }
 }

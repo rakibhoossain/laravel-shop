@@ -92,28 +92,28 @@
           <div class="row w-100 mr-0">
             <div class="col-lg-7 pr-0">
               <ul class="nav navbar-nav center_nav pull-right">
-                <li class="nav-item active">
+                <li class="nav-item {{Request::path() === '/' ? 'active' : ''}}">
                   <a class="nav-link" href="{{route('home')}}">Home</a>
                 </li>
 
                 @auth @if(Auth::user()->is_admin)
-                <li class="nav-item">
+                <li class="nav-item {{Request::path() === 'admin' ? 'active' : ''}}">
                   <a class="nav-link" href="{{route('admin')}}">Admin</a>
                 </li>
                 @endif @endauth
 
                 @auth
-                <li class="nav-item">
+                <li class="nav-item {{Request::path() === 'account' ? 'active' : ''}}">
                   <a class="nav-link" href="{{route('account')}}">Account</a>
                 </li>
                 @endauth
 
-                <li class="nav-item">
+                <li class="nav-item {{Request::path() === 'shop' ? 'active' : ''}}">
                   <a class="nav-link" href="{{route('shop')}}">Shop</a>
                 </li>
 
-                <li class="nav-item">
-                  <a class="nav-link" href="{{route('blog')}}">Blog</a>
+                <li class="nav-item {{Request::path() === 'post' ? 'active' : ''}}">
+                  <a class="nav-link" href="{{route('post')}}">Blog</a>
                 </li>
 
                 <li class="nav-item">
@@ -201,9 +201,6 @@
 </div>
 </header>
 <!--================Header Menu Area =================-->
-
-
-
 <div class="section-block">
   @if ($message = Session::get('success'))
   <div class="alert alert-success alert-block">

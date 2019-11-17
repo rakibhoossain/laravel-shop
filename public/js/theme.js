@@ -153,7 +153,8 @@
         $('.shipping select[name=shipping]').change(function(){
             let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
             let subtotal = parseFloat( $('.order_sutotal').data('price') ); 
-            $('#order_total_price span').text( (subtotal + cost).toFixed(2) );
+            let currency = $('.order_sutotal').data('currency'); 
+            $('#order_total_price span').text( (subtotal + cost).toFixed(2) + currency );
         });
 
     });
@@ -161,8 +162,8 @@
     function cart_count_update(el, opt){
         let single_cart_item = $(el).parent().parent().parent('.single_cart_item');
 
-        let cart_single_price = $(single_cart_item).find('.cart_single_price');
-        let cart_single_total = $(single_cart_item).find('.cart_single_total');
+        let cart_single_price = $(single_cart_item).find('.cart_single_price>.money');
+        let cart_single_total = $(single_cart_item).find('.cart_single_total>.money');
 
         let single_price = parseFloat($(cart_single_price).text());
         let single_total = parseFloat($(cart_single_total).text());
@@ -189,8 +190,8 @@
     function cart_update_keyup(el){
         let single_cart_item = $(el).parent().parent().parent('.single_cart_item');
 
-        let cart_single_price = $(single_cart_item).find('.cart_single_price');
-        let cart_single_total = $(single_cart_item).find('.cart_single_total');
+        let cart_single_price = $(single_cart_item).find('.cart_single_price>.money');
+        let cart_single_total = $(single_cart_item).find('.cart_single_total>.money');
 
         let single_price = parseFloat($(cart_single_price).text());
         let single_total = parseFloat($(cart_single_total).text());
@@ -205,12 +206,12 @@
     function cart_subtotal(){
         let total = 0.0;
         $('#cart_item_list>.single_cart_item').each(function(){
-            let val = parseFloat($(this).find('.cart_single_total').text());
+            let val = parseFloat($(this).find('.cart_single_total>.money').text());
             if(isNaN( val ) || val == '') return false;
             total += val;
         });
 
-        $('#subtotal_cart_price').text((total).toFixed(2));
+        $('#subtotal_cart_price>.money').text((total).toFixed(2));
     }
     cart_subtotal();
 

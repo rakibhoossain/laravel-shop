@@ -13,15 +13,15 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-    	$posts = Post::orderBy('id', 'desc')->paginate(1);
-    	return view('blog')->with('posts', $posts);
+    	$posts = Post::orderBy('id', 'desc')->paginate(10);
+    	return view('post')->with('posts', $posts);
 
     }
 
 
     public function show(Request $request){
         $post = Post::where('slug', $request->slug)->first();
-    	return view('blog.single')->with('post', $post);
+    	return view('post.single')->with('post', $post);
     }
 
 }

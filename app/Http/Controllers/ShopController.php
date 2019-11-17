@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use App\Brand;
+
+use App\Http\Resources\ItemCollection;
+
 class ShopController extends Controller
 {
     /**
@@ -18,19 +21,21 @@ class ShopController extends Controller
     	return view('shop')->with('products', $products);
 
     }
-    public function show(Request $request){
 
+    public function itemList()
+    {   
+        return new ItemCollection( Product::all() );
+    }
+
+
+    public function show(Request $request)
+    {
         $product = Product::where('slug', $request->slug)->first();
-        $category = Category::find($product->category_id);
-        $brand = Brand::find($product->brand_id);
-
-        $data = array(
-            'product'=> $product,
-            'category'=> $category,
-            'brand'=> $brand
-        );
-    	return view('shop.single')->with($data);
-
+        if ($product) {
+            return view('shop.single')->with('product', $product);
+        }else{
+            return view('shop.single')->with('product', []);
+        }
     }
 
     public function categoryProduct(Request $request){
