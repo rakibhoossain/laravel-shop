@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>Laravel - Dashboard</title>
 
@@ -173,7 +175,17 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Heading -->
-        <div class="sidebar-heading">Admin</div>
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('admin.user')}}">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Users</span></a>
+        </li>
+
+
+
+
+
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
@@ -192,12 +204,7 @@
 
 
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Settings</span></a>
-          </li>
+
 
           <!-- Divider -->
           <hr class="sidebar-divider d-none d-md-block">
@@ -298,7 +305,7 @@
                       @if($i==5) @php break; @endphp  @endif
                       @php ++$i; @endphp
                     @endforeach
-                    <a class="dropdown-item text-center small text-gray-500" href="{{ route('admin.notifications') }}">Show All Alerts</a>
+                    <a class="dropdown-item text-center small text-gray-500" href="{{ route('admin.notifications') }}">Show all notifications</a>
                   </div>
                 </li>
 
@@ -452,13 +459,9 @@
         </div>
       </div>
 
-      <!-- Bootstrap core JavaScript-->
-      <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-      <script src="{{ asset('js/popper.js') }}"></script>
-      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
       <!-- Core plugin JavaScript-->
-      <script src="{{ asset('vendors/jquery-easing/jquery.easing.min.js') }}"></script>
+      <script src="{{ asset('js/dashboard.js') }}"></script>
 
       <!-- Datatables-->
       <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -468,10 +471,6 @@
       <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
       <!-- Custom scripts for all pages-->
-      <script src="{{ asset('js/admin.js') }}"></script>
-
-      <!-- Page level plugins -->
-      {{-- <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script> --}}
 
       <script type="text/javascript">
         $(document).ready(function() {
@@ -487,82 +486,10 @@
             $(this).parents(".control-group").remove();
           });
 
-           $.ajaxSetup({
-              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-            });
-
-          $('#order_table').DataTable( {
-              ajax: '{{route('admin.product.order.list')}}',
-              columns: [
-                  { "data": null,"sortable": false, 
-                    render: function (data, type, row, meta) {
-                      return meta.row + meta.settings._iDisplayStart + 1;
-                    }  
-                  },
-                  { data: 'order_number' },
-                  { data: 'status' },
-                  { data: 'payment_status' },
-                  { data: 'payment_method' },
-                  { data: 'name' },
-                  { data: 'order_count' },
-                  { data: 'grand_price' },
-                  { data: 'action', 'searchable': false, 'orderable': false }
-              ],
-          } );
-
-        $('#product_table').DataTable( {
-              ajax: '{{route('admin.product.list')}}',
-              columns: [
-                  { "data": null,"sortable": false, 
-                    render: function (data, type, row, meta) {
-                      return meta.row + meta.settings._iDisplayStart + 1;
-                    }  
-                  },
-                  { data: 'image' },
-                  { data: 'title' },
-                  { data: 'price' },
-                  { data: 'offer_price' },
-                  { data: 'quantity' },
-                  { data: 'action', 'searchable': false, 'orderable': false }
-              ],
-          } );        
-
-        $('#post_table').DataTable( {
-              ajax: '{{route('admin.post.list')}}',
-              columns: [
-                  { "data": null,"sortable": false, 
-                    render: function (data, type, row, meta) {
-                      return meta.row + meta.settings._iDisplayStart + 1;
-                    }  
-                  },
-                  { data: 'title' },
-                  { data: 'action', 'searchable': false, 'orderable': false }
-              ],
-          } );        
-
-        $('#comment_table').DataTable( {
-              ajax: '{{route('admin.comments.list')}}',
-              columns: [
-                  { "data": null,"sortable": false, 
-                    render: function (data, type, row, meta) {
-                      return meta.row + meta.settings._iDisplayStart + 1;
-                    }  
-                  },
-                  { data: 'author' },
-                  { data: 'content' },
-                  { data: 'restonse_to' },
-                  { data: 'date' },
-                  { data: 'action', 'searchable': false, 'orderable': false }
-              ],
-          } );
-
-
-
         });
       </script>
       <!-- Page level custom scripts -->
+      @stack('scripts')
 
 
 

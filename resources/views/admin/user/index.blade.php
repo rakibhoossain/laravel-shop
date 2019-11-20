@@ -1,24 +1,23 @@
 @extends('admin.layouts.admin')
 @section('content')
 <div class="card">
-  <h5 class="card-header">Comments</h5>
+  <h5 class="card-header">Users</h5>
   <div class="card-body">
-    @if($comment)
-      <table id="comment_table" class="table table-striped table-hover admin-table">
+    @if($users)
+      <table id="user_table" class="table table-striped table-hover admin-table">
         <thead>
           <tr>
             <th>S\N:</th>
-            <th>Author</th>
-            <th>Content</th>
-            <th>Response to</th>
-            <th>Status</th>
-            <th>Date</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Join date</th>
+            <th>Admin</th>
             <th>Action</th>
           </tr>
         </thead>
       </table>
     @else
-      <h2>Comment Empty!</h2>
+      <h2>No user found!</h2>
     @endif
   </div>
 </div>
@@ -33,21 +32,20 @@
         }
       });
 
-
-      $('#comment_table').DataTable( {
-            ajax: '{{route('admin.comments.list')}}',
+      $('#user_table').DataTable( {
+            ajax: '{{route('admin.user.list')}}',
             columns: [
                 { "data": null,"sortable": false, 
                   render: function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                   }  
                 },
-                { data: 'author' },
-                { data: 'content' },
-                { data: 'restonse_to' },
-                { data: 'status' },
-                { data: 'date' },
+                { data: 'name' },
+                { data: 'email' },
+                { data: 'created_at' },
+                { data: 'admin_status' },
                 { data: 'action', 'searchable': false, 'orderable': false }
+
             ],
         } );
 

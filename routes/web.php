@@ -22,6 +22,11 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 	
 	Route::group(['prefix' => '/'], function () {
 		Route::get('/', 'AdminController@index')->name('admin');
+		Route::get('/users', 'AdminController@users')->name('admin.user');
+		Route::get('/users-list', 'AdminController@usersList')->name('admin.user.list');
+
+
+
 		Route::get('/notification/{id}', 'ShopNotificationController@show')->name('admin.notification');
 		Route::get('/notification/delete/{id}', 'ShopNotificationController@delete')->name('admin.notification.delete');
 		Route::get('/notification/', 'ShopNotificationController@index')->name('admin.notifications');
@@ -29,6 +34,8 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 		Route::group(['prefix' => '/comments'], function () {
 			Route::get('/', 'CommentController@index')->name('admin.comments');
 			Route::get('/delete/{id}', 'CommentController@destroy')->name('admin.comments.destroy');
+			Route::get('/edit/{id}', 'CommentController@edit')->name('admin.comments.edit');
+			Route::post('/update/{id}', 'CommentController@update')->name('admin.comments.update');
 
 			Route::get('/list', 'CommentController@commentsList')->name('admin.comments.list');
 		});

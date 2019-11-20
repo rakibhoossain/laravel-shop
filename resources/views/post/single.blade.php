@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
 @if($post)
 <!--================Home Banner Area =================-->
 @include('layouts.breadcrumb', ['title' => $post->title, 'description' => 'Description'])

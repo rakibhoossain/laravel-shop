@@ -23,3 +23,33 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function() {
+     $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+      $('#product_table').DataTable( {
+            ajax: '{{route('admin.product.list')}}',
+            columns: [
+                { "data": null,"sortable": false, 
+                  render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                  }  
+                },
+                { data: 'image' },
+                { data: 'title' },
+                { data: 'price' },
+                { data: 'offer_price' },
+                { data: 'quantity' },
+                { data: 'action', 'searchable': false, 'orderable': false }
+            ],
+        } );
+
+  });
+</script>
+@endpush

@@ -88,7 +88,7 @@ class CommentController extends Controller
         ];
         Notification::send($users, new ShopNotification($details)); 
 
-        return back()->with('success','You have successfully commented.');
+        return back()->with('success','You have successfully commented. Waiting for aproval');
 
     }
 
@@ -109,9 +109,10 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(Request $request)
     {
-        //
+        $comment = Comment::find($request->id);
+        return view('admin.comment.edit')->with('comment', $comment);
     }
 
     /**
@@ -121,9 +122,52 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request)
     {
-        //
+
+        $comment = Comment::find($request->id);
+        if ($comment) {
+
+            if($comment->name){
+
+                $request->validate([
+                    'body'      =>  'required',
+                    'name'      =>  'required',
+                    'email'      =>  'required',
+                ]);
+
+            }else{
+                $request->validate([
+                    'body'      =>  'required',
+                ]);
+            }
+
+
+            $comment->body = $request->body;
+            $comment->status = $request->status;
+
+            if($comment->name){
+                $comment->name = $request->name;
+                $comment->email = $request->email;
+                $comment->website = $request->website; 
+            }
+
+            $comment->save();
+
+            $users = User::where('is_admin', 1)->get();
+            $details = [
+                'title' => 'Updated Comment!',
+                'actionURL' => route('admin.comments'),  //TODO add id
+                'fas' => 'fa-comment'
+            ];
+            Notification::send($users, new ShopNotification($details)); 
+
+            return back()->with('success','You have successfully updated commented.');
+
+        }else{
+            return back()->withError('Invalid comment.');
+        }
+
     }
 
     /**
