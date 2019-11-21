@@ -16,11 +16,11 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputPrice" class="col-form-label">Price</label>
-          <input id="inputPrice" type="number" name="price" class="form-control" placeholder="Numbers">
+          <input id="inputPrice" type="text" name="price" class="form-control" placeholder="Numbers">
         </div>
         <div class="form-group col-md-4">
           <label for="inputOfferPrice" class="col-form-label">Offer price</label>
-          <input id="inputOfferPrice" type="number" name="offer_price" class="form-control" placeholder="Numbers">
+          <input id="inputOfferPrice" type="text" name="offer_price" class="form-control" placeholder="Numbers">
         </div>
         <div class="form-group col-md-4">
           <label for="inputQuantity" class="col-form-label">Quantity</label>

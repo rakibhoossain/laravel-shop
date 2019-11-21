@@ -21,10 +21,10 @@ class BlogController extends Controller
 
     public function categoryPost(Request $request){
         $data = array(
-            'category' =>  Post_category::where('slug', $request->slug)->first()->name,
+            'title' =>  Post_category::where('slug', $request->slug)->first()->name,
             'posts' => Post_category::where('slug', $request->slug)->first()->posts()->paginate(10)
         );
-        return view('post.category')->with($data);
+        return view('post.archive')->with($data);
     }
 
 

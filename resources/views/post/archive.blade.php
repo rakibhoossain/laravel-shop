@@ -3,7 +3,7 @@
 
 @if(count($posts)>0 )
 <!--================Home Banner Area =================-->
-@include('layouts.breadcrumb', ['title' => 'Post Category: '.$category, 'description' => 'Description'])
+@include('layouts.breadcrumb', ['title' => 'Archive: '.$title, 'description' => 'Description'])
 <!--================End Home Banner Area =================-->
 
 
