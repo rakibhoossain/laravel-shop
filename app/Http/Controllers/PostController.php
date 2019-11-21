@@ -70,20 +70,13 @@ class PostController extends Controller
         }
 
         $post->save();
-
         if ($request->category) {
-            // foreach ($request->category as $category) {
-            //     $post_cat_rel = new Post_Category_Relation;
-            //     $post_cat_rel->post_id = $post->id;
-            //     $post_cat_rel->post_categories_id = $category;
-            //     $post_cat_rel->save();
-            // }
-
-            $this->insertCategory( $post, $request->category);
+            foreach ($request->category as $category) {
+                $post->categories()->attach(['post_id' => $post->id, 'post_category_id' => $category]);
+            }
         }
 
         return back()->with('success','You have successfully created a post.');
-
     }
 
     /**
@@ -129,20 +122,23 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
         $post->body = $request->body;
 
-            if ($request->hasFile('image')) {
-                $this->deletPostImage($post);
+        if ($request->hasFile('image')) {
+            $this->deletPostImage($post);
 
-                $image = $request->file('image');
-                $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
-                $location = public_path('images/post/'.$img);
-                Image::make($image)->resize(360, 431)->save($location);
-                $post->image = $img;
-            }
+            $image = $request->file('image');
+            $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
+            $location = public_path('images/post/'.$img);
+            Image::make($image)->resize(360, 431)->save($location);
+            $post->image = $img;
+        }
 
         if ($request->category) {
-            $this->deletCategory($post);
-            $this->insertCategory( $post, $request->category);
+            $post->categories()->detach(); //Delete existing category
+            foreach ($request->category as $category) {
+                $post->categories()->attach(['post_id' => $post->id, 'post_category_id' => $category]);
+            }
         }
+
         
         $post->save();
         return back()->with('success','You have successfully update a post.');
@@ -158,7 +154,8 @@ class PostController extends Controller
     {
         $post = Post::find($request->id);
         if ($post) {
-            deletPostImage($post);
+            $post->categories()->detach();
+            $this->deletPostImage($post);
             $post->delete();
             return back()->with('success','You have successfully delete a post.');  
             
@@ -173,24 +170,5 @@ class PostController extends Controller
             }
         }
     }
-
-    private function deletCategory($post){
-        $cats = Post_Category_Relation::where('post_id', $post->id)->get();
-        if( $cats ){
-            foreach ($cats as $cat) {
-                $cat->delete();
-            }
-        }
-    }
-
-    private function insertCategory( $post, $categories){
-        foreach ($categories as $category) {
-            $post_cat_rel = new Post_Category_Relation;
-            $post_cat_rel->post_id = $post->id;
-            $post_cat_rel->post_categories_id = $category;
-            $post_cat_rel->save();
-        }
-    }
-
 
 }

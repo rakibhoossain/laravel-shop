@@ -52,8 +52,8 @@ class Helper
     public static function postCategory($post)
     {
         $cat = [];
-        foreach($post->terms as $k => $term):
-            $cat[$k] = $term->category->id;
+        foreach($post->categories as $k => $category):
+            $cat[$k] = $category->id;
         endforeach;
 
         return $cat;

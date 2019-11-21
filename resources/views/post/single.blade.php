@@ -5,8 +5,7 @@
 @include('layouts.breadcrumb', ['title' => $post->title, 'description' => 'Description'])
 <!--================End Home Banner Area =================-->
 
-
-    <!--================Blog Area =================-->
+  <!--================Blog Area =================-->
   <section class="blog_area single-post-area section_gap">
       <div class="container">
           <div class="row">
@@ -23,8 +22,8 @@
 
                               <li>
                                 <i class="ti-comments"></i>
-                                @foreach($post->terms as $term)
-                                  <a href="#">{{ $term->category->name }}</a>
+                                @foreach($post->categories as $category)
+                                  <a href="{{ route('post.category', $category->slug) }}">{{ $category->name }}</a>
                                 @endforeach
                               </li>
 

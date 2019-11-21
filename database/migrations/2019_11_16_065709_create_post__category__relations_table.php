@@ -17,10 +17,10 @@ class CreatePostCategoryRelationsTable extends Migration
             $table->bigIncrements('id');
             
             $table->unsignedInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->unsignedInteger('post_category_id');
 
-            $table->unsignedInteger('post_categories_id');
-            $table->foreign('post_categories_id')->references('id')->on('post_categories')->onDelete('cascade');
+            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('post_category_id')->references('id')->on('post_categories');
 
             $table->timestamps();
         });

@@ -22,13 +22,18 @@ class Post extends Model
          return $this->hasMany(Comment::class)->where('status', '1');
     }
 
-    public function terms(){
-   		return $this->hasMany(Post_Category_Relation::class);
-   }
-
    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    //Pivot post categories
+    public function categories()
+    {
+        return $this->belongsToMany(Post_category::class, 'post__category__relations')->withTimestamps();;
+    }
+
+
+
 
 }

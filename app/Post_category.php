@@ -20,4 +20,13 @@ class Post_category extends Model
     public function parent(){
    	return $this->belongsTo(Post_category::class, 'parent_id');
    }
+
+    //Pivot post categories
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'post__category__relations')->withTimestamps();;
+    }
+
+
+
 }
