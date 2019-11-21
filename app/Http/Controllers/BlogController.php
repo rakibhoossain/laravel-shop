@@ -20,11 +20,11 @@ class BlogController extends Controller
     }
 
     public function categoryPost(Request $request){
-
-
-
-        $category = Post_category::where('slug', $request->slug)->first();
-        return view('post.category')->with('category', $category);
+        $data = array(
+            'category' =>  Post_category::where('slug', $request->slug)->first()->name,
+            'posts' => Post_category::where('slug', $request->slug)->first()->posts()->paginate(10)
+        );
+        return view('post.category')->with($data);
     }
 
 
