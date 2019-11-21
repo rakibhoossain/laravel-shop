@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use PDF;
 use App\Order;
 use App\Cart;
 use App\Payment;
@@ -23,6 +23,17 @@ class OrderController extends Controller
     {
         $order = Order::first();
         return view('admin.order.index')->with('order', $order);
+        
+    }    
+
+    public function pdf(Request $request)
+    {
+        $order = Order::find($request->id);
+        // return view('admin.order.pdf', compact('order'));
+
+        $file_name = $order->order_number.'_'.$order->first_name.'.pdf';
+        $pdf = PDF::loadView('admin.order.pdf', compact('order') );
+        return $pdf->download($file_name);
         
     }
 
@@ -161,11 +172,7 @@ class OrderController extends Controller
     public function edit(Request $request)
     {
         $order = Order::find($request->id);
-
-        $data = array(
-            'order'=>$order,
-            );
-        return view('admin.order.edit')->with($data);
+        return view('admin.order.edit')->with('order', $order);
 
     }
 

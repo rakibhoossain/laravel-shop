@@ -98,7 +98,9 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
 			Route::get('/edit/{id}', 'OrderController@edit')->name('admin.product.order.edit');
 			Route::get('/destroy/{id}', 'OrderController@destroy')->name('admin.product.order.destroy');
 
-			Route::get('/list', 'OrderController@ordersList')->name('admin.product.order.list'); 
+			Route::get('/list', 'OrderController@ordersList')->name('admin.product.order.list');
+
+			Route::get('/pdf/{id}', 'OrderController@pdf')->name('admin.product.order.pdf');
 
 		});
 

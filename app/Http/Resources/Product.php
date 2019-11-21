@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Helper;
 
 class Product extends JsonResource
 {
@@ -19,8 +20,8 @@ class Product extends JsonResource
         return [
             'image'=> "<img class='tiny-img' src='".asset('images/product/'.$this->images[0]->image)."' alt='".$this->title."'/>",
             'title' => $this->title,
-            'price' => $this->price,
-            'offer_price' => $this->offer_price,
+            'price' => $this->price.Helper::currency(),
+            'offer_price' => $this->offer_price.Helper::currency(),
             'quantity' => $this->quantity,
             'action' => "<a class='btn btn-primary' href=".route('admin.product.edit', $this->id ).">Edit</a> <a class='btn btn-danger' href='".route('admin.product.destroy',$this->id)."'>Delete</a>",
         ];

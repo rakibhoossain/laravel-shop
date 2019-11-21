@@ -23,7 +23,7 @@ class Order extends JsonResource
             'payment_method' => ucfirst($this->payment->payment_method),
             'name' => $this->user->name,
             'order_count' => Helper::orderCount($this->id, $this->user->id),
-            'grand_price' => Helper::grandPrice($this->id, $this->user->id),
+            'grand_price' => Helper::grandPrice($this->id, $this->user->id).Helper::currency(),
             'action' => "<a class='btn btn-primary' href=".route('admin.product.order.show', $this->id ).">View</a>",
         ];
     }

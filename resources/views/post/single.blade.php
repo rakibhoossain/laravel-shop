@@ -11,9 +11,11 @@
           <div class="row">
               <div class="col-lg-8 posts-list">
                   <div class="single-post">
-                          <div class="feature-img">
-                              <img class="img-fluid" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}" />
-                          </div>
+                      @if($post->image)
+                        <div class="feature-img">
+                            <img class="img-fluid" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}" />
+                        </div>
+                      @endif
                       <div class="blog_details">
                           <h2>{{$post->title}}</h2>
                           <ul class="blog-info-link mt-3 mb-4">

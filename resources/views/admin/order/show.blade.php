@@ -21,9 +21,9 @@
           <td>{{$order->status}}</td>
           <td>{{$order->payment->status}}</td>
           <td>{{Helper::orderCount($order->id, $order->user->id)}}</td>
-          <td>{{Helper::grandPrice($order->id, $order->user->id)}}</td>
+          <td>{{Helper::grandPrice($order->id, $order->user->id)}}{{Helper::currency()}}</td>
           <td>
-            <a class="btn btn-primary" href="{{ route('admin.product.order.show', $order->id )}}">View</a>
+            <a class="btn btn-primary" href="{{ route('admin.product.order.pdf', $order->id )}}">Pdf</a>
             <a class="btn btn-warning" href="{{ route('admin.product.order.edit', $order->id )}}">Edit</a>
             <a class="btn btn-danger" href="{{ route('admin.product.order.destroy', $order->id )}}">Delete</a>
           </td>
@@ -131,35 +131,37 @@
               <table class="table table-borderless">
                 <thead>
                   <tr>
-                    <th scope="col" colspan="2">Product</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Total</th>
+                    <th scope="col" class="col-6">Product</th>
+                    <th scope="col" class="col-3">Quantity</th>
+                    <th scope="col" class="col-3">Total</th>
                   </tr>
                 </thead>
                 <tbody>
 
                 @foreach($order->cart as $cart)
                   <tr>
-                    <td colspan="2"><span>{{$cart->product->title}}</span></td>
+                    <td><span>{{$cart->product->title}}</span></td>
                     <td>x{{$cart->quantity}}</td>
-                    <td><span>{{$cart->price}}</span></td>
+                    <td><span>{{$cart->price}}{{Helper::currency()}}</span></td>
                   </tr>
                 @endforeach
 
                   <tr>
-                    <th colspan="3">Subtotal</th>
-                    <th> <span>{{Helper::orderPrice($order->id, $order->user->id)}}</span></th>
+                    <th></th>
+                    <th>Subtotal</th>
+                    <th><span>{{Helper::orderPrice($order->id, $order->user->id)}}{{Helper::currency()}}</span></th>
                   </tr>
                   <tr>
-                    <th colspan="3">shipping</th>
-                    <th><span>{{$order->shipping->type}} rate: {{$order->shipping->price}}</span></th>
+                    <th></th>
+                    <th>Shipping</th>
+                    <th>{{$order->shipping->price}}{{Helper::currency()}}</span></th>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th scope="col" colspan="2">Quantity:</th>
-                    <th scope="col">x{{ Helper::orderCount($order->id, $order->user->id)}}</th>
-                    <th scope="col">Total: {{ Helper::grandPrice($order->id, $order->user->id)}}</th>
+                    <th></th>
+                    <th scope="col">Total:</th>
+                    <th scope="col">{{ Helper::grandPrice($order->id, $order->user->id)}}{{Helper::currency()}}</th>
                   </tr>
                 </tfoot>
               </table>

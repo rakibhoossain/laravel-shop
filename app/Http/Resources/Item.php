@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Helper;
 
 class Item extends JsonResource
 {
@@ -19,8 +20,8 @@ class Item extends JsonResource
             'title'=> $this->title,
             'slug' => $this->slug,
 
-            'offer_price' => $this->offer_price,
-            'price' =>  $this->price,            
+            'offer_price' => $this->offer_price.Helper::currency(),
+            'price' =>  $this->price.Helper::currency(),           
 
             'category' => $this->category->name,
             'brand' =>  $this->brand->name,
