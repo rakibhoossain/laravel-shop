@@ -486,6 +486,14 @@
             $(this).parents(".control-group").remove();
           });
 
+          $("body").on("click","#image_preview .delete_image",function(){ 
+            const id = $(this).data('id');
+            const html = '<input type="hidden" class="d-none" name="imageID[]" value="'+id+'">';
+            $("#imageuUpload").after(html);
+            $(this).parent('.image-p').remove();
+
+          });
+
         });
       </script>
       <!-- Page level custom scripts -->

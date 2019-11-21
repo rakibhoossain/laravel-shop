@@ -48,3 +48,26 @@
     }  
   }
 }
+
+#image_preview {
+  margin-bottom: 0.5rem;
+  .image-p {
+    display: inline-block;
+    margin: 0.2rem;
+    position: relative;
+    .delete_image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 11;
+      font-weight: bold;
+      color: #f6c23e;
+      font-size: 23px;
+      cursor: pointer;
+      &:hover {
+        color: #c32929;
+      }
+    }
+  }  
+}
+

@@ -108,9 +108,10 @@ class ProductController extends Controller
 
         if ($product) {
             $this->saveProduct($product, $request);
-
+            if ($request->imageID) {
+                $this->deletOldProductImage($request->imageID);
+            }
             if ($request->hasFile('image')) {
-                $this->deletProductImage($product);
                 $this->saveProductImage( $request->file('image'), $product);
             }
         }
@@ -148,6 +149,22 @@ class ProductController extends Controller
         }
 
     }
+
+    private function deletOldProductImage($imageID){
+        foreach ($imageID as $id) {
+            $image = ProductImage::find($id);
+
+            if ($image) {
+               $image->delete();
+                $imgDestroy = public_path('images/product/'.$image->image);
+                if ( file_exists($imgDestroy)  ) {
+                    unlink($imgDestroy);
+                }
+            }
+        }
+    }
+
+
 
     private function saveProductImage($files, $product){
         foreach( $files as $image){

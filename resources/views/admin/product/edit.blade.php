@@ -73,13 +73,14 @@
           </div>
         </div>
 
+        <div id="image_preview">
         @foreach($product->images as $image)
-          <label>
-            <img class="rounded float-left" src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" width="200" height="200"/>
-            <input type="file" class="d-none" name="image[]">
-          </label>
-          <input type="hidden" class="d-none" name="imageID[]" value="{{$image->id}}">
+          <div class="image-p">
+            <img class="rounded" src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" width="200" height="200"/>
+            <span class="delete_image" data-id="{{$image->id}}"><i class="fas fa-trash"></i></span>
+          </div>
         @endforeach
+        </div>
 
       <div class="form-group mb-3">
         <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Update</button>
