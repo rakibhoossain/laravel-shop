@@ -71,10 +71,16 @@ class PostController extends Controller
 
         $post->save();
 
-        $post_cat_rel = new Post_Category_Relation;
-        $post_cat_rel->post_id = $post->id;
-        $post_cat_rel->post_categories_id = $request->category;
-        $post_cat_rel->save();
+        if ($request->category) {
+            // foreach ($request->category as $category) {
+            //     $post_cat_rel = new Post_Category_Relation;
+            //     $post_cat_rel->post_id = $post->id;
+            //     $post_cat_rel->post_categories_id = $category;
+            //     $post_cat_rel->save();
+            // }
+
+            $this->insertCategory( $post, $request->category);
+        }
 
         return back()->with('success','You have successfully created a post.');
 
@@ -133,10 +139,11 @@ class PostController extends Controller
                 $post->image = $img;
             }
 
-
-
-
-
+        if ($request->category) {
+            $this->deletCategory($post);
+            $this->insertCategory( $post, $request->category);
+        }
+        
         $post->save();
         return back()->with('success','You have successfully update a post.');
     }
@@ -166,5 +173,24 @@ class PostController extends Controller
             }
         }
     }
+
+    private function deletCategory($post){
+        $cats = Post_Category_Relation::where('post_id', $post->id)->get();
+        if( $cats ){
+            foreach ($cats as $cat) {
+                $cat->delete();
+            }
+        }
+    }
+
+    private function insertCategory( $post, $categories){
+        foreach ($categories as $category) {
+            $post_cat_rel = new Post_Category_Relation;
+            $post_cat_rel->post_id = $post->id;
+            $post_cat_rel->post_categories_id = $category;
+            $post_cat_rel->save();
+        }
+    }
+
 
 }

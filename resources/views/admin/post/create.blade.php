@@ -17,8 +17,8 @@
       <div class="form-row">
         {{-- multiple korte hobe --}}
         <div class="form-group col-md-4">
-          <select class="form-control" name="category">
-            <option value="">Post category</option>
+          <select class="form-control chosen-select" name="category[]" multiple>
+            <option value="" disabled>Post category</option>
             @foreach(Helper::postCategoryList() as $cat)
               <option value="{{$cat->id}}">{{$cat->name}}</option>
             @endforeach

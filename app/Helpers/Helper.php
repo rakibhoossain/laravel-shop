@@ -49,6 +49,16 @@ class Helper
     
     }
 
+    public static function postCategory($post)
+    {
+        $cat = [];
+        foreach($post->terms as $k => $term):
+            $cat[$k] = $term->category->id;
+        endforeach;
+
+        return $cat;
+    }
+
     // public static function postCommentTotal($post)
     // {
     //     return Post_category::orderBy('id', 'desc')->get();

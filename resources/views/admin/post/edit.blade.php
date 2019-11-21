@@ -19,26 +19,20 @@
  {{-- @if($category->parent_id == $cat->id) selected @endif  --}}
 
 
-@foreach($post->terms as $term)
-
-    {{var_dump($term->category->name)}}
-{{-- $values != "" && $values .= ","; --}}
-
-@endforeach
-
 
 
 
       <div class="form-row">
         {{-- multiple korte hobe --}}
         <div class="form-group col-md-4">
-          <select class="form-control" name="category">
-            <option value="">Post category</option>
+          <select class="form-control chosen-select" name="category[]" multiple>
+            <option value="" disabled>Post category</option>
             @foreach(Helper::postCategoryList() as $cat)
-              <option value="{{$cat->id}}">{{$cat->name}}</option>
+              <option value="{{$cat->id}}" @if( in_array( $cat->id, Helper::postCategory($post) ) ) selected @endif>{{$cat->name}}</option>
             @endforeach
           </select>
         </div>
+
         <div class="form-group col-md-4">
 
         <div class="custom-file mb-3">

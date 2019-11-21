@@ -19,6 +19,7 @@
 
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- Custom styles for this template-->
+  <link href="{{ asset('css/chosen.css') }}" rel="stylesheet">
   <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
 </head>
@@ -462,6 +463,7 @@
 
       <!-- Core plugin JavaScript-->
       <script src="{{ asset('js/dashboard.js') }}"></script>
+      <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
 
       <!-- Datatables-->
       <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -493,6 +495,21 @@
             $(this).parent('.image-p').remove();
 
           });
+
+
+
+      $('.chosen-select').chosen({
+        disable_search_threshold: 10,
+        no_results_text: "Oops, nothing found!",
+        width: "100%"
+     });
+      $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+
+
+
+
+
 
         });
       </script>
