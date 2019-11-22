@@ -61,12 +61,7 @@ class PostController extends Controller
         $post->user_id = auth()->user()->id;
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
-            $location = public_path('images/post/'.$img);
-
-            Image::make($image)->resize(360, 431)->save($location);
-            $post->image = $img;
+            $post->image = $this->savePostImage($post, $request);
         }
 
         $post->save();
@@ -124,12 +119,7 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             $this->deletPostImage($post);
-
-            $image = $request->file('image');
-            $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
-            $location = public_path('images/post/'.$img);
-            Image::make($image)->resize(360, 431)->save($location);
-            $post->image = $img;
+            $post->image = $this->savePostImage($post, $request);
         }
 
         if ($request->category) {
@@ -138,7 +128,6 @@ class PostController extends Controller
                 $post->categories()->attach(['post_id' => $post->id, 'post_category_id' => $category]);
             }
         }
-
         
         $post->save();
         return back()->with('success','You have successfully update a post.');
@@ -171,4 +160,11 @@ class PostController extends Controller
         }
     }
 
+    private function savePostImage($post, $request){
+        $image = $request->file('image');
+        $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
+        $location = public_path('images/post/'.$img);
+        Image::make($image)->resize(360, 431)->save($location);
+        return $img;
+    }
 }
