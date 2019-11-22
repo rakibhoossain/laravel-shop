@@ -32,7 +32,7 @@
                             {{Str::words(strip_tags($post->body),16)}}
                           </p>
                           <ul class="blog-info-link">
-                              <li><a href="{{route('post.single', $post->slug)}}"><i class="ti-user"></i> {{$post->user->name}}</a></li>
+                              <li><a href="{{route('post.user', $post->user->id)}}"><i class="ti-user"></i> {{$post->user->name}}</a></li>
                               <li><a href="{{route('post.single', $post->slug)}}#comments-area"><i class="ti-comments"></i> {{count($post->allComments)}} Comments</a></li>
                           </ul>
                         </div>

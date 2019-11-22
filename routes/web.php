@@ -165,6 +165,8 @@ Route::group(['prefix' => '/shop'], function () {
 Route::group(['prefix' => '/post'], function () {
 	Route::get('/', 'BlogController@index')->name('post');
 	Route::get('/category/{slug}', 'BlogController@categoryPost')->name('post.category');
+	Route::get('/user/{id}', 'BlogController@userPost')->name('post.user');
+
 	Route::get('/{slug}', 'BlogController@show')->name('post.single');
 
 	Route::post('/comment', 'CommentController@store')->name('comments.store');

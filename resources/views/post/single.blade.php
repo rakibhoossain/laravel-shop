@@ -19,7 +19,7 @@
                       <div class="blog_details">
                           <h2>{{$post->title}}</h2>
                           <ul class="blog-info-link mt-3 mb-4">
-                              <li><a href="#"><i class="ti-user"></i>{{$post->user->name}}</a></li>
+                              <li><a href="{{route('post.user', $post->user->id)}}"><i class="ti-user"></i>{{$post->user->name}}</a></li>
                               <li><a href="{{route('post.single', $post->slug)}}#comments-area"><i class="ti-comments"></i> {{count($post->allComments)}} Comments</a></li>
 
                               <li>
@@ -50,40 +50,44 @@
                     <div class="navigation-area">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                              @if($previous)  
                                 <div class="thumb">
-                                    <a href="#">
+                                    <a href="{{route('post.single', $previous->slug)}}">
                                         <img class="img-fluid" src="{{asset('img/blog/prev.jpg')}}" alt="">
                                     </a>
                                 </div>
                                 <div class="arrow">
-                                    <a href="#">
+                                    <a href="{{route('post.single', $previous->slug)}}">
                                         <span class="ti-arrow-left text-white"></span>
                                     </a>
                                 </div>
                                 <div class="detials">
                                     <p>Prev Post</p>
-                                    <a href="#">
-                                        <h4>Space The Final Frontier</h4>
+                                    <a href="{{route('post.single', $previous->slug)}}">
+                                        <h4>{{$previous->title}}</h4>
                                     </a>
                                 </div>
+                              @endif  
                             </div>
                             <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                               @if($next)
                                 <div class="detials">
                                     <p>Next Post</p>
-                                    <a href="#">
-                                        <h4>Telescopes 101</h4>
+                                    <a href="{{route('post.single', $next->slug)}}">
+                                        <h4>{{$next->title}}</h4>
                                     </a>
                                 </div>
                                 <div class="arrow">
-                                    <a href="#">
+                                    <a href="{{route('post.single', $next->slug)}}">
                                         <span class="ti-arrow-right text-white"></span>
                                     </a>
                                 </div>
                                 <div class="thumb">
-                                    <a href="#">
+                                    <a href="{{route('post.single', $next->slug)}}">
                                         <img class="img-fluid" src="{{asset('img/blog/next.jpg')}}" alt="">
                                     </a>
                                 </div>
+                              @endif
                             </div>
                         </div>
                     </div>

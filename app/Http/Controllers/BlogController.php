@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Post_category;
+use App\User;
 
 class BlogController extends Controller
 {
@@ -27,17 +28,26 @@ class BlogController extends Controller
         return view('post.archive')->with($data);
     }
 
-    // public function datePost(Request $request){
-    //     $data = array(
-    //         'title' =>  Post_category::where('slug', $request->slug)->first()->name,
-    //         'posts' => $posts = Post::orderBy('id', 'desc')->paginate(10);
-    //     );
-    //     return view('post.archive')->with($data);
-    // }
+    public function userPost(Request $request){
+        $data = array(
+            'title' => User::find($request->id)->name,
+            'posts' => User::find($request->id)->posts()->paginate(10)
+        );
+        return view('post.archive')->with($data);
+    }
 
     public function show(Request $request){
         $post = Post::where('slug', $request->slug)->first();
-    	return view('post.single')->with('post', $post);
+        $previous = Post::where('id', '<', $post->id)->orderBy('id','desc')->first();
+        $next = Post::where('id', '>', $post->id)->orderBy('id')->first();
+        
+        $data = array(
+            'post' => $post,
+            'previous' => $previous,
+            'next' => $next
+        );
+
+    	return view('post.single')->with($data);
     }
 
 }

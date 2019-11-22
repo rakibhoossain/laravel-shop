@@ -557,7 +557,7 @@
           </div>
           <div class="short_details">
             <div class="meta-top d-flex">
-              <a href="#">By {{$post->user->name}}</a>
+              <a href="{{route('post.user', $post->user->id)}}">By {{$post->user->name}}</a>
               <a href="{{route('post.single', $post->slug)}}#comments-area"><i class="ti-comments-smiley"></i>{{count($post->allComments)}} Comments</a>
             </div>
             <a class="d-block" href="{{route('post.single', $post->slug)}}">
