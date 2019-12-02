@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class ShopNotification extends Notification
 {
@@ -30,7 +31,7 @@ class ShopNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','mail','broadcast'];
     }
 
     /**
@@ -39,13 +40,13 @@ class ShopNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    // public function toMail($notifiable)
-    // {
-    //     return (new MailMessage)
-    //                 ->line('The introduction to the notification.')
-    //                 ->action('Notification Action', url('/'))
-    //                 ->line('Thank you for using our application!');
-    // }
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
+    }
 
     /**
      * Get the array representation of the notification.
@@ -75,6 +76,22 @@ class ShopNotification extends Notification
             'fas' => $this->details['fas']
         ];
     }
+
+    /**
+     * Get the broadcastable representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return BroadcastMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => $this->details['title'],
+            'actionURL' => $this->details['actionURL'],
+            'fas' => $this->details['fas']
+        ]);
+    }
+
 
 
 }
