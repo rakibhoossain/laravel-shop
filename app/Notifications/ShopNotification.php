@@ -88,7 +88,9 @@ class ShopNotification extends Notification
         return new BroadcastMessage([
             'title' => $this->details['title'],
             'actionURL' => $this->details['actionURL'],
-            'fas' => $this->details['fas']
+            'url' => route('admin.notification', $this->id),
+            'fas' => $this->details['fas'],
+            'time' => date('F d, Y h:i A')
         ]);
     }
 
