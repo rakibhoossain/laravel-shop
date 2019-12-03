@@ -34,11 +34,7 @@
 
 <body>
   <!--================Header Menu Area =================-->
-  @if (session('status'))
-  <div class="alert alert-success" role="alert">
-    {{ session('status') }}
-  </div>
-  @endif
+  @include('admin.partials.alert')
 <div id="app">
   <header class="header_area">
     <div class="top_menu">
@@ -201,33 +197,6 @@
 </div>
 </header>
 <!--================Header Menu Area =================-->
-<div class="section-block">
-  @if ($message = Session::get('success'))
-  <div class="alert alert-success alert-block">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>{{ $message }}</strong>
-  </div>
-  @endif
-
-  @if (count($errors) > 0)
-      <div class="alert alert-danger alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <ul>
-              @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-              @endforeach
-          </ul>
-      </div>
-  @endif
-</div>
-
-
-
-
-
-
-
-
 @yield('content')
 
 <!--================ start footer Area  =================-->

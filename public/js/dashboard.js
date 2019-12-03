@@ -46995,7 +46995,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "e6f71612e93a54fcc140",
   cluster: "ap1",
-  authEndpoint : 'http://localhost/laravel/public/broadcasting/auth',
+  authEndpoint: 'http://localhost/laravel/public/broadcasting/auth',
   encrypted: true
 });
 

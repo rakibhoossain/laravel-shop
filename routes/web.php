@@ -17,7 +17,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 
 //Admin
-Route::group(['prefix' => '/admin','middleware' => ['is_admin']], function () {
+Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], function () {
 	
 	Route::group(['prefix' => '/'], function () {
 		Route::get('/', 'AdminController@index')->name('admin');
@@ -136,7 +136,7 @@ Route::group(['prefix' => '/shop'], function () {
 
 	Route::get('/search', 'ShopController@search')->name('shop.search');
 
-	Route::group(['prefix' => '/cart', 'middleware' => ['auth']], function () {
+	Route::group(['prefix' => '/cart', 'middleware' => ['auth','verified']], function () {
 		Route::get('/', 'CartController@index')->name('cart')->middleware('cart_empty');
 		Route::get('/product/{slug}', 'CartController@addTo')->name('cart.add');
 		Route::post('/product', 'CartController@singleToAdd')->name('cart.singleToAdd');
@@ -150,7 +150,7 @@ Route::group(['prefix' => '/shop'], function () {
 		Route::post('/order', 'OrderController@store')->name('cart.order');
 	});
 
-	Route::group(['prefix' => '/account', 'middleware' => ['auth']], function () {
+	Route::group(['prefix' => '/account', 'middleware' => ['auth','verified']], function () {
 		Route::get('/', 'AccountController@index')->name('account');
 		Route::get('/order', 'AccountController@order')->name('account.order');
 		Route::get('/order/view/{id}', 'AccountController@orderView')->name('account.order.view');
