@@ -12,7 +12,7 @@
       </div>
       <div class="form-group">
         <label for="inputDescription">Description</label>
-        <textarea class="form-control rich-editor" id="inputBody" name="body" rows="3">{{$post->body}}</textarea>
+        <textarea class="form-control rich-editor" id="inputBody" name="body" rows="7">{{$post->body}}</textarea>
       </div>
 
 

@@ -11,7 +11,7 @@
       </div>
       <div class="form-group">
         <label for="inputDescription">Body</label>
-        <textarea class="form-control rich-editor" id="inputBody" name="body" rows="3"></textarea>
+        <textarea class="form-control rich-editor" id="inputBody" name="body" rows="7"></textarea>
       </div>
 
       <div class="form-row">

@@ -27,6 +27,7 @@
   @if(!auth()->guest())
       <script>
           window.userId = {{auth()->user()->id}};
+          window.baseURL = '{{url('/')}}';
       </script>
   @endif
 

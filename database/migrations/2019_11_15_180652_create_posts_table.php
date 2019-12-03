@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->enum('status', ['publish', 'draft', 'trash'])->default('draft');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            
             $table->timestamps();
         });
     }
