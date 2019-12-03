@@ -58,22 +58,6 @@ class OrderController extends Controller
 
     public function ordersTrackIndex()
     {   
-
-
-
-        $users = User::where('is_admin', 1)->get();
-        $details = [
-            'title' => 'New order created!',
-            'actionURL' => route('admin'),
-            'fas' => 'fa-file-alt'
-        ];
-        Notification::send($users, new ShopNotification($details));
-
-
-
-
-
-
         return view('shop.track');
     }
 

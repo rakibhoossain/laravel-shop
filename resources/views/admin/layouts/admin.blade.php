@@ -286,38 +286,8 @@
                 </li>
 
                 <!-- Nav Item - Alerts -->
-                <li class="nav-item dropdown no-arrow mx-1" id="notifications">
-                  <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <!-- Counter - Alerts -->
-                    <span class="badge badge-danger badge-counter">
-                      @if( count(Auth::user()->unreadNotifications) > 5) <span data-count="5" class="count">5+</span> @else <span class="count" data-count="{{count(Auth::user()->unreadNotifications)}}">{{count(Auth::user()->unreadNotifications)}}</span> @endif
-                    </span>
-                  </a>
-                  <!-- Dropdown - Alerts -->
-                  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" id="notification-items" aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header" id="notification_header">Notifications</h6>
-
-
-
-                    @php $i = 1; @endphp
-                    @foreach ( Auth::user()->unreadNotifications as $notification)
-                      <a class="dropdown-item d-flex align-items-center notification-item" href="{{ route('admin.notification', $notification->id) }}">
-                        <div class="mr-3">
-                          <div class="icon-circle bg-primary">
-                            <i class="fas {{$notification->data['fas']}} text-white"></i>
-                          </div>
-                        </div>
-                        <div>
-                          <div class="small text-gray-500">{{$notification->created_at->format('F d, Y h:i A')}}</div>
-                          <span class="@if($notification->unread()) font-weight-bold @else small text-gray-500 @endif">{{$notification->data['title']}}</span>
-                        </div>
-                      </a>
-                      @if($i==5) @php break; @endphp  @endif
-                      @php ++$i; @endphp
-                    @endforeach
-                    <a class="dropdown-item text-center small text-gray-500" href="{{ route('admin.notifications') }}">Show all notifications</a>
-                  </div>
+                <li class="nav-item dropdown no-arrow mx-1">
+                  @include('admin.partials.notification')
                 </li>
 
                 <!-- Nav Item - Messages -->
@@ -519,6 +489,13 @@
           Echo.private(`App.User.${userId}`)
             .notification((notification) => {
 
+            const container = $('#notification-items');
+            const counter_area = $('#notifications .count');
+            
+            const counter = parseInt( $(counter_area).attr('data-count') ) + 1;
+            const length = parseInt( $('#notification-items>.dropdown-item').length );
+            $(counter_area).attr('data-count', counter);
+
               const data = `
                 <a class="dropdown-item d-flex align-items-center notification-item" href="${notification.url}">
                   <div class="mr-3">
@@ -532,21 +509,16 @@
                   </div>
                 </a>
               `;
-              $('#notification_header').after(data);
+              
+              $(container).prepend(data);
 
-              let count = parseInt( $('#notifications .count').data('count') );
-              let length = $('#notification-items>.dropdown-item').length;
-
-              if(count<5){
-                let items = parseInt(count+1);
-                $('#notifications .count').attr('data-count', items );
-                $('#notifications .count').text( items );
+              if(counter<=5){
+                $(counter_area).text( counter );
               }else{ 
-                $('#notifications .count').attr('data-count', 5);
-                $('#notifications .count').text('5+');
+                $(counter_area).text('5+');
               };
-              if(length>=5) $('#notification-items>.notification-item').last().remove();
 
+              if(length>=5) $(container).find('.notification-item').last().remove();
             });
           }
 

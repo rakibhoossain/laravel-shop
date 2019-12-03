@@ -10,9 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
 
-
-Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -193,4 +192,3 @@ Route::group(['prefix' => '/post'], function () {
 
 Route::get('uploadfile','HomeController@uploadFile');
 Route::post('uploadfile','HomeController@uploadFilePost');
-
