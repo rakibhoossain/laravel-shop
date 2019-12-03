@@ -154,17 +154,24 @@ class PostController extends Controller
     private function deletPostImage($post){
         if( $post->image ){
             $imgDestroy = public_path('images/post/'.$post->image);
-            if ( file_exists($imgDestroy)  ) {
-                unlink($imgDestroy);
-            }
+            $imgDestroy_sm = public_path('images/post/small/'.$post->image);
+            $imgDestroy_thumb = public_path('images/post/thumb/'.$post->image);
+
+            if ( file_exists($imgDestroy) ) unlink($imgDestroy);
+            if ( file_exists($imgDestroy_sm) ) unlink($imgDestroy_sm);
+            if ( file_exists($imgDestroy_thumb) ) unlink($imgDestroy_thumb);
         }
     }
 
     private function savePostImage($post, $request){
         $image = $request->file('image');
         $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
+        $location_sm = public_path('images/post/small/'.$img);
+        $location_thumb = public_path('images/post/thumb/'.$img);
         $location = public_path('images/post/'.$img);
-        Image::make($image)->resize(360, 431)->save($location);
+        Image::make($image)->resize(89, 89)->save($location_sm);
+        Image::make($image)->resize(360, 250)->save($location_thumb);
+        Image::make($image)->save($location);
         return $img;
     }
 }

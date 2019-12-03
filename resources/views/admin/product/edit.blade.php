@@ -76,7 +76,7 @@
         <div id="image_preview">
         @foreach($product->images as $image)
           <div class="image-p">
-            <img class="rounded" src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" width="200" height="200"/>
+            <img class="rounded" src="{{asset('images/product/thumb/'.$image->image)}}" alt="{{$product->title}}" width="200" height="200"/>
             <span class="delete_image" data-id="{{$image->id}}"><i class="fas fa-trash"></i></span>
           </div>
         @endforeach

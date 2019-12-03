@@ -8,6 +8,8 @@ use App\Brand;
 use App\Cart;
 use App\Order;
 use App\Shipping;
+use App\Post;
+use App\Product;
 use Auth;
 class Helper
 {
@@ -58,6 +60,20 @@ class Helper
 
         return $cat;
     }
+
+    public static function recentPost()
+    {
+        return Post::orderBy('id', 'desc')->limit(3)->get();
+    }
+
+    public static function recentProduct()
+    {
+        return Product::orderBy('id', 'desc')->limit(4)->get();
+    }
+    public static function inspireProduct()
+    {
+        return Product::orderBy('id', 'desc')->limit(8)->get();
+    }    
 
     // public static function postCommentTotal($post)
     // {

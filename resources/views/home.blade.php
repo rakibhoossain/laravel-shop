@@ -82,7 +82,7 @@
 
     <div class="row">
       @foreach($products as $product)
-        @include('layouts.product', ['product' => $product])
+        @include('layouts.product', ['product' => $product, 'size' => 'thumb', 'col' => 4])
       @endforeach
     </div>
   </div>
@@ -133,117 +133,9 @@
 
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="single-product">
-              <div class="product-img">
-                <img class="img-fluid w-100" src="img/product/new-product/n1.jpg" alt="" />
-                <div class="p_icon">
-                  <a href="#">
-                    <i class="ti-eye"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-heart"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="product-btm">
-                <a href="#" class="d-block">
-                  <h4>Nike latest sneaker</h4>
-                </a>
-                <div class="mt-3">
-                  <span class="mr-4">$25.00</span>
-                  <del>$35.00</del>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <div class="single-product">
-              <div class="product-img">
-                <img class="img-fluid w-100" src="img/product/new-product/n2.jpg" alt="" />
-                <div class="p_icon">
-                  <a href="#">
-                    <i class="ti-eye"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-heart"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="product-btm">
-                <a href="#" class="d-block">
-                  <h4>Men’s denim jeans</h4>
-                </a>
-                <div class="mt-3">
-                  <span class="mr-4">$25.00</span>
-                  <del>$35.00</del>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <div class="single-product">
-              <div class="product-img">
-                <img class="img-fluid w-100" src="img/product/new-product/n3.jpg" alt="" />
-                <div class="p_icon">
-                  <a href="#">
-                    <i class="ti-eye"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-heart"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="product-btm">
-                <a href="#" class="d-block">
-                  <h4>quartz hand watch</h4>
-                </a>
-                <div class="mt-3">
-                  <span class="mr-4">$25.00</span>
-                  <del>$35.00</del>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <div class="single-product">
-              <div class="product-img">
-                <img class="img-fluid w-100" src="img/product/new-product/n4.jpg" alt="" />
-                <div class="p_icon">
-                  <a href="#">
-                    <i class="ti-eye"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-heart"></i>
-                  </a>
-                  <a href="#">
-                    <i class="ti-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="product-btm">
-                <a href="#" class="d-block">
-                  <h4>adidas sport shoe</h4>
-                </a>
-                <div class="mt-3">
-                  <span class="mr-4">$25.00</span>
-                  <del>$35.00</del>
-                </div>
-              </div>
-            </div>
-          </div>
+          @foreach(Helper::recentProduct() as $product)
+            @include('layouts.product', ['product' => $product, 'size' => 'medium', 'col' => 6])
+          @endforeach
         </div>
       </div>
     </div>
@@ -264,229 +156,9 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i1.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i2.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i3.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i4.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i5.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i6.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i7.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            <img class="img-fluid w-100" src="img/product/inspired-product/i8.jpg" alt="" />
-            <div class="p_icon">
-              <a href="#">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="#">
-                <i class="ti-heart"></i>
-              </a>
-              <a href="#">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="#" class="d-block">
-              <h4>Latest men’s sneaker</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">$25.00</span>
-              <del>$35.00</del>
-            </div>
-          </div>
-        </div>
-      </div>
+      @foreach(Helper::inspireProduct() as $product)
+        @include('layouts.product', ['product' => $product, 'size' => 'medium', 'col' => 3])
+      @endforeach
     </div>
   </div>
 </section>
@@ -505,54 +177,12 @@
     </div>
 
     <div class="row">
-
-
-
-
-{{--     <div class="row">
-      @foreach($products as $product)
-      <div class="col-lg-4 col-md-6">
-        <div class="single-product">
-          <div class="product-img">
-            @if($product->images)
-            <img class="img-fluid w-100" src="{{asset('images/product/'.$product->images[0]->image)}}" alt="{{$product->title}}" />
-            @endif
-            <div class="p_icon">
-              <a href="{{route('shop.single', $product->slug)}}">
-                <i class="ti-eye"></i>
-              </a>
-              <a href="{{route('cart.add', $product->slug)}}">
-                <i class="ti-shopping-cart"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product-btm">
-            <a href="{{route('shop.single', $product->slug)}}" class="d-block">
-              <h4>{{$product->title}}</h4>
-            </a>
-            <div class="mt-3">
-              <span class="mr-4">${{$product->offer_price}}</span>
-              <del>${{$product->price}}</del>
-            </div>
-          </div>
-        </div>
-      </div>
-      @endforeach
-    </div> --}}
-
-
-
-
-
-
-
-
       @foreach($posts as $post)
       <div class="col-lg-4 col-md-6">
         <div class="single-blog">
           <div class="thumb">
             @if($post->image)
-              <img class="img-fluid" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}">
+              <img class="img-fluid" src="{{asset('images/post/thumb/'.$post->image)}}" alt="{{$post->title}}">
             @endif
           </div>
           <div class="short_details">
@@ -571,9 +201,6 @@
         </div>
       </div>
       @endforeach
-
-
-      
     </div>
   </div>
 </section>

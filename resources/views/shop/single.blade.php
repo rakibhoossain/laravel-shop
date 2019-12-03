@@ -21,7 +21,7 @@
                 <ol class="carousel-indicators">
                 @foreach($product->images as $image)
                   <li data-target="#carouselExampleIndicators" data-slide-to="{{$loop->index}}" @if($loop->index == 0) class="active" @endif>
-                    <img src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" width="60" height="60" />
+                    <img src="{{asset('images/product/small/'.$image->image)}}" alt="{{$product->title}}" width="60" height="60" />
                   </li>
                 @endforeach
                 </ol>

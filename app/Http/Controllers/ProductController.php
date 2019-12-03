@@ -156,10 +156,16 @@ class ProductController extends Controller
 
             if ($image) {
                $image->delete();
+                
+                $imgDestroy_sm = public_path('images/product/small/'.$image->image);
+                $imgDestroy_m = public_path('images/product/medium/'.$image->image);
+                $imgDestroy_thumb = public_path('images/product/thumb/'.$image->image);
                 $imgDestroy = public_path('images/product/'.$image->image);
-                if ( file_exists($imgDestroy)  ) {
-                    unlink($imgDestroy);
-                }
+
+                if ( file_exists($imgDestroy) ) unlink($imgDestroy);
+                if ( file_exists($imgDestroy_sm) ) unlink($imgDestroy_sm);
+                if ( file_exists($imgDestroy_thumb) ) unlink($imgDestroy_thumb);
+                if ( file_exists($imgDestroy_lg) ) unlink($imgDestroy_lg);
             }
         }
     }
@@ -169,9 +175,16 @@ class ProductController extends Controller
     private function saveProductImage($files, $product){
         foreach( $files as $image){
             $img = md5( $image->getClientOriginalName(). microtime() ).'.'.$image->getClientOriginalExtension();
+            $location_sm = public_path('images/product/small/'.$img);
+            $location_m = public_path('images/product/medium/'.$img);
+            $location_thumb = public_path('images/product/thumb/'.$img);
             $location = public_path('images/product/'.$img);
-            Image::make($image)->resize(360, 431)->save($location);
-            
+
+            Image::make($image)->resize(89, 89)->save($location_sm);
+            Image::make($image)->resize(262, 261)->save($location_m);
+            Image::make($image)->resize(360, 431)->save($location_thumb);
+            Image::make($image)->resize(555, 600)->save($location);
+
             $productImage = new ProductImage;
             $productImage->product_id = $product->id;
             $productImage->image = $img;

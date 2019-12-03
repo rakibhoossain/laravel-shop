@@ -1,8 +1,8 @@
-<div class="col-lg-4 col-md-6">
+<div class="col-lg-{{$col}} col-md-6">
   <div class="single-product">
     <div class="product-img">
       @if($product->images)
-      <img class="img-fluid w-100" src="{{asset('images/product/'.$product->images[0]->image)}}" alt="{{$product->title}}" />
+      <img class="img-fluid w-100" src="{{asset('images/product/'.$size.'/'.$product->images[0]->image)}}" alt="{{$product->title}}" />
       @endif
       <div class="p_icon">
         <a href="{{route('shop.single', $product->slug)}}">

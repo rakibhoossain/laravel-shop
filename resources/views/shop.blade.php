@@ -30,7 +30,7 @@
           <div class="row">
     
           @foreach($products as $product)
-            @include('layouts.product', ['product' => $product])
+            @include('layouts.product', ['product' => $product, 'size' => 'medium', 'col' => 4])
           @endforeach
           </div>
 

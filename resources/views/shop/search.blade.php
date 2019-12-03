@@ -37,7 +37,7 @@
                   @php $i = 1; @endphp
                   @foreach($product->images as $image)
                     @if($i>0)
-                      <img class="card-img" src="{{asset('images/product/'.$image->image)}}" alt="{{$product->title}}" />
+                      <img class="card-img" src="{{asset('images/product/thumb/'.$image->image)}}" alt="{{$product->title}}" />
                     @endif
                    @php --$i; @endphp
                   @endforeach

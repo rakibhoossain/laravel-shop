@@ -18,7 +18,7 @@
                     <article class="blog_item">
                         <div class="blog_item_img">
                             @if($post->image)
-                              <img class="card-img rounded-0" src="{{asset('images/post/'.$post->image)}}" alt="{{$post->title}}">
+                              <img class="card-img rounded-0" src="{{asset('images/post/thumb/'.$post->image)}}" alt="{{$post->title}}">
                             @endif
                             <a href="{{route('post.single', $post->slug)}}" class="blog_item_date">
                                 <h3>{{date_format($post->updated_at,"d")}}</h3>

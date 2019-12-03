@@ -458,7 +458,7 @@
       <script type="text/javascript">
         $(document).ready(function() {
 
-          tinymce.init({ selector:'textarea.rich-editor' });
+          tinymce.init({ selector:'textarea.rich-editor', height: 300});
 
           $("#add_image_field").click(function(){ 
             const html = $(".clone_image").html();
