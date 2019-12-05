@@ -8,11 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                @isset($url)
-                    <form method="POST" action="{{ route('register.admin') }}">
-                @else
                     <form method="POST" action="{{ route('register') }}">
-                @endisset
                         @csrf
 
                         <div class="form-group row">
