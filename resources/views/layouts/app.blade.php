@@ -259,7 +259,7 @@
   </div>
   <div class="footer-bottom row align-items-center">
     <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-      Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+      Copyright 2019 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
       <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
       <div class="col-lg-4 col-md-12 footer-social">
         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -292,55 +292,7 @@
 <script src="{{ asset('js/theme.js') }}"></script>
 
 
-<script type="text/javascript">
-  $('.btn-reply.reply').click(function(e){
-    e.preventDefault();
-    $('.btn-reply.reply').show();
-
-    $('.comment_btn.comment').hide();
-    $('.comment_btn.reply').show();
-
-    $(this).hide();
-    $('.btn-reply.cancel').hide();
-    $(this).siblings('.btn-reply.cancel').show();
-    // $(this).parent('.reply-btn').append('<a href="#" class="btn-reply-cancel text-uppercase" >cancel</a>');
-
-
-    console.log( $(this).data('id') );
-
-    var parent_id = $(this).data('id');
-
-var html = $('#commentForm');
-    $( html).find('#parent_id').val(parent_id);
-    $('#commentFormContainer').hide();
-    $(this).parents('.comment-list').append(html).fadeIn('slow').addClass('appended');
-
-
-console.log( $(this).parents('.comment-list')  );
-
-  });  
-
-
-$('.comment-list').on('click','.btn-reply.cancel',function(e){
-    e.preventDefault();
-    $(this).hide();
-    $('.btn-reply.reply').show();
-
-    
-    $('.comment_btn.reply').hide();
-    $('.comment_btn.comment').show();
-
-    $('#commentFormContainer').show();
-    var html = $('#commentForm');
-    $( html).find('#parent_id').val('');
-
-    $('#commentFormContainer').append(html);
-
-    // alert("You clicked the element with and ID of 'test-element'");
-});
-
-
-</script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 
 </body>

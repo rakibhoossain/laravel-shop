@@ -17,7 +17,59 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-    	$products = Product::orderBy('id', 'desc')->paginate(9);
+
+        $products = Product::query();
+
+        if(!empty($_GET['category'])){
+
+            $slugs = explode(',', $_GET['category']);
+            $cat_ids = Category::select('id')->whereIn('slug', $slugs)->pluck('id')->toArray();
+            $products->whereIn('category_id',  $cat_ids);
+        }
+
+        if(!empty($_GET['brand'])){
+            $slugs = explode(',', $_GET['brand']);
+            $brand_ids = Brand::select('id')->whereIn('slug', $slugs)->pluck('id')->toArray();
+            $products->whereIn('brand_id',  $brand_ids);
+        }
+
+        if(!empty($_GET['sortBy'])){
+
+            if($_GET['sortBy'] == 'category'){
+                $products->with(array('category' => function($query)
+                {
+                    $query->orderBy('name', 'desc');
+                
+                }));
+            }
+
+            if($_GET['sortBy'] == 'brand'){
+                $products->with(array('brand' => function($query)
+                {
+                    $query->orderBy('name', 'desc');
+                
+                }));
+            }
+            if($_GET['sortBy'] == 'price'){
+                $products->orderBy('price', 'asc');
+            }
+    
+            
+
+
+
+
+        }
+
+        if(!empty($_GET['show'])){
+            $products = $products->paginate($_GET['show']);
+        }else{
+            $products = $products->orderBy('id')->paginate(9); 
+        }        
+        
+        
+        // $products = $products->get();
+
     	return view('shop')->with('products', $products);
 
     }
@@ -37,6 +89,47 @@ class ShopController extends Controller
             return view('shop.single')->with('product', []);
         }
     }
+
+    
+    public function filter(Request $request)
+    {
+        $data = $request->all();
+
+        $catURL = '';
+        if(!empty($data['category'])){
+            foreach($data['category'] as $category){
+                if(empty($catURL)){
+                    $catURL .= '&category='.$category;
+                }else{
+                    $catURL .= ','.$category;
+                }
+            }
+        }
+
+        $brandURL = '';
+        if(!empty($data['brand'])){
+            foreach($data['brand'] as $brand){
+                if(empty($brandURL)){
+                    $brandURL .= '&brand='.$brand;
+                }else{
+                    $brandURL .= ','.$brand;
+                }
+            }
+        }
+
+        $sortByURL = '';
+        if(!empty($data['sortBy'])){
+            $sortByURL .= '&sortBy='.$data['sortBy'];
+        }
+
+        $showURL = '';
+        if(!empty($data['show'])){
+            $showURL .= '&show='.$data['show'];
+        }
+
+        return redirect()->route('shop',$catURL.$brandURL.$showURL.$sortByURL);
+    }
+
 
     public function categoryProduct(Request $request){
 

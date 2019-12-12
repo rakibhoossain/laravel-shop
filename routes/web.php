@@ -125,6 +125,8 @@ Route::group(['prefix' => '/shop'], function () {
 	Route::get('/', 'ShopController@index')->name('shop');
 	Route::get('/single/{slug}', 'ShopController@show')->name('shop.single');
 
+	Route::match(['get', 'post'], '/filter', 'ShopController@filter')->name('shop.filter');
+
 	Route::get('/list', 'ShopController@itemList')->name('shop.product.list');
 	
 	Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');

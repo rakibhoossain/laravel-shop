@@ -19,14 +19,61 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+Vue.component('product-item', require('./components/ProductComponent.vue').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// Vue.component('product-item', {
+//     props: ['data'],
+//     template: "<span>Hello</span>"
+// })
 
 const app = new Vue({
     el: '#app',
+
+    data: {
+        products: [],
+        categories: [],
+        brands: [],
+
+        priceRange:'',
+        showItem: 6,
+        sort: 'asec',
+      },
+
+      created() {
+        this.getProduct();	
+
+        console.log(this.products)
+    },
+
+
+
+      methods: {
+        getProduct: function () {
+          var vm = this
+          axios.get('http://localhost/laravel-shop/public/shop/list')
+            .then(function (response) {
+              vm.products = response.data.data
+              vm.categories = response.data.productCategories
+              vm.brands = response.data.ProductBrands
+            console.log(response.data)
+            })
+            .catch(function (error) {
+            //   vm.answer = 'Error! Could not reach the API. ' + error
+            console.log(error)
+            })
+        }
+      }
+
+
+
+
+
+
 });

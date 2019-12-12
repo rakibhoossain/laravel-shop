@@ -47059,7 +47059,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\wamp64\www\laravel\resources\js\dashboard.js */"./resources/js/dashboard.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\laravel-shop\resources\js\dashboard.js */"./resources/js/dashboard.js");
 
 
 /***/ })
