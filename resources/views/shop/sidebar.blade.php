@@ -39,7 +39,7 @@
             </div>
             <div class="widgets_inner">
               <div class="range_item">
-                <div id="slider-range" data-min="{{Helper::minPrice()}}" data-max="{{Helper::maxPrice()}}"></div>
+                <div id="slider-range" data-min="{{Helper::minPrice()}}" data-max="{{Helper::maxPrice()}}" data-currency="{{Helper::currency()}}"></div>
                 <div class="">
                   <label for="amount">Price : </label>
                   <input type="text" id="amount" readonly/>
