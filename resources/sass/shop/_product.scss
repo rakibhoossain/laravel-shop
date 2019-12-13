@@ -310,6 +310,69 @@
       }
     }
   }
+
+  .list {
+    li {
+      input[type=checkbox] {
+        display: none;
+      }
+      label{
+        padding-left: 30px;
+        font-size: 14px;
+        font-family: $body-font;
+        font-weight: normal;
+        color: $text-color;
+        position: relative;
+        cursor: pointer;
+        &:before {
+          content: "";
+          height: 10px;
+          width: 10px;
+          border-radius: 50%;
+          border: 1px solid $text-color;
+          position: absolute;
+          left: 0px;
+          top: 4px;
+          @include transition;
+        }
+        &:after {
+          content: "";
+          height: 4px;
+          width: 4px;
+          background: #fff;
+          border-radius: 50%;
+          position: absolute;
+          left: 3px;
+          top: 8px;
+          @include transition;
+        }
+      }
+      
+      input[type=checkbox]:checked + label{
+        &:before {
+          background: $primary-color;
+          border-color: $primary-color;
+        }
+      }
+      &:hover {
+        label {
+          &:before {
+            background: $primary-color;
+            border-color: $primary-color;
+          }
+        }
+      }
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+
+
+
+
+
   .range_item {
     .ui-slider {
       height: 6px;

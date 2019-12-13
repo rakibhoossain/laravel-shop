@@ -35,40 +35,30 @@ class ShopController extends Controller
 
         if(!empty($_GET['sortBy'])){
 
+            if($_GET['sortBy'] == 'price'){
+                $products->orderBy('offer_price', 'desc');
+            }
+
             if($_GET['sortBy'] == 'category'){
-                $products->with(array('category' => function($query)
-                {
-                    $query->orderBy('name', 'desc');
-                
-                }));
+                $products->join('categories', 'products.category_id', '=', 'categories.id')->orderBy('categories.name', 'asc')->select('products.*');
             }
 
             if($_GET['sortBy'] == 'brand'){
-                $products->with(array('brand' => function($query)
-                {
-                    $query->orderBy('name', 'desc');
-                
-                }));
+                $products->join('brands', 'products.category_id', '=', 'brands.id')->orderBy('brands.name', 'asc')->select('products.*');
             }
-            if($_GET['sortBy'] == 'price'){
-                $products->orderBy('price', 'asc');
-            }
-    
-            
 
+        }
 
-
-
+        if(!empty($_GET['price'])){
+            $price = explode('-', $_GET['price']);
+            $products->whereBetween('offer_price', $price);
         }
 
         if(!empty($_GET['show'])){
             $products = $products->paginate($_GET['show']);
         }else{
             $products = $products->orderBy('id')->paginate(9); 
-        }        
-        
-        
-        // $products = $products->get();
+        }
 
     	return view('shop')->with('products', $products);
 
@@ -127,7 +117,12 @@ class ShopController extends Controller
             $showURL .= '&show='.$data['show'];
         }
 
-        return redirect()->route('shop',$catURL.$brandURL.$showURL.$sortByURL);
+        $price_range_URL = '';
+        if(!empty($data['price_range'])){
+            $price_range_URL .= '&price='.$data['price_range'];
+        }
+
+        return redirect()->route('shop',$catURL.$brandURL.$price_range_URL.$showURL.$sortByURL);
     }
 
 

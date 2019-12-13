@@ -292,7 +292,56 @@
 <script src="{{ asset('js/theme.js') }}"></script>
 
 
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- <script src="{{ asset('js/app.js') }}"></script> -->
+
+<script type="text/javascript">
+// comment
+$('.btn-reply.reply').click(function(e){
+    e.preventDefault();
+    $('.btn-reply.reply').show();
+
+    $('.comment_btn.comment').hide();
+    $('.comment_btn.reply').show();
+
+    $(this).hide();
+    $('.btn-reply.cancel').hide();
+    $(this).siblings('.btn-reply.cancel').show();
+    // $(this).parent('.reply-btn').append('<a href="#" class="btn-reply-cancel text-uppercase" >cancel</a>');
+
+
+    console.log( $(this).data('id') );
+
+    var parent_id = $(this).data('id');
+
+var html = $('#commentForm');
+    $( html).find('#parent_id').val(parent_id);
+    $('#commentFormContainer').hide();
+    $(this).parents('.comment-list').append(html).fadeIn('slow').addClass('appended');
+
+
+console.log( $(this).parents('.comment-list')  );
+
+  });  
+
+
+$('.comment-list').on('click','.btn-reply.cancel',function(e){
+    e.preventDefault();
+    $(this).hide();
+    $('.btn-reply.reply').show();
+
+    
+    $('.comment_btn.reply').hide();
+    $('.comment_btn.comment').show();
+
+    $('#commentFormContainer').show();
+    var html = $('#commentForm');
+    $( html).find('#parent_id').val('');
+
+    $('#commentFormContainer').append(html);
+
+    // alert("You clicked the element with and ID of 'test-element'");
+});
+</script>
 
 
 </body>

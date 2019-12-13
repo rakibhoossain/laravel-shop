@@ -22,54 +22,6 @@
     };
     navbarFixed();
 
-
-// comment
-$('.btn-reply.reply').click(function(e){
-    e.preventDefault();
-    $('.btn-reply.reply').show();
-
-    $('.comment_btn.comment').hide();
-    $('.comment_btn.reply').show();
-
-    $(this).hide();
-    $('.btn-reply.cancel').hide();
-    $(this).siblings('.btn-reply.cancel').show();
-    // $(this).parent('.reply-btn').append('<a href="#" class="btn-reply-cancel text-uppercase" >cancel</a>');
-
-
-    console.log( $(this).data('id') );
-
-    var parent_id = $(this).data('id');
-
-var html = $('#commentForm');
-    $( html).find('#parent_id').val(parent_id);
-    $('#commentFormContainer').hide();
-    $(this).parents('.comment-list').append(html).fadeIn('slow').addClass('appended');
-
-
-console.log( $(this).parents('.comment-list')  );
-
-  });  
-
-
-$('.comment-list').on('click','.btn-reply.cancel',function(e){
-    e.preventDefault();
-    $(this).hide();
-    $('.btn-reply.reply').show();
-
-    
-    $('.comment_btn.reply').hide();
-    $('.comment_btn.comment').show();
-
-    $('#commentFormContainer').show();
-    var html = $('#commentForm');
-    $( html).find('#parent_id').val('');
-
-    $('#commentFormContainer').append(html);
-
-    // alert("You clicked the element with and ID of 'test-element'");
-});
-
     /*----------------------------------------------------*/
     /*  Parallax Effect js
     /*----------------------------------------------------*/
@@ -337,13 +289,30 @@ $('.comment-list').on('click','.btn-reply.cancel',function(e){
     /*  Jquery Ui slider js
     /*----------------------------------------------------*/
     if ($("#slider-range").length > 0) {
+        const max_value = parseInt( $("#slider-range").data('max') ) || 500;
+        const min_value = parseInt($("#slider-range").data('min')) || 0;
+
+        console.log(max_value);
+
+        let price_range = min_value+'-'+max_value;
+
+
+        
+
+        if($("#price_range").length > 0 && $("#price_range").val()){
+            price_range = $("#price_range").val().trim();
+        }
+        
+        let price = price_range.split('-');
         $("#slider-range").slider({
             range: true,
-            min: 0,
-            max: 500,
-            values: [10, 500],
+            min: min_value,
+            max: max_value,
+            values: price,
             slide: function (event, ui) {
                 $("#amount").val("$" + ui.values[0] + " $" + ui.values[1]);
+                $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
+                $('#product_filter_form').submit()
             }
         });
     }
@@ -351,7 +320,10 @@ $('.comment-list').on('click','.btn-reply.cancel',function(e){
         $("#amount").val("$" + $("#slider-range").slider("values", 0) +
             "   $" + $("#slider-range").slider("values", 1));
     }
-
+    // if ($("#price_range").length > 0) {
+    //     $("#price_range").val($("#slider-range").slider("values", 0) +
+    //         "-" + $("#slider-range").slider("values", 1));
+    // }
 
     /*----------------------------------------------------*/
     /*  Google map js

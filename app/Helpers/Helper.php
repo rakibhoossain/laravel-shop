@@ -80,7 +80,16 @@ class Helper
     //     return Post_category::orderBy('id', 'desc')->get();
     
     // }
-
+    public static function maxPrice()
+    {
+        return ceil(Product::max('offer_price'));
+    
+    }
+    public static function minPrice()
+    {
+        return floor(Product::min('offer_price'));
+    
+    }
 
     //frontend brands supply
     public static function productBrandList()

@@ -37,7 +37,7 @@
                           @foreach($cart->product->images as $image)
                           @if($i>0)
                           <a href="{{route('shop.single', $cart->product->slug)}}">
-                            <img src="{{asset('images/product/small'.$image->image)}}" alt="{{$cart->product->title}}"/>
+                            <img src="{{asset('images/product/small/'.$image->image)}}" alt="{{$cart->product->title}}"/>
                           </a>
                           @endif
                           @php --$i; @endphp
