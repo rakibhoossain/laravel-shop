@@ -291,13 +291,8 @@
     if ($("#slider-range").length > 0) {
         const max_value = parseInt( $("#slider-range").data('max') ) || 500;
         const min_value = parseInt($("#slider-range").data('min')) || 0;
-
-        console.log(max_value);
-
+        const currency = $("#slider-range").data('currency') || '';
         let price_range = min_value+'-'+max_value;
-
-
-        
 
         if($("#price_range").length > 0 && $("#price_range").val()){
             price_range = $("#price_range").val().trim();
@@ -310,15 +305,16 @@
             max: max_value,
             values: price,
             slide: function (event, ui) {
-                $("#amount").val("$" + ui.values[0] + " $" + ui.values[1]);
+                $("#amount").val(currency + ui.values[0] + "   "+currency+ ui.values[1]);
                 $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
                 $('#product_filter_form').submit()
             }
         });
     }
     if ($("#amount").length > 0) {
-        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-            "   $" + $("#slider-range").slider("values", 1));
+        const m_currency = $("#slider-range").data('currency') || '';
+        $("#amount").val(m_currency + $("#slider-range").slider("values", 0) +
+            "   "+m_currency + $("#slider-range").slider("values", 1));
     }
     // if ($("#price_range").length > 0) {
     //     $("#price_range").val($("#slider-range").slider("values", 0) +
