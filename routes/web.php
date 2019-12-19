@@ -42,6 +42,15 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 	});
 
 
+		Route::group(['prefix' => '/widget'], function () {
+			Route::get('/', 'WidgetController@index')->name('admin.widget');
+			Route::get('/create', 'WidgetController@create')->name('admin.widget.create');
+			Route::post('/store', 'WidgetController@store')->name('admin.widget.store');
+			
+			Route::get('/edit/{id}', 'WidgetController@edit')->name('admin.widget.edit');
+			Route::post('/update/{id}', 'WidgetController@update')->name('admin.widget.update');
+			Route::post('/delete/{id}', 'WidgetController@destroy')->name('admin.widget.destroy');
+		});
 
 
 		Route::group(['prefix' => '/post'], function () {
@@ -117,6 +126,30 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 
 
 
+		Route::group(['prefix' => '/comments'], function () {
+			Route::get('/', 'ProductCommentController@index')->name('admin.product.comments');
+			Route::get('/delete/{id}', 'ProductCommentController@destroy')->name('admin.product.comments.destroy');
+			Route::get('/edit/{id}', 'ProductCommentController@edit')->name('admin.product.comments.edit');
+			Route::post('/update/{id}', 'ProductCommentController@update')->name('admin.product.comments.update');
+
+			Route::get('/list', 'ProductCommentController@commentsList')->name('admin.product.comments.list');
+		});
+
+		Route::group(['prefix' => '/reviews'], function () {
+			Route::get('/', 'ProductReviewController@index')->name('admin.product.reviews');
+			Route::get('/delete/{id}', 'ProductReviewController@destroy')->name('admin.product.reviews.destroy');
+			Route::get('/edit/{id}', 'ProductReviewController@edit')->name('admin.product.reviews.edit');
+			Route::post('/update/{id}', 'ProductReviewController@update')->name('admin.product.reviews.update');
+
+			Route::get('/list', 'ProductReviewController@commentsList')->name('admin.product.reviews.list');
+		});
+
+
+
+
+
+
+
 	});
 
 });
@@ -159,7 +192,8 @@ Route::group(['prefix' => '/shop'], function () {
 		Route::get('/order/edit/{id}', 'AccountController@orderEdit')->name('account.order.edit');
 	});
 
-
+	Route::post('/comment', 'ProductCommentController@store')->name('product.comments.store');
+	Route::post('/review', 'ProductReviewController@store')->name('product.review.store');
 });
 
 

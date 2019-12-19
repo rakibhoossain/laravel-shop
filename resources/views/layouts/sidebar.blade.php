@@ -60,7 +60,7 @@
         @foreach(Helper::recentPost() as $post)
             <div class="media post_item">
                 @if($post->image)
-                    <img src="{{asset('images/post/small'.$post->image)}}" alt="{{$post->title}}">
+                    <img src="{{asset('images/post/small/'.$post->image)}}" alt="{{$post->title}}">
                 @endif
                 <div class="media-body">
                     <a href="{{route('post.single', $post->slug)}}">

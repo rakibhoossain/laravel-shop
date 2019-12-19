@@ -10,6 +10,7 @@ use App\Order;
 use App\Shipping;
 use App\Post;
 use App\Product;
+use App\Widget;
 use Auth;
 class Helper
 {
@@ -66,13 +67,13 @@ class Helper
         return Post::orderBy('id', 'desc')->limit(3)->get();
     }
 
-    public static function recentProduct()
+    public static function recentProduct($count = 4)
     {
-        return Product::orderBy('id', 'desc')->limit(4)->get();
+        return Product::latest()->orderBy('id', 'desc')->limit($count)->get();
     }
-    public static function inspireProduct()
+    public static function inspireProduct($count = 8)
     {
-        return Product::orderBy('id', 'desc')->limit(8)->get();
+        return Product::all()->random()->limit($count)->orderBy('id', 'desc');
     }    
 
     // public static function postCommentTotal($post)
@@ -159,6 +160,39 @@ class Helper
     public static function currency()
     {
         return '€';
+    
+    }
+
+    //widget areas
+    public static function widget_areas()
+    {
+        $widget = array();
+        $widget['feature_1']='Feature 1';
+        $widget['feature_2']='Feature 2';
+        $widget['feature_3']='Feature 3';
+        $widget['feature_4']='Feature 4';
+
+        $widget['footer_1']='Footer 1';
+        $widget['footer_2']='Footer 2';
+        $widget['footer_3']='Footer 3';
+        $widget['footer_4']='Footer 4';
+        $widget['footer_5']='Footer 5';
+        return $widget;
+    
+    }
+
+    //getting widget
+    public static function get_widget($position = '')
+    {
+        if ($position == 'footer') {
+            return Widget::where('position', 'like', 'footer'.'%')->orderBy('position', 'asc')->get();
+        }
+
+        if ($position == 'feature') {
+            return Widget::where('position', 'like', 'feature'.'%')->orderBy('position', 'asc')->get();
+        }
+        
+        return Widget::orderBy('position', 'desc')->get();
     
     }
 

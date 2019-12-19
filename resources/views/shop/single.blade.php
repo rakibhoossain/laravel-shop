@@ -230,136 +230,48 @@
           >
             <div class="row">
               <div class="col-lg-6">
-                <div class="comment_list">
-                  <div class="review_item">
-                    <div class="media">
-                      <div class="d-flex">
-                        <img
-                          src="img/product/single-product/review-1.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="media-body">
-                        <h4>Blake Ruiz</h4>
-                        <h5>12th Feb, 2017 at 05:56 pm</h5>
-                        <a class="reply_btn" href="#">Reply</a>
-                      </div>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                    </p>
-                  </div>
-                  <div class="review_item reply">
-                    <div class="media">
-                      <div class="d-flex">
-                        <img
-                          src="img/product/single-product/review-2.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="media-body">
-                        <h4>Blake Ruiz</h4>
-                        <h5>12th Feb, 2017 at 05:56 pm</h5>
-                        <a class="reply_btn" href="#">Reply</a>
-                      </div>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                    </p>
-                  </div>
-                  <div class="review_item">
-                    <div class="media">
-                      <div class="d-flex">
-                        <img
-                          src="img/product/single-product/review-3.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="media-body">
-                        <h4>Blake Ruiz</h4>
-                        <h5>12th Feb, 2017 at 05:56 pm</h5>
-                        <a class="reply_btn" href="#">Reply</a>
-                      </div>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                    </p>
-                  </div>
-                </div>
+                @include('shop.comments', ['comments' => $product->comments, 'depth' => 2])
               </div>
+
               <div class="col-lg-6">
-                <div class="review_box">
+                <div class="review_box" id="commentFormContainer">
                   <h4>Post a comment</h4>
-                  <form
-                    class="row contact_form"
-                    action="contact_process.php"
-                    method="post"
-                    id="contactForm"
-                    novalidate="novalidate"
-                  >
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="name"
-                          name="name"
-                          placeholder="Your Full name"
-                        />
+
+
+                    <form  method="post" class="row contact_form" action="{{ route('product.comments.store'   ) }}" id="commentForm">
+                        {{csrf_field()}}
+
+                      @guest
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="text" class="form-control" id="comments_name" name="name" placeholder="Your Full name" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="email"
-                          name="email"
-                          placeholder="Email Address"
-                        />
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="email" class="form-control" id="comments_email" name="email" placeholder="Email Address" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="number"
-                          name="number"
-                          placeholder="Phone Number"
-                        />
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="text" class="form-control" id="comments_number" name="number" placeholder="Phone Number" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <textarea
-                          class="form-control"
-                          name="message"
-                          id="message"
-                          rows="1"
-                          placeholder="Message"
-                        ></textarea>
+                      @endguest
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <textarea class="form-control" name="body" id="comments_message" rows="3" placeholder="Message"></textarea>
+                              <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                              <input type="hidden" name="parent_id" id="parent_id" value="" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12 text-right">
-                      <button
-                        type="submit"
-                        value="submit"
-                        class="btn submit_btn"
-                      >
-                        Submit Now
-                      </button>
-                    </div>
-                  </form>
+                      <div class="col-md-12 text-right">
+                          <button type="submit" value="submit" class="btn submit_btn">
+                              Submit Now
+                          </button>
+                      </div>
+
+                    </form>
                 </div>
               </div>
             </div>
@@ -439,174 +351,110 @@
                   </div>
                 </div>
                 <div class="review_list">
-                  <div class="review_item">
-                    <div class="media">
-                      <div class="d-flex">
-                        <img
-                          src="img/product/single-product/review-1.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="media-body">
-                        <h4>Blake Ruiz</h4>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                    </p>
-                  </div>
-                  <div class="review_item">
-                    <div class="media">
-                      <div class="d-flex">
-                        <img
-                          src="img/product/single-product/review-2.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="media-body">
-                        <h4>Blake Ruiz</h4>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                    </p>
-                  </div>
-                  <div class="review_item">
-                    <div class="media">
-                      <div class="d-flex">
-                        <img
-                          src="img/product/single-product/review-3.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="media-body">
-                        <h4>Blake Ruiz</h4>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                    </p>
-                  </div>
+                  @include('shop.reviews', ['reviews' => $product->reviews])
+
+
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="review_box">
-                  <h4>Add a Review</h4>
-                  <p>Your Rating:</p>
-                  <ul class="list">
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-star"></i>
-                      </a>
-                    </li>
-                  </ul>
-                  <p>Outstanding</p>
-                  <form
-                    class="row contact_form"
-                    action="contact_process.php"
-                    method="post"
-                    id="contactForm"
-                    novalidate="novalidate"
-                  >
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="name"
-                          name="name"
-                          placeholder="Your Full name"
-                        />
+    <div class="review_box">
+        <h4>Add a Review</h4>
+        <p>Your Rating:</p>
+        <ul class="list">
+            <li>
+              <i class="fa fa-star-o" title="5" data-value="5"></i>
+            </li>
+            <li>
+              <i class="fa fa-star-o" title="4" data-value="4"></i>
+            </li>
+            <li>
+              <i class="fa fa-star-o" title="3" data-value="3"></i>
+            </li>
+            <li>
+              <i class="fa fa-star-o" title="2" data-value="2"></i>
+            </li>
+            <li>
+              <i class="fa fa-star-o" title="1" data-value="1"></i>
+            </li>
+        </ul>
+
+
+
+        <p>Outstanding</p>
+
+
+                   <form  method="post" class="row contact_form" action="{{ route('product.review.store'   ) }}" id="reviewForm">
+                        {{csrf_field()}}
+<div class="col-md-12">
+  <div class="rating_box">
+   <p>Your Rating:</p>                     
+    <div class="star-rating">
+      <div class="star-rating__wrap">
+        <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
+        <label class="star-rating__ico fa fa-star-o" for="star-rating-5" title="5 out of 5 stars"></label>
+        <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4">
+        <label class="star-rating__ico fa fa-star-o" for="star-rating-4" title="4 out of 5 stars"></label>
+        <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3">
+        <label class="star-rating__ico fa fa-star-o" for="star-rating-3" title="3 out of 5 stars"></label>
+        <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2">
+        <label class="star-rating__ico fa fa-star-o" for="star-rating-2" title="2 out of 5 stars"></label>
+        <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1">
+        <label class="star-rating__ico fa fa-star-o" for="star-rating-1" title="1 out of 5 stars"></label>
+      </div>
+    </div>
+ <p>Outstanding</p>
+</div>
+</div>
+
+
+                      @guest
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="text" class="form-control" id="review_name" name="name" placeholder="Your Full name" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="email"
-                          name="email"
-                          placeholder="Email Address"
-                        />
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="email" class="form-control" id="review_email" name="email" placeholder="Email Address" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="number"
-                          name="number"
-                          placeholder="Phone Number"
-                        />
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="text" class="form-control" id="review_number" name="number" placeholder="Phone Number" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <textarea
-                          class="form-control"
-                          name="message"
-                          id="message"
-                          rows="1"
-                          placeholder="Review"
-                        ></textarea>
+                      @endguest
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <textarea class="form-control" name="body" id="review_message" rows="3" placeholder="Message"></textarea>
+                              <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                          </div>
                       </div>
-                    </div>
-                    <div class="col-md-12 text-right">
-                      <button
-                        type="submit"
-                        value="submit"
-                        class="btn submit_btn"
-                      >
-                        Submit Now
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                      <div class="col-md-12 text-right">
+                          <button type="submit" value="submit" class="btn submit_btn">
+                              Submit Now
+                          </button>
+                      </div>
+
+                    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
               </div>
             </div>
           </div>

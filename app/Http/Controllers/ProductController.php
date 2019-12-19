@@ -179,7 +179,7 @@ class ProductController extends Controller
             $location_m = public_path('images/product/medium/'.$img);
             $location_thumb = public_path('images/product/thumb/'.$img);
             $location = public_path('images/product/'.$img);
-
+// mkdir('product/gallary', '0777', true);
             Image::make($image)->resize(89, 89)->save($location_sm);
             Image::make($image)->resize(262, 261)->save($location_m);
             Image::make($image)->resize(360, 431)->save($location_thumb);

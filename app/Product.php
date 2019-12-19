@@ -17,4 +17,20 @@ class Product extends Model
    public function brand(){
    	return $this->belongsTo(Brand::class, 'brand_id');
    }
+
+    public function comments()
+    {
+         return $this->hasMany(Product_Comment::class)->whereNull('parent_id')->where('status', '1');
+    }    
+
+    public function allComments()
+    {
+         return $this->hasMany(Product_Comment::class)->where('status', '1');
+    }
+
+    public function reviews()
+    {
+         return $this->hasMany(Product_review::class)->where('status', '1');
+    }
+
 }
