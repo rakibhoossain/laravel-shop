@@ -814,6 +814,12 @@
         color: $title-color;
         font-family: $body-font;
         margin-bottom: 8px;
+        a{
+          color:#2a2a2a;
+          &:hover{
+            color:#71cd14;
+          }
+        }
       }
       i {
         color: #fbd600;

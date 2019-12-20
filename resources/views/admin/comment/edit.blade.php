@@ -12,30 +12,30 @@
     @if($comment->name)
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="inputTitle" class="col-form-label">Name</label>
-          <input id="inputTitle" type="text" name="name" value="{{$comment->name}}" class="form-control">
+          <label for="inputName" class="col-form-label">Name</label>
+          <input id="inputName" type="text" name="name" value="{{$comment->name}}" class="form-control">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputTitle" class="col-form-label">Email</label>
-          <input id="inputTitle" type="text" name="email" value="{{$comment->email}}" class="form-control">
+          <label for="inputEmail" class="col-form-label">Email</label>
+          <input id="inputEmail" type="text" name="email" value="{{$comment->email}}" class="form-control">
         </div>
          <div class="form-group col-md-4">
-          <label for="inputTitle" class="col-form-label">Website</label>
-          <input id="inputTitle" type="text" name="website" value="{{$comment->website}}" class="form-control">
+          <label for="inputWebsite" class="col-form-label">Website</label>
+          <input id="inputWebsite" type="text" name="website" value="{{$comment->website}}" class="form-control">
         </div>
       </div>
     @else
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="inputTitle" class="col-form-label">Name</label>
-          <input id="inputTitle" type="text" class="form-control" disabled value="{{$comment->user->name}}">
+          <label for="inputName" class="col-form-label">Name</label>
+          <input id="inputName" type="text" class="form-control" disabled value="{{$comment->user->name}}">
         </div>
       </div>
     @endif
 
       <div class="form-group">
         <label for="inputDescription">Body</label>
-        <textarea class="form-control" name="body" rows="3">{{$comment->body}}</textarea>
+        <textarea class="form-control" id="inputDescription" name="body" rows="3">{{$comment->body}}</textarea>
       </div>
 
 

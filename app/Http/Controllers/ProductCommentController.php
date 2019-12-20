@@ -67,7 +67,7 @@ class ProductCommentController extends Controller
         $product_comment = new Product_Comment;
         $product_comment->body = $request->body;
         $product_comment->product_id = $request->product_id;
-        if ($request->parent_id) {
+        if ($request->has('parent_id')) {
             $product_comment->parent_id = $request->parent_id;
         }
 
@@ -78,7 +78,7 @@ class ProductCommentController extends Controller
             $product_comment->email = $request->email;
             $product_comment->website = $request->website;
 
-            if($request->phone) $product_comment->phone = $request->phone;           
+            if($request->has('phone')) $product_comment->phone = $request->phone;           
         }
 
         $product_comment->save();
@@ -151,6 +151,7 @@ class ProductCommentController extends Controller
                 $comment->name = $request->name;
                 $comment->email = $request->email;
                 $comment->website = $request->website; 
+                if($request->has('phone')) $comment->phone = $request->phone;  
             }
 
             $comment->save();
@@ -176,8 +177,14 @@ class ProductCommentController extends Controller
      * @param  \App\Product_Comment  $product_Comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product_Comment $product_Comment)
+    public function destroy(Request $request)
     {
-        //
+        $comment = Product_Comment::find($request->id);
+        if ($comment) {
+            $comment->delete();
+            return back()->with('success','You have successfully delete a comment.');
+        }else{
+            return back()->withErrors('Invalid comment!.');
+        }
     }
 }

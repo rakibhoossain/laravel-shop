@@ -16,15 +16,11 @@
                 <a href="{{$review->website}}" target="blank">{{ $review->name }}</a>
             @endif
         </h4>
-	    <i class="fa fa-star"></i>
-	    <i class="fa fa-star"></i>
-	    <i class="fa fa-star"></i>
-	    <i class="fa fa-star"></i>
-	    <i class="fa fa-star"></i>
+	    {!!Helper::reviewStar_fa($review->id)!!}
 	  </div>
 	</div>
 	<p>
-	  {{ $review->body}}
+	  {{$review->body}}
 	</p>
 </div>
 @endforeach

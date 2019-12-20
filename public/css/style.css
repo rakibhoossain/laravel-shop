@@ -3611,6 +3611,50 @@ h6 {
   right: 20px;
 }
 
+.rating_box {
+  display: inline-flex;
+}
+
+.star-rating {
+  font-size: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.star-rating__wrap {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.star-rating__wrap:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.star-rating__ico {
+  float: right;
+  padding-left: 2px;
+  cursor: pointer;
+  color: #fbd600;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.star-rating__ico:last-child {
+  padding-left: 0;
+}
+
+.star-rating__input {
+  display: none;
+}
+
+.star-rating__ico:hover:before,
+.star-rating__ico:hover ~ .star-rating__ico:before,
+.star-rating__input:checked ~ .star-rating__ico:before {
+  content: "\F005";
+}
+
 /*---------------------------------------------------- */
 
 /*----------------------------------------------------*/
@@ -4631,6 +4675,14 @@ h6 {
   color: #2a2a2a;
   font-family: "Roboto", sans-serif;
   margin-bottom: 8px;
+}
+
+.review_item .media .media-body h4 a {
+  color: #2a2a2a;
+}
+
+.review_item .media .media-body h4 a:hover {
+  color: #71cd14;
 }
 
 .review_item .media .media-body i {
@@ -5773,59 +5825,4 @@ h6 {
 }
 
 /*---------------------------------------------------- */
-.review_box .list {
-  margin: 9px 0 0 0;
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: left;
-  font-size: 13px;
-  color: #3a89cf;
-  white-space: nowrap;
-  display: inline-block;
-  cursor: pointer;
-}
-.review_box .list .fa:hover:before {
-  content: "\f005";
-}
-.review_box .list .fa:hover:before,
-.review_box .list .fa:hover ~ .fa:before {
-  content: "\f005";
-}
 
-.rating_box{
-  display: inline-flex;
-}
-.star-rating{
-  font-size: 0;
-      padding-left: 10px;
-    padding-right: 10px;
-}
-.star-rating__wrap{
-  display: inline-block;
-  font-size: 1rem;
-}
-.star-rating__wrap:after{
-  content: "";
-  display: table;
-  clear: both;
-}
-.star-rating__ico{
-  float: right;
-  padding-left: 2px;
-  cursor: pointer;
-  color: #fbd600;
-  font-size: 13px;
-  margin-top: 5px;
-}
-.star-rating__ico:last-child{
-  padding-left: 0;
-}
-.star-rating__input{
-  display: none;
-}
-.star-rating__ico:hover:before,
-.star-rating__ico:hover ~ .star-rating__ico:before,
-.star-rating__input:checked ~ .star-rating__ico:before
-{
-  content: "\f005";
-}

@@ -10,6 +10,7 @@ use App\Order;
 use App\Shipping;
 use App\Post;
 use App\Product;
+use App\Product_review;
 use App\Widget;
 use Auth;
 class Helper
@@ -154,6 +155,37 @@ class Helper
     {
         return Shipping::orderBy('id', 'desc')->get();
     
+    }
+
+    //product review
+    public static function reviewStar($product_id, $star = 0)
+    {
+        return (int)Product_review::where('product_id', $product_id)->where('status', '1')->where('rating', (float)$star)->count('rating');
+    
+    }
+    //product review
+    public static function reviewOveralStar($product_id, $option = 'avg')
+    {
+        if ($option == 'count') return Product_review::where('status', '1')->where('product_id', $product_id)->count('rating');
+        return number_format((float)(Product_review::where('status', '1')->where('product_id', $product_id)->avg('rating')), 2, '.', '');
+    }
+    //user rating
+    public static function reviewStar_fa($id)
+    {
+        $review = Product_review::find($id);
+        $rating_count = (int)$review->rating;
+
+        $rating = '';
+        if ($rating_count) {
+            $i=0;
+            for (; $i < $rating_count; $i++) { 
+                $rating .= '<i class="fa fa-star"></i>';
+            }
+            for ($j=5; $j > $i; $j--) { 
+                $rating .= '<i class="fa fa-star-o"></i>';
+            }
+        }
+        return $rating;
     }
 
     //frontend shipping

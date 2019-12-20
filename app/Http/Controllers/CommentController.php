@@ -181,9 +181,9 @@ class CommentController extends Controller
         $comment = Comment::find($request->id);
         if ($comment) {
             $comment->delete();
-            return redirect()->route('admin.comments')->with('success','You have successfully delete a comment.');
+            return back()->with('success','You have successfully delete a comment.');
         }else{
-            return redirect()->route('admin.comments')->withErrors('Invalid comment!.');
+            return back()->withErrors('Invalid comment!.');
         }
     }
 }

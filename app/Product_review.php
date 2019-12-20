@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product_review extends Model
 {
+	protected $table = 'product_reviews';
+	
     public function user()
     {
         return $this->belongsTo(User::class);

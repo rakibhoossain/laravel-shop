@@ -122,6 +122,12 @@
             <span>Comments</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('admin.product.reviews')}}">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Reviews</span>
+          </a>
+        </li>
 
 
 

@@ -25,8 +25,8 @@
                     <h5>{{date_format($comment->created_at,"F D, Y")}} at {{date_format($comment->created_at,"g:i a")}}</h5>
                     @if($dep)
                     <div class="reply-btn">
-                        <a href="#" class="btn-reply reply text-uppercase" data-id="{{ $comment->id }}">Reply</a>
-                        <a href="#" class="btn-reply cancel text-uppercase" style="display: none;">Cancel</a>
+                        <a href="#" class="btn-reply reply reply_btn text-uppercase" data-id="{{ $comment->id }}">Reply</a>
+                        <a href="#" class="btn-reply cancel reply_btn text-uppercase" style="display: none;">Cancel</a>
                     </div>
                     @endif
                 </div>

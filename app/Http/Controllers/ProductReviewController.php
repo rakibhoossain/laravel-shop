@@ -19,7 +19,13 @@ class ProductReviewController extends Controller
      */
     public function index()
     {
-        //
+        $review = Product_review::first();
+        return view('admin.product.review.index')->with('review', $review);
+    }
+    
+    public function commentsList()
+    {   
+        return new CommentCollection( Product_review::all() );
     }
 
     /**
@@ -42,23 +48,25 @@ class ProductReviewController extends Controller
     {
          if(Auth::check()){
             $request->validate([
-                'body'      =>  'required',
-                'product_id'      =>  'required',
+                'review_body'      =>  'required',
+                'review_product_id'      =>  'required',
+                'rating'      =>  'required',
             ]);
         }else{
             $request->validate([
-                'body'      =>  'required',
-                'product_id'      =>  'required',
-                'name'      =>  'required',
-                'email'      =>  'required',
+                'review_body'      =>  'required',
+                'review_product_id'      =>  'required',
+                'review_name'      =>  'required',
+                'review_email'      =>  'required',
+                'rating'      =>  'required',
             ]);
         }
 
         
 
         $product_review = new Product_review;
-        $product_review->body = $request->body;
-        $product_review->product_id = $request->product_id;
+        $product_review->body = $request->review_body;
+        $product_review->product_id = $request->review_product_id;
 
         $product_review->rating = $request->rating;
 
@@ -67,11 +75,11 @@ class ProductReviewController extends Controller
         if(Auth::check()){
             $product_review->user_id = auth()->user()->id;
         }else{
-            $product_review->name = $request->name;
-            $product_review->email = $request->email;
-            $product_review->website = $request->website;
+            $product_review->name = $request->review_name;
+            $product_review->email = $request->review_email;
+            $product_review->website = $request->review_website;
 
-            if($request->phone) $product_review->phone = $request->phone;           
+            if($request->has('review_phone')) $product_review->phone = $request->review_phone;           
         }
 
         $product_review->save();
@@ -104,9 +112,10 @@ class ProductReviewController extends Controller
      * @param  \App\Product_review  $product_review
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product_review $product_review)
+    public function edit(Request $request)
     {
-        //
+        $review = Product_review::find($request->id);
+        return view('admin.product.review.edit')->with('review', $review);
     }
 
     /**
@@ -116,9 +125,54 @@ class ProductReviewController extends Controller
      * @param  \App\Product_review  $product_review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product_review $product_review)
+    public function update(Request $request)
     {
-        //
+        $review = Product_review::find($request->id);
+        if ($review) {
+
+            if($review->name){
+
+                $request->validate([
+                    'body'      =>  'required',
+                    'name'      =>  'required',
+                    'email'      =>  'required',
+                    'rating'      =>  'required',
+                ]);
+
+            }else{
+                $request->validate([
+                    'body'      =>  'required',
+                    'rating'      =>  'required',
+                ]);
+            }
+
+
+            $review->body = $request->body;
+            $review->status = $request->status;
+            $review->rating = $request->rating;
+
+            if($review->name){
+                $review->name = $request->name;
+                $review->email = $request->email;
+                $review->website = $request->website; 
+                if($request->has('phone')) $review->phone = $request->phone; 
+            }
+
+            $review->save();
+
+            $users = User::where('is_admin', 1)->get();
+            $details = [
+                'title' => 'Updated review!',
+                'actionURL' => route('admin.product.reviews'),  //TODO add
+                'fas' => 'fa-star'
+            ];
+            Notification::send($users, new ShopNotification($details)); 
+
+            return back()->with('success','You have successfully updated review.');
+
+        }else{
+            return back()->withError('Invalid review.');
+        }
     }
 
     /**
@@ -127,8 +181,14 @@ class ProductReviewController extends Controller
      * @param  \App\Product_review  $product_review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product_review $product_review)
+    public function destroy(Request $request)
     {
-        //
+        $review = Product_review::find($request->id);
+        if ($review) {
+            $review->delete();
+            return back()->with('success','You have successfully delete a review.');
+        }else{
+            return back()->withErrors('Invalid review!.');
+        }
     }
 }

@@ -254,7 +254,12 @@
                       </div>
                       <div class="col-md-12">
                           <div class="form-group">
-                              <input type="text" class="form-control" id="comments_number" name="number" placeholder="Phone Number" />
+                              <input type="text" class="form-control" id="comments_number" name="phone" placeholder="Phone Number" />
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="text" class="form-control" id="comments_website" name="website" placeholder="Website" />
                           </div>
                       </div>
                       @endguest
@@ -288,13 +293,13 @@
                   <div class="col-6">
                     <div class="box_total">
                       <h5>Overall</h5>
-                      <h4>4.0</h4>
-                      <h6>(03 Reviews)</h6>
+                      <h4>{{Helper::reviewOveralStar($product->id)}}</h4>
+                      <h6>(0{{Helper::reviewOveralStar($product->id, 'count')}} Reviews)</h6>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="rating_list">
-                      <h3>Based on 3 Reviews</h3>
+                      <h3>Based on {{Helper::reviewOveralStar($product->id, 'count')}} Reviews</h3>
                       <ul class="list">
                         <li>
                           <a href="#"
@@ -303,7 +308,7 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i> 01</a
+                            <i class="fa fa-star"></i> {{Helper::reviewStar($product->id, 5)}}</a
                           >
                         </li>
                         <li>
@@ -313,7 +318,7 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i> 01</a
+                            <i class="fa fa-star-o"></i> {{Helper::reviewStar($product->id, 4)}}</a
                           >
                         </li>
                         <li>
@@ -322,8 +327,8 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i> 01</a
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i> {{Helper::reviewStar($product->id, 3)}}</a
                           >
                         </li>
                         <li>
@@ -331,19 +336,19 @@
                             >2 Star
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i> 01</a
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i> {{Helper::reviewStar($product->id, 2)}}</a
                           >
                         </li>
                         <li>
                           <a href="#"
                             >1 Star
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i> 01</a
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i> {{Helper::reviewStar($product->id, 1)}}</a
                           >
                         </li>
                       </ul>
@@ -359,8 +364,8 @@
               <div class="col-lg-6">
     <div class="review_box">
         <h4>Add a Review</h4>
-        <p>Your Rating:</p>
-        <ul class="list">
+        <!-- <p>Your Rating:</p> -->
+<!--         <ul class="list">
             <li>
               <i class="fa fa-star-o" title="5" data-value="5"></i>
             </li>
@@ -376,11 +381,11 @@
             <li>
               <i class="fa fa-star-o" title="1" data-value="1"></i>
             </li>
-        </ul>
+        </ul> -->
 
 
 
-        <p>Outstanding</p>
+        <!-- <p>Outstanding</p> -->
 
 
                    <form  method="post" class="row contact_form" action="{{ route('product.review.store'   ) }}" id="reviewForm">
@@ -410,24 +415,29 @@
                       @guest
                       <div class="col-md-12">
                           <div class="form-group">
-                              <input type="text" class="form-control" id="review_name" name="name" placeholder="Your Full name" />
+                              <input type="text" class="form-control" id="review_name" name="review_name" placeholder="Your Full name" />
                           </div>
                       </div>
                       <div class="col-md-12">
                           <div class="form-group">
-                              <input type="email" class="form-control" id="review_email" name="email" placeholder="Email Address" />
+                              <input type="email" class="form-control" id="review_email" name="review_email" placeholder="Email Address" />
                           </div>
                       </div>
                       <div class="col-md-12">
                           <div class="form-group">
-                              <input type="text" class="form-control" id="review_number" name="number" placeholder="Phone Number" />
+                              <input type="text" class="form-control" id="review_website" name="review_website" placeholder="Website" />
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input type="text" class="form-control" id="review_number" name="review_phone" placeholder="Phone Number" />
                           </div>
                       </div>
                       @endguest
                       <div class="col-md-12">
                           <div class="form-group">
-                              <textarea class="form-control" name="body" id="review_message" rows="3" placeholder="Message"></textarea>
-                              <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                              <textarea class="form-control" name="review_body" id="review_message" rows="3" placeholder="Message"></textarea>
+                              <input type="hidden" name="review_product_id" value="{{ $product->id }}" />
                           </div>
                       </div>
                       <div class="col-md-12 text-right">
