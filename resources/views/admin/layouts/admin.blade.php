@@ -166,6 +166,20 @@
             </div>
           </div>
         </li>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTag" aria-expanded="true" aria-controls="collapseTag">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tags</span>
+          </a>
+          <div id="collapseTag" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Tags Options:</h6>
+              <a class="collapse-item" href="{{route('admin.post.tag')}}">Tags</a>
+              <a class="collapse-item" href="{{route('admin.post.tag.create')}}">Add tag</a>
+            </div>
+          </div>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link" href="{{route('admin.comments')}}">

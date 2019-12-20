@@ -1,0 +1,18 @@
+@extends('admin.layouts.admin')
+@section('content')
+<div class="card">
+  <h5 class="card-header">Edit tag</h5>
+  <div class="card-body">
+    <form method="post" action="{{ route('admin.post.tag.update', $tag->id) }}" enctype="multipart/form-data">
+      {{csrf_field()}}
+      <div class="form-group">
+        <label for="inputName" class="col-form-label">Name</label>
+        <input id="inputName" type="text" name="name" class="form-control" value="{{$tag->name}}">
+      </div>
+      <div class="form-group mb-3">
+        <button type="reset" class="btn btn-warning">Reset</button> <button class="btn btn-primary" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+@endsection

@@ -305,16 +305,15 @@
             max: max_value,
             values: price,
             slide: function (event, ui) {
-                $("#amount").val(currency + ui.values[0] + "   "+currency+ ui.values[1]);
+                $("#amount").val(currency + ui.values[0] + " -  "+currency+ ui.values[1]);
                 $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
-                $('#product_filter_form').submit()
             }
         });
     }
     if ($("#amount").length > 0) {
         const m_currency = $("#slider-range").data('currency') || '';
         $("#amount").val(m_currency + $("#slider-range").slider("values", 0) +
-            "   "+m_currency + $("#slider-range").slider("values", 1));
+            "  -  "+m_currency + $("#slider-range").slider("values", 1));
     }
     // if ($("#price_range").length > 0) {
     //     $("#price_range").val($("#slider-range").slider("values", 0) +

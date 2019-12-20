@@ -18,9 +18,13 @@ class Product extends Model
    	return $this->belongsTo(Brand::class, 'brand_id');
    }
 
+  public function carts(){
+    return $this->hasMany(Cart::class)->whereNotNull('order_id');
+  }
+
     public function comments()
     {
-         return $this->hasMany(Product_Comment::class)->whereNull('parent_id')->where('status', '1');
+      return $this->hasMany(Product_Comment::class)->whereNull('parent_id')->where('status', '1');
     }    
 
     public function allComments()

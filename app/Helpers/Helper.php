@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Category;
+use App\Tag;
 use App\Post_category;
 use App\Brand;
 use App\Cart;
@@ -40,17 +41,38 @@ class Helper
 	    return $url;
 	}
 
-	//frontend cat supply
-    public static function productCategoryList()
+    //frontend brands supply
+    public static function productBrandList($option='all')
     {
-        return Category::orderBy('id', 'desc')->get();
-    
+        if ($option=='all') {
+           return Brand::orderBy('id', 'desc')->get();
+        }
+        return Brand::has('products')->orderBy('id', 'desc')->get();
+    }
+	//frontend cat supply
+    public static function productCategoryList($option='all')
+    {
+        if ($option=='all') {
+           return Category::orderBy('id', 'desc')->get();
+        }
+        return Category::has('products')->orderBy('id', 'desc')->get();
     }
 
-    public static function postCategoryList()
+    public static function postCategoryList($option='all')
+    {   
+        if ($option=='all') {
+           return Post_category::orderBy('id', 'desc')->get(); 
+        }
+        return Post_category::has('posts')->orderBy('id', 'desc')->get();
+    }
+
+    public static function postTagList($option='all')
     {
-        return Post_category::orderBy('id', 'desc')->get();
-    
+        if ($option=='all') {
+            return Tag::orderBy('id', 'desc')->get();
+        }
+        return Tag::has('posts')->orderBy('id', 'desc')->get();
+
     }
 
     public static function postCategory($post)
@@ -59,8 +81,17 @@ class Helper
         foreach($post->categories as $k => $category):
             $cat[$k] = $category->id;
         endforeach;
-
         return $cat;
+    }
+
+    public static function postTags($post)
+    {
+        $tag = [];
+        foreach($post->tags as $k => $tg):
+            $tag[$k] = $tg->id;
+        endforeach;
+
+        return $tag;
     }
 
     public static function recentPost()
@@ -74,14 +105,11 @@ class Helper
     }
     public static function inspireProduct($count = 8)
     {
-        return Product::all()->random()->limit($count)->orderBy('id', 'desc');
+        $products = Product::query();
+        $products->join('carts', 'products.id', '=', 'carts.product_id')->orderBy('carts.quantity', 'desc')->select('products.*');
+        return $products->limit($count)->get(); 
     }    
 
-    // public static function postCommentTotal($post)
-    // {
-    //     return Post_category::orderBy('id', 'desc')->get();
-    
-    // }
     public static function maxPrice()
     {
         return ceil(Product::max('offer_price'));
@@ -92,16 +120,6 @@ class Helper
         return floor(Product::min('offer_price'));
     
     }
-
-    //frontend brands supply
-    public static function productBrandList()
-    {
-        return Brand::orderBy('id', 'desc')->get();
-    
-    }
-
-
-    // static $user_id = auth()->user()->id;
 
     //frontend cart count
     public static function cartCount( $user_id ='' )
@@ -226,6 +244,11 @@ class Helper
         
         return Widget::orderBy('position', 'desc')->get();
     
+    }
+
+    //slug generate
+    public static function make_slug($string) {
+        return preg_replace('/\s+/u', '-', trim($string));
     }
 
 }

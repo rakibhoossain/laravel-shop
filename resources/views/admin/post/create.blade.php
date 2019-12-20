@@ -25,6 +25,15 @@
           </select>
         </div>
         <div class="form-group col-md-4">
+          <select class="form-control chosen-select" name="tags[]" multiple>
+            <option value="" disabled>Post tags</option>
+            @foreach(Helper::postTagList() as $tag)
+              <option value="{{$tag->id}}">{{$tag->name}}</option>
+            @endforeach
+          </select>
+        </div>
+
+        <div class="form-group col-md-4">
 
         <div class="custom-file mb-3">
           <input type="file" class="custom-file-input" name="image" id="inputImage" multiple>

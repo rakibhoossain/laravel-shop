@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Post_Category_Relation;
+use App\Tag;
+use App\Post_Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
@@ -54,6 +55,8 @@ class PostController extends Controller
             'body'      =>  'required',
         ]);
 
+
+
         $post = new Post;
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
@@ -65,11 +68,11 @@ class PostController extends Controller
         }
 
         $post->save();
-        if ($request->category) {
-            foreach ($request->category as $category) {
-                $post->categories()->attach(['post_id' => $post->id, 'post_category_id' => $category]);
-            }
-        }
+        $categories = Post_Category::find((array)$request->category);
+        $post->categories()->attach($categories);
+
+        $tags = Tag::find((array)$request->tags);
+        $post->tags()->attach($tags);
 
         return back()->with('success','You have successfully created a post.');
     }
@@ -122,13 +125,18 @@ class PostController extends Controller
             $post->image = $this->savePostImage($post, $request);
         }
 
-        if ($request->category) {
-            $post->categories()->detach(); //Delete existing category
-            foreach ($request->category as $category) {
-                $post->categories()->attach(['post_id' => $post->id, 'post_category_id' => $category]);
-            }
-        }
-        
+        $post->categories()->detach(); //Delete existing category
+        $categories = Post_Category::find((array)$request->category);
+        $post->categories()->attach($categories);
+
+        // foreach ($request->category as $category) {
+            // $post->categories()->attach(['post_id' => $post->id, 'post_category_id' => $category]);
+        // }
+
+        $post->tags()->detach(); //Delete existing tags
+        $tags = Tag::find((array)$request->tags);
+        $post->tags()->attach($tags);
+
         $post->save();
         return back()->with('success','You have successfully update a post.');
     }
@@ -144,6 +152,7 @@ class PostController extends Controller
         $post = Post::find($request->id);
         if ($post) {
             $post->categories()->detach();
+            $post->tags()->detach(); //Delete existing tags
             $this->deletPostImage($post);
             $post->delete();
             return back()->with('success','You have successfully delete a post.');  

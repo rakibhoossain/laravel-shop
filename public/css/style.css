@@ -4213,7 +4213,7 @@ h6 {
   font-weight: normal;
   color: #797979;
   font-family: "Roboto", sans-serif;
-  margin-top: 15px;
+  margin-top: 8px;
 }
 
 .p_filter_widgets .range_item input {
@@ -4223,7 +4223,7 @@ h6 {
   font-size: 14px;
   color: #797979;
   font-family: "Roboto", sans-serif;
-  margin-top: 9px;
+  margin-top: 8px;
   padding-left: 3px;
 }
 
@@ -4249,6 +4249,26 @@ h6 {
   font-size: 14px;
   color: #797979;
   font-family: "Roboto", sans-serif;
+}
+
+.p_filter_widgets .product_filter {
+  margin-top: 10px;
+}
+
+.p_filter_widgets .product_filter .filter_button {
+  transition: all 0.3s ease 0s;
+  background: #333;
+  cursor: pointer;
+  display: block;
+  font-weight: 500;
+  padding: 4px 13px;
+  right: 0;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.p_filter_widgets .product_filter .filter_button:hover {
+  background: #000000;
 }
 
 .product_top_bar {

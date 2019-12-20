@@ -74,6 +74,16 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 				Route::post('/delete/{id}', 'PostCategoryController@destroy')->name('admin.post.category.destroy');
 			});
 
+			Route::group(['prefix' => '/tag'], function () {
+				Route::get('/', 'TagController@index')->name('admin.post.tag');
+				Route::get('/create', 'TagController@create')->name('admin.post.tag.create');
+				Route::post('/store', 'TagController@store')->name('admin.post.tag.store');
+				
+				Route::get('/edit/{id}', 'TagController@edit')->name('admin.post.tag.edit');
+				Route::post('/update/{id}', 'TagController@update')->name('admin.post.tag.update');
+				Route::post('/delete/{id}', 'TagController@destroy')->name('admin.post.tag.destroy');
+			});
+
 		});
 
 
@@ -200,9 +210,11 @@ Route::group(['prefix' => '/shop'], function () {
 Route::group(['prefix' => '/post'], function () {
 	Route::get('/', 'BlogController@index')->name('post');
 	Route::get('/category/{slug}', 'BlogController@categoryPost')->name('post.category');
+	Route::get('/tag/{slug}', 'BlogController@tagPost')->name('post.tag');
 	Route::get('/user/{id}', 'BlogController@userPost')->name('post.user');
 
-	Route::get('/{slug}', 'BlogController@show')->name('post.single');
+	Route::get('/single/{slug}', 'BlogController@show')->name('post.single');
+	Route::get('/search', 'BlogController@search')->name('post.search');
 
 	Route::post('/comment', 'CommentController@store')->name('comments.store');
 	

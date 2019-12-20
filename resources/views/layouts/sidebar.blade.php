@@ -1,57 +1,30 @@
 <div class="blog_right_sidebar">
     <aside class="single_sidebar_widget search_widget">
-        <form action="#">
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search Keyword">
-                    <div class="input-group-append">
-                        <button class="btn" type="button"><i class="ti-search"></i></button>
-                    </div>
+      <form action="{{ route('post.search') }}" method="GET">
+        @csrf
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search Keyword">
+                <div class="input-group-append">
+                    <button class="btn" type="button"><i class="ti-search"></i></button>
                 </div>
             </div>
-            <button class="main_btn rounded-0 w-100" type="submit">Search</button>
-        </form>
+        </div>
+        <button class="main_btn rounded-0 w-100" type="submit">Search</button>
+      </form>
     </aside>
 
     <aside class="single_sidebar_widget post_category_widget">
         <h4 class="widget_title">Category</h4>
         <ul class="list cat-list">
+            @foreach(Helper::postCategoryList('posts') as $category)
             <li>
-                <a href="#" class="d-flex">
-                    <p>Resaurant food</p>
-                    <p>(37)</p>
+                <a href="{{ route('post.category', $category->slug) }}" class="d-flex">
+                    <p>{{ $category->name }}</p>
+                    <p>({{ $category->posts->count() }})</p>
                 </a>
             </li>
-            <li>
-                <a href="#" class="d-flex">
-                    <p>Travel news</p>
-                    <p>(10)</p>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="d-flex">
-                    <p>Modern technology</p>
-                    <p>(03)</p>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="d-flex">
-                    <p>Product</p>
-                    <p>(11)</p>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="d-flex">
-                    <p>Inspiration</p>
-                    <p>21</p>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="d-flex">
-                    <p>Health Care (21)</p>
-                    <p>09</p>
-                </a>
-            </li>
+            @endforeach
         </ul>
     </aside>
 
@@ -72,35 +45,14 @@
         @endforeach
     </aside>
 
-
-
     <aside class="single_sidebar_widget tag_cloud_widget">
         <h4 class="widget_title">Tag Clouds</h4>
         <ul class="list">
+            @foreach(Helper::postTagList('posts') as $tag)
             <li>
-                <a href="#">project</a>
+                <a href="{{ route('post.tag', $tag->slug) }}">{{ $tag->name }}</a>
             </li>
-            <li>
-                <a href="#">love</a>
-            </li>
-            <li>
-                <a href="#">technology</a>
-            </li>
-            <li>
-                <a href="#">travel</a>
-            </li>
-            <li>
-                <a href="#">restaurant</a>
-            </li>
-            <li>
-                <a href="#">life style</a>
-            </li>
-            <li>
-                <a href="#">design</a>
-            </li>
-            <li>
-                <a href="#">illustration</a>
-            </li>
+            @endforeach
         </ul>
     </aside>
 

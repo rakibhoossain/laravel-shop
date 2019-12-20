@@ -25,7 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->limit(3)->get();
+        $products = Product::with('reviews')->limit(3)->get()->sortBy(function($data)
+        {
+            return $data->reviews->count();
+        });
+
         $posts = Post::orderBy('id', 'desc')->limit(3)->get();
 
         $data = [
@@ -40,7 +44,7 @@ class HomeController extends Controller
         return view('welcome');
     }
 
-/** Example of File Upload */
+    /** Example of File Upload */
     public function uploadFilePost(Request $request){
         $request->validate([
             'fileToUpload' => 'required|file|max:1024',

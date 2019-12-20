@@ -15,13 +15,6 @@
         <textarea class="form-control rich-editor" id="inputBody" name="body" rows="3">{{$post->body}}</textarea>
       </div>
 
-
- {{-- @if($category->parent_id == $cat->id) selected @endif  --}}
-
-
-
-
-
       <div class="form-row">
         {{-- multiple korte hobe --}}
         <div class="form-group col-md-4">
@@ -29,6 +22,16 @@
             <option value="" disabled>Post category</option>
             @foreach(Helper::postCategoryList() as $cat)
               <option value="{{$cat->id}}" @if( in_array( $cat->id, Helper::postCategory($post) ) ) selected @endif>{{$cat->name}}</option>
+            @endforeach
+          </select>
+        </div>
+
+
+        <div class="form-group col-md-4">
+          <select class="form-control chosen-select" name="tags[]" multiple>
+            <option value="" disabled>Post tags</option>
+            @foreach(Helper::postTagList() as $tag)
+              <option value="{{$tag->id}}" @if( in_array( $tag->id, Helper::postTags($post) ) ) selected @endif>{{$tag->name}}</option>
             @endforeach
           </select>
         </div>

@@ -30,7 +30,12 @@ class Post extends Model
     //Pivot post categories
     public function categories()
     {
-        return $this->belongsToMany(Post_category::class, 'post__category__relations')->withTimestamps();;
+        return $this->belongsToMany(Post_category::class, 'post__category__relations')->withTimestamps();
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'tag_post')->withTimestamps();
     }
 
 

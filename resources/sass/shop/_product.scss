@@ -399,7 +399,7 @@
       font-weight: normal;
       color: $text-color;
       font-family: $body-font;
-      margin-top: 15px;
+      margin-top: 8px;
     }
     input {
       display: inline-block;
@@ -408,7 +408,7 @@
       font-size: 14px;
       color: $text-color;
       font-family: $body-font;
-      margin-top: 9px;
+      margin-top: 8px;
       padding-left: 3px;
       @include placeholder {
         font-size: 14px;
@@ -417,6 +417,25 @@
       }
     }
   }
+  //filter button
+  .product_filter {
+    margin-top: 10px;
+    .filter_button {
+      transition: all 0.3s ease 0s;
+      background: #333;
+      cursor: pointer;
+      display: block;
+      font-weight: 500;
+      padding: 4px 13px;
+      right: 0;
+      color: #ffffff;
+      border-radius: 5px;
+      &:hover{
+        background: #000000;
+      }
+    }
+  }
+
 }
 
 .product_top_bar {
