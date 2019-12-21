@@ -56,48 +56,12 @@
         </ul>
     </aside>
 
-    <aside class="single_sidebar_widget instagram_feeds">
-        <h4 class="widget_title">Instagram Feeds</h4>
-        <ul class="instagram_row flex-wrap">
-            <li>
-                <a href="#">
-                    <img class="img-fluid" src="img/instagram/widget-i1.png" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img class="img-fluid" src="img/instagram/widget-i2.png" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img class="img-fluid" src="img/instagram/widget-i3.png" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img class="img-fluid" src="img/instagram/widget-i4.png" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img class="img-fluid" src="img/instagram/widget-i5.png" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img class="img-fluid" src="img/instagram/widget-i6.png" alt="">
-                </a>
-            </li>
-        </ul>
-    </aside>
-
     <aside class="single_sidebar_widget newsletter_widget">
         <h4 class="widget_title">Newsletter</h4>
-
-        <form action="#">
+        <form action="{{ route('shop.subscribe') }}" method="post">
+            {{ csrf_field() }}
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Enter email" required="">
+                <input type="email" class="form-control" name="email" placeholder="Enter email" required="">
             </div>
             <button class="main_btn rounded-0 w-100" type="submit">Subscribe</button>
         </form>

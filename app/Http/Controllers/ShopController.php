@@ -7,6 +7,8 @@ use App\Product;
 use App\Category;
 use App\Brand;
 
+use Newsletter;
+
 use App\Http\Resources\ItemCollection;
 
 class ShopController extends Controller
@@ -161,5 +163,16 @@ class ShopController extends Controller
                     ->paginate(9);
         return view('shop.search')->with('products', $products);
 
+    }
+
+    public function storeEmail(Request $request){
+
+        if ( ! Newsletter::isSubscribed($request->email) ) {
+            Newsletter::subscribePending($request->email);
+           return Newsletter::lastActionSucceeded()? back()->with('success', 'Subscribed! Check your email!') : back()->withErrors(Newsletter::getLastError()); 
+        }
+
+        return back()->withErrors('Already subscribed!');
+        
     }
 }
