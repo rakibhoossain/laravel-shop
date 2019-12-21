@@ -24,6 +24,9 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 		Route::get('/users', 'AdminController@users')->name('admin.user');
 		Route::get('/users-list', 'AdminController@usersList')->name('admin.user.list');
 
+		Route::group(['prefix' => '/setting'], function () {
+			Route::get('/', 'AdminController@setting')->name('admin.setting');
+		});
 
 
 		Route::get('/notification/{id}', 'ShopNotificationController@show')->name('admin.notification');
@@ -42,49 +45,67 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 	});
 
 
-		Route::group(['prefix' => '/widget'], function () {
-			Route::get('/', 'WidgetController@index')->name('admin.widget');
-			Route::get('/create', 'WidgetController@create')->name('admin.widget.create');
-			Route::post('/store', 'WidgetController@store')->name('admin.widget.store');
+	Route::group(['prefix' => '/widget'], function () {
+		Route::get('/', 'WidgetController@index')->name('admin.widget');
+		Route::get('/create', 'WidgetController@create')->name('admin.widget.create');
+		Route::post('/store', 'WidgetController@store')->name('admin.widget.store');
+		
+		Route::get('/edit/{id}', 'WidgetController@edit')->name('admin.widget.edit');
+		Route::post('/update/{id}', 'WidgetController@update')->name('admin.widget.update');
+		Route::post('/delete/{id}', 'WidgetController@destroy')->name('admin.widget.destroy');
+	});
+
+
+	Route::group(['prefix' => '/post'], function () {
+		Route::get('/', 'PostController@index')->name('admin.post');
+		Route::get('/create', 'PostController@create')->name('admin.post.create');
+		Route::post('/store', 'PostController@store')->name('admin.post.store');
+		Route::get('/edit/{id}', 'PostController@edit')->name('admin.post.edit');
+		// Route::get('/show/{id}', 'PostController@show')->name('admin.post.show');
+
+		Route::post('/update/{id}', 'PostController@update')->name('admin.post.update');
+		Route::get('/delete/{id}', 'PostController@destroy')->name('admin.post.destroy');
+		Route::get('/list', 'PostController@postList')->name('admin.post.list');
+
+		Route::group(['prefix' => '/category'], function () {
+			Route::get('/', 'PostCategoryController@index')->name('admin.post.category');
+			Route::get('/create', 'PostCategoryController@create')->name('admin.post.category.create');
+			Route::post('/store', 'PostCategoryController@store')->name('admin.post.category.store');
 			
-			Route::get('/edit/{id}', 'WidgetController@edit')->name('admin.widget.edit');
-			Route::post('/update/{id}', 'WidgetController@update')->name('admin.widget.update');
-			Route::post('/delete/{id}', 'WidgetController@destroy')->name('admin.widget.destroy');
+			Route::get('/edit/{id}', 'PostCategoryController@edit')->name('admin.post.category.edit');
+			Route::post('/update/{id}', 'PostCategoryController@update')->name('admin.post.category.update');
+			Route::post('/delete/{id}', 'PostCategoryController@destroy')->name('admin.post.category.destroy');
 		});
 
-
-		Route::group(['prefix' => '/post'], function () {
-			Route::get('/', 'PostController@index')->name('admin.post');
-			Route::get('/create', 'PostController@create')->name('admin.post.create');
-			Route::post('/store', 'PostController@store')->name('admin.post.store');
-			Route::get('/edit/{id}', 'PostController@edit')->name('admin.post.edit');
-			// Route::get('/show/{id}', 'PostController@show')->name('admin.post.show');
-
-			Route::post('/update/{id}', 'PostController@update')->name('admin.post.update');
-			Route::get('/delete/{id}', 'PostController@destroy')->name('admin.post.destroy');
-			Route::get('/list', 'PostController@postList')->name('admin.post.list');
-
-			Route::group(['prefix' => '/category'], function () {
-				Route::get('/', 'PostCategoryController@index')->name('admin.post.category');
-				Route::get('/create', 'PostCategoryController@create')->name('admin.post.category.create');
-				Route::post('/store', 'PostCategoryController@store')->name('admin.post.category.store');
-				
-				Route::get('/edit/{id}', 'PostCategoryController@edit')->name('admin.post.category.edit');
-				Route::post('/update/{id}', 'PostCategoryController@update')->name('admin.post.category.update');
-				Route::post('/delete/{id}', 'PostCategoryController@destroy')->name('admin.post.category.destroy');
-			});
-
-			Route::group(['prefix' => '/tag'], function () {
-				Route::get('/', 'TagController@index')->name('admin.post.tag');
-				Route::get('/create', 'TagController@create')->name('admin.post.tag.create');
-				Route::post('/store', 'TagController@store')->name('admin.post.tag.store');
-				
-				Route::get('/edit/{id}', 'TagController@edit')->name('admin.post.tag.edit');
-				Route::post('/update/{id}', 'TagController@update')->name('admin.post.tag.update');
-				Route::post('/delete/{id}', 'TagController@destroy')->name('admin.post.tag.destroy');
-			});
-
+		Route::group(['prefix' => '/tag'], function () {
+			Route::get('/', 'TagController@index')->name('admin.post.tag');
+			Route::get('/create', 'TagController@create')->name('admin.post.tag.create');
+			Route::post('/store', 'TagController@store')->name('admin.post.tag.store');
+			
+			Route::get('/edit/{id}', 'TagController@edit')->name('admin.post.tag.edit');
+			Route::post('/update/{id}', 'TagController@update')->name('admin.post.tag.update');
+			Route::post('/delete/{id}', 'TagController@destroy')->name('admin.post.tag.destroy');
 		});
+	});
+
+	Route::group(['prefix' => '/currency'], function () {
+		Route::get('/', 'CurrencyController@index')->name('admin.currency');
+		Route::get('/create', 'CurrencyController@create')->name('admin.currency.create');
+		Route::post('/store', 'CurrencyController@store')->name('admin.currency.store');
+		
+		Route::get('/edit/{id}', 'CurrencyController@edit')->name('admin.currency.edit');
+		Route::post('/update/{id}', 'CurrencyController@update')->name('admin.currency.update');
+		Route::post('/delete/{id}', 'CurrencyController@destroy')->name('admin.currency.destroy');
+	});
+	Route::group(['prefix' => '/shipping'], function () {
+		Route::get('/', 'ShippingController@index')->name('admin.shipping');
+		Route::get('/create', 'ShippingController@create')->name('admin.shipping.create');
+		Route::post('/store', 'ShippingController@store')->name('admin.shipping.store');
+		
+		Route::get('/edit/{id}', 'ShippingController@edit')->name('admin.shipping.edit');
+		Route::post('/update/{id}', 'ShippingController@update')->name('admin.shipping.update');
+		Route::post('/delete/{id}', 'ShippingController@destroy')->name('admin.shipping.destroy');
+	});
 
 
 	Route::group(['prefix' => '/product'], function () {

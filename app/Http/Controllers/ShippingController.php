@@ -14,7 +14,8 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        //
+        $shippings = Shipping::orderBy('id', 'desc')->get();
+        return view('admin.shipping.index')->with('shippings', $shippings);
     }
 
     /**
@@ -24,7 +25,7 @@ class ShippingController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.shipping.create');
     }
 
     /**
@@ -35,7 +36,16 @@ class ShippingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type'      =>  'required',
+            'price'      =>  'required',
+        ]);
+        $shipping = new Shipping;
+        $shipping->type = $request->type;
+        $shipping->price = $request->price;
+        $shipping->description = $request->description;
+        $shipping->save();
+        return back()->with('success','You have successfully created a shipping.');
     }
 
     /**
@@ -55,9 +65,10 @@ class ShippingController extends Controller
      * @param  \App\Shipping  $shipping
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shipping $shipping)
+    public function edit(Request $request)
     {
-        //
+        $shipping = Shipping::find($request->id);
+        return view('admin.shipping.edit')->with('shipping', $shipping);
     }
 
     /**
@@ -67,9 +78,18 @@ class ShippingController extends Controller
      * @param  \App\Shipping  $shipping
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shipping $shipping)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'type'      =>  'required',
+            'price'      =>  'required',
+        ]);
+        $shipping = Shipping::find($request->id);
+        $shipping->type = $request->type;
+        $shipping->price = $request->price;
+        $shipping->description = $request->description;
+        $shipping->save();
+        return back()->with('success','You have successfully update a shipping.');
     }
 
     /**
@@ -78,8 +98,10 @@ class ShippingController extends Controller
      * @param  \App\Shipping  $shipping
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shipping $shipping)
+    public function destroy(Request $request)
     {
-        //
+        $shipping = Shipping::find($request->id);
+        $shipping->delete();
+        return back()->with('success','You have successfully delete a shipping.'); 
     }
 }

@@ -9,6 +9,7 @@ use App\Brand;
 use App\Cart;
 use App\Order;
 use App\Shipping;
+use App\Currency;
 use App\Post;
 use App\Product;
 use App\Product_review;
@@ -210,7 +211,12 @@ class Helper
     public static function currency()
     {
         return '€';
-    
+
+    }
+    public static function currencies()
+    {
+        return Currency::orderBy('id', 'desc')->get();
+        
     }
 
     //widget areas
