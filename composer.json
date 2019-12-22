@@ -15,6 +15,7 @@
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "pusher/pusher-php-server": "~4.0",
+        "qcod/laravel-app-settings": "^1.2",
         "spatie/laravel-newsletter": "^4.7"
     },
     "require-dev": {
