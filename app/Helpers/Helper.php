@@ -14,7 +14,11 @@ use App\Post;
 use App\Product;
 use App\Product_review;
 use App\Widget;
+use App\Address;
+use App\User;
+use App\City;
 use Auth;
+use Session;
 class Helper
 {
 	/**
@@ -142,30 +146,23 @@ class Helper
     
     }
 
-    //frontend order price
-    public static function orderPrice($id, $user_id='' )
+    //Admin order total price
+    public static function orderPrice($id, $user_id)
     {
-        
-    	if(Auth::check()){
-            if ($user_id == '') $user_id = auth()->user()->id;
-            $order_price = (float)Cart::where('user_id', $user_id)->where('order_id', $id)->sum('price');
-            if ($order_price) {
-                return number_format((float)($order_price), 2, '.', '');
-            }else return 0;
+        $order_price = (float)Cart::where('user_id', $user_id)->where('order_id', $id)->sum('price');
+        if ($order_price) {
+            return number_format((float)($order_price), 2, '.', '');
         }else return 0;
     }
 
-    //frontend grand price
-    public static function grandPrice($id, $user_id='' )
+    //Admin order total price with shipping
+    public static function grandPrice($id, $user_id)
     {
-        if(Auth::check()){
-            if ($user_id == '') $user_id = auth()->user()->id;
-            $order = Order::find($id)->first();
-            if ($order) {
-                $shipping_price = (float)$order->shipping->price; 
-                $order_price = self::orderPrice($id, $user_id);
-                return number_format((float)($order_price + $shipping_price), 2, '.', '');
-            }else return 0;
+        $order = Order::find($id);
+        if ($order) {
+            $shipping_price = (float)$order->shipping->price; 
+            $order_price = self::orderPrice($id, $user_id);
+            return number_format((float)($order_price + $shipping_price), 2, '.', '');
         }else return 0;
     }
 
@@ -173,6 +170,12 @@ class Helper
     public static function shiping()
     {
         return Shipping::orderBy('id', 'desc')->get();
+    
+    }    
+
+    public static function cities()
+    {
+        return City::orderBy('name')->get();
     
     }
 
@@ -208,14 +211,84 @@ class Helper
     }
 
     //frontend shipping
+    public static function base_currency_data()
+    {
+        return ['symbol' => env('CURRENCY', '$'), 'code' => env('CURRENCY_CODE', 'USD')];   
+    }
+
+    public static function base_currency()
+    {
+        return env('CURRENCY', '$');   
+    }    
+
     public static function currency()
     {
-        return '€';
-
+        if(Session::has('shop_currency')) {
+            $data = Currency::find(Session::get('shop_currency'));
+            if ($data) {
+                return $data->symbol;
+            }else{
+                return self::base_currency();
+            }
+        }
+        if( self::setting()->has('shop_currency') && !empty(setting('shop_currency')) ){
+            $data = Currency::find(setting('shop_currency'));
+            if ($data) {
+                return $data->symbol;
+            }else{
+                return self::base_currency();
+            }
+        }
+        return self::base_currency();  
     }
+
+    public static function currency_amount($amount)
+    {
+        if(Session::has('shop_currency')) {
+            $data = Currency::find(Session::get('shop_currency'));
+            if ($data) {
+                return number_format((float)($amount * $data->exchange_rate), 2, '.', '');
+            }else{
+                return number_format((float)($amount), 2, '.', '');
+            }
+        }
+        if( self::setting()->has('shop_currency') && !empty(setting('shop_currency')) ){
+            $data = Currency::find(setting('shop_currency'));
+            if($data){
+                return number_format((float)($amount * $data->exchange_rate), 2, '.', '');
+            }else{
+                return number_format((float)($amount), 2, '.', ''); 
+            }
+        }
+
+        return number_format((float)($amount), 2, '.', '');
+    }
+
+    // public static function base_amount($amount)
+    // {
+    //     if( self::setting()->has('shop_currency') && !empty(setting('shop_currency')) ){
+    //         $data = Currency::find(setting('shop_currency'));
+    //         if ($data) {
+    //             return number_format((float)($amount / $data->exchange_rate), 2, '.', '');
+    //         }else{
+    //            return number_format((float)($amount), 2, '.', '');
+    //         }
+    //     }else{
+    //         return number_format((float)($amount), 2, '.', '');  
+    //     }
+    // }
+
+
     public static function currencies()
     {
         return Currency::orderBy('id', 'desc')->get();
+        
+    }    
+
+    // get settings
+    public static function setting()
+    {
+        return setting()->all(true);
         
     }
 
@@ -255,6 +328,25 @@ class Helper
     //slug generate
     public static function make_slug($string) {
         return preg_replace('/\s+/u', '-', trim($string));
+    }    
+
+
+    //order address by db
+    public static function user_address($key, $user_id) {
+        $user = User::find($user_id);
+        if($user->address){
+            $address = array();
+            $address['first_name'] = $user->address->first_name;
+            $address['last_name'] = $user->address->last_name;
+            $address['address'] = $user->address->address;
+            $address['city_id'] = $user->address->city->id;
+            $address['country'] = $user->address->country;
+            $address['post_code'] = $user->address->post_code;
+            $address['phone_number'] = $user->address->phone_number;
+
+            return (array_key_exists($key, $address))? $address[$key] : '';
+        }
+        return '';
     }
 
 }

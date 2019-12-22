@@ -21,7 +21,7 @@
           <td>{{$order->status}}</td>
           <td>{{$order->payment->status}}</td>
           <td>{{Helper::orderCount($order->id, $order->user->id)}}</td>
-          <td>{{Helper::grandPrice($order->id, $order->user->id)}}{{Helper::currency()}}</td>
+          <td>{{Helper::grandPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}</td>
           <td>
             <a class="btn btn-primary" href="{{ route('admin.product.order.pdf', $order->id )}}">Pdf</a>
             <a class="btn btn-warning" href="{{ route('admin.product.order.edit', $order->id )}}">Edit</a>
@@ -50,7 +50,7 @@
                   <p>data</p><span>: {{$order->updated_at}}</span>
                 </li>
                 <li>
-                  <p>total</p><span>: {{Helper::grandPrice($order->id, $order->user->id)}} </span>
+                  <p>total</p><span>: {{Helper::grandPrice($order->id, $order->user->id)}}{{Helper::base_currency()}} </span>
                 </li>
                 <li>
                   <p>payment method</p><span>: {{$order->payment->payment_method}}</span>
@@ -142,26 +142,26 @@
                   <tr>
                     <td><span>{{$cart->product->title}}</span></td>
                     <td>x{{$cart->quantity}}</td>
-                    <td><span>{{$cart->price}}{{Helper::currency()}}</span></td>
+                    <td><span>{{$cart->price}}{{Helper::base_currency()}}</span></td>
                   </tr>
                 @endforeach
 
                   <tr>
                     <th></th>
                     <th>Subtotal</th>
-                    <th><span>{{Helper::orderPrice($order->id, $order->user->id)}}{{Helper::currency()}}</span></th>
+                    <th><span>{{Helper::orderPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}</span></th>
                   </tr>
                   <tr>
                     <th></th>
                     <th>Shipping</th>
-                    <th>{{$order->shipping->price}}{{Helper::currency()}}</span></th>
+                    <th>{{$order->shipping->price}}{{Helper::base_currency()}}</span></th>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
                     <th></th>
                     <th scope="col">Total:</th>
-                    <th scope="col">{{ Helper::grandPrice($order->id, $order->user->id)}}{{Helper::currency()}}</th>
+                    <th scope="col">{{ Helper::grandPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}</th>
                   </tr>
                 </tfoot>
               </table>

@@ -240,6 +240,9 @@
                 border-right: 0px;
             }
         }
+        a{
+            color: #4a4a4a;
+        }
     }
     .right_side {
         margin-bottom: 0px;
@@ -264,6 +267,70 @@
             &:hover {
                 a {
                     color: $primary-color;
+                }
+            }
+            li {
+                a{
+                    color: #4a4a4a;
+                    &:hover{
+                        color: #c89979
+                    }
+                }
+            }
+        }
+        .curreny-wrap{
+            cursor: pointer;
+            position: relative;
+            margin-left: 10px;
+            .curreny-list{
+                top: 100%;
+                left: 0;
+                position: absolute;
+                opacity: 0;
+                visibility: hidden;
+                -webkit-transform: translateY(30px);
+                -ms-transform: translateY(30px);
+                transform: translateY(30px);
+                -webkit-transition: 0.4s;
+                -o-transition: 0.4s;
+                transition: 0.4s;
+                padding: 15px 15px 20px;
+                width: 100px;
+                z-index: 9;
+                pointer-events: none;
+                background-color: #fff;
+                -webkit-box-shadow: 0 0 6.65px 0.35px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 0 6.65px 0.35px rgba(0, 0, 0, 0.15);
+                li {
+                    margin-left: 0;
+                    padding: 0;
+                    a {
+                        color: #252525;
+                        font-size: 14px;
+                        display: block;
+                        padding: 5px 0 3px;
+                        text-transform: capitalize;
+                        &:hover {
+                            color: #c89979;
+                        }
+                    }
+                    &.active {
+                        a{color: #71cd14;}
+                    }
+                }
+            }
+            &:first-child {
+              margin-left: 0;
+              padding-left: 0;
+            }
+            &:hover{
+                .curreny-list{
+                    opacity: 1;
+                    visibility: visible;
+                    pointer-events: visible;
+                    -webkit-transform: translateY(0);
+                    -ms-transform: translateY(0);
+                    transform: translateY(0);
                 }
             }
         }

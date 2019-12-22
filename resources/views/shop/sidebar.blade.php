@@ -39,7 +39,7 @@
             </div>
             <div class="widgets_inner">
               <div class="range_item">
-                <div id="slider-range" data-min="{{Helper::minPrice()}}" data-max="{{Helper::maxPrice()}}" data-currency="{{Helper::currency()}}"></div>
+                <div id="slider-range" data-min="{{Helper::currency_amount(Helper::minPrice())}}" data-max="{{Helper::currency_amount(Helper::maxPrice())}}" data-currency="{{Helper::currency()}}"></div>
                 <div class="product_filter">
                   <button type="submit" class="btn filter_button">Filter</button>
                   <label for="amount">Price : </label>

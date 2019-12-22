@@ -276,7 +276,7 @@
         <!-- Heading -->
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-          <a class="nav-link" href="{{route('admin.setting')}}">
+          <a class="nav-link" href="{{route('home')}}/settings">
             <i class="fas fa-fw fa-cog"></i>
             <span>Settings</span></a>
         </li>
@@ -469,7 +469,7 @@
           <footer class="sticky-footer bg-white">
             <div class="container my-auto">
               <div class="copyright text-center my-auto">
-                <span>Copyright &copy; <a href="https://github.com/rakibhoossain">Rakib Hossain</a> 2019</span>
+                <span>Copyright &copy; <a href="https://github.com/rakibhoossain" target="_blank">Rakib Hossain</a> 2019</span>
               </div>
             </div>
           </footer>

@@ -47,7 +47,7 @@
                       </div>
                     </td>
                     <td>
-                      <h5 class="cart_single_price"><span class="money">{{$cart->product->offer_price}}</span>{{Helper::currency()}}</h5>
+                      <h5 class="cart_single_price"><span class="money">{{Helper::currency_amount($cart->product->offer_price)}}</span>{{Helper::currency()}}</h5>
                     </td>
                     <td>
                       <div class="product_count">
@@ -59,7 +59,7 @@
                       </div>
                     </td>
                     <td>
-                      <h5 class="cart_single_total"><span class="money">{{$cart->price}}</span>{{Helper::currency()}}</h5>
+                      <h5 class="cart_single_total"><span class="money">{{Helper::currency_amount($cart->price)}}</span>{{Helper::currency()}}</h5>
                     </td>
                     <td>
                       <a href="{{route('cart.delete', $cart->id)}}" class="btn btn-danger">Delete</a>

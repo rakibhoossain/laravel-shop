@@ -31,10 +31,5 @@ class AdminController extends Controller
         return new UserCollection( User::all() );
     }
 
-    
-    public function setting(){
-        return view('admin.setting.index');
-    }
-
 
 }

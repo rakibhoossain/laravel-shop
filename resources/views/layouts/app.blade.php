@@ -7,7 +7,10 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>@yield('title','Ecommerce Laravel')</title>
+  <title>@yield('title','Laravel') - {{setting('app_name')}}</title>
+  @if( Helper::setting()->has('icon') && !empty(setting('icon')) )
+    <link rel="icon" type="image/png" href="{{Storage::disk('public')->url(setting('icon'))}}" sizes="45x45">
+  @endif
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -42,18 +45,13 @@
         <div class="row">
           <div class="col-lg-7">
             <div class="float-left">
-              <p>Phone: +01 256 25 235</p>
-              <p>email: info@eiser.com</p>
+              <p>@if( Helper::setting()->has('app_email') && !empty(setting('app_email')) ) PHONE: <a href="mailto:{{setting('app_email')}}">{{setting('app_email')}}</a>@endif</p>
+              <p>@if( Helper::setting()->has('app_phone') && !empty(setting('app_phone')) )<a href="tel:{{setting('app_phone')}}">{{setting('app_phone')}}</a>@endif</p>
             </div>
           </div>
           <div class="col-lg-5">
             <div class="float-right">
               <ul class="right_side">
-                <li>
-                  <a href="cart.html">
-                    gift card
-                  </a>
-                </li>
                 <li>
                   <a href="{{route('shop.track')}}">
                     track order
@@ -64,6 +62,17 @@
                     Contact Us
                   </a>
                 </li>
+                @if( Helper::setting()->has('shop_currency'))
+
+                <li class="curreny-wrap">Currency <i class="fa fa-angle-down"></i>
+                    <ul class="curreny-list">
+                      <li @if(Helper::base_currency() == Helper::currency()) class="active" @endif ><a href="{{route('shop.currency', 0)}}">{{Helper::base_currency_data()['symbol']}} {{Helper::base_currency_data()['code']}}</a></li>
+                      @foreach(Helper::currencies() as $currency)
+                        <li @if($currency->symbol == Helper::currency()) class="active" @endif ><a href="{{route('shop.currency', $currency->id)}}">{{$currency->symbol}} {{$currency->code}}</a></li>
+                      @endforeach
+                    </ul>
+                </li>
+                @endif
               </ul>
             </div>
           </div>
@@ -75,7 +84,9 @@
         <nav class="navbar navbar-expand-lg navbar-light w-100">
           <!-- Brand and toggle get grouped for better mobile display -->
           <a class="navbar-brand logo_h" href="{{route('home')}}">
-            <img src="{{asset('img/logo.png')}}" alt="" />
+            @if( Helper::setting()->has('logo') && !empty(setting('logo')) )
+            <img src="{{Storage::disk('public')->url(setting('logo'))}}" alt="" />
+            @endif
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,13 +164,6 @@
                 <a href="{{route('cart')}}" class="icons"><i class="fa ti-shopping-cart"></i></a>
                 @endif
               </li>
-
-              <li class="nav-item">
-                <a href="#" class="icons">
-                  <i class="ti-heart" aria-hidden="true"></i>
-                </a>
-              </li>
-
               <li class="nav-item submenu dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle icons" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                  <i class="ti-user" aria-hidden="true"></i>
@@ -206,16 +210,15 @@
     @foreach(Helper::get_widget('footer') as $footer)
       {!!$footer->content!!}
     @endforeach
-  </div>
-  <div class="footer-bottom row align-items-center">
-    <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-      Copyright 2019 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+    </div>
+    <div class="footer-bottom row align-items-center">
+      <p class="footer-text m-0 col-lg-8 col-md-12">@if( Helper::setting()->has('copyright_text') && !empty(setting('copyright_text')) ) {{setting('copyright_text')}} | @endif Developed by <a href="https://github.com/rakibhoossain" target="_blank">Rakib Hossain</a></p>
       <div class="col-lg-4 col-md-12 footer-social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-dribbble"></i></a>
-        <a href="#"><i class="fa fa-behance"></i></a>
+        @if( Helper::setting()->has('social_facebook') && !empty(setting('social_facebook')) )<a href="{{setting('social_facebook')}}" target="_blank"><i class="fa fa-facebook"></i></a>@endif
+        @if(Helper::setting()->has('social_twitter') && !empty(setting('social_twitter')) )<a href="{{setting('social_twitter')}}" target="_blank"><i class="fa fa-twitter"></i></a>@endif
+        @if(Helper::setting()->has('social_dribbble') && !empty(setting('social_dribbble')) )<a href="{{setting('social_dribbble')}}" target="_blank"><i class="fa fa-dribbble"></i></a>@endif
+        @if(Helper::setting()->has('social_behance') && !empty(setting('social_behance')) )<a href="{{setting('social_behance')}}" target="_blank"><i class="fa fa-behance"></i></a>@endif
+        @if(Helper::setting()->has('social_linkedin') && !empty(setting('social_linkedin')) )<a href="{{setting('social_linkedin')}}" target="_blank"><i class="fa fa-linkedin"></i></a>@endif
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('order_number')->unique();
-            $table->unsignedInteger('user_id');
+
+            $table->unsignedInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->enum('status', ['pending', 'processing', 'completed', 'decline'])->default('pending');
-            $table->unsignedInteger('payment_id')->nullable();
-            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null');
-            $table->unsignedInteger('shipping_id')->nullable();
-            $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('set null');
             $table->string('first_name');
             $table->string('last_name');
             $table->text('address');
@@ -31,7 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('country');
             $table->string('post_code');
             $table->string('phone_number');
-            $table->text('notes')->nullable();
+
             $table->timestamps();
         });
     }
@@ -43,6 +38,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('addresses');
     }
 }

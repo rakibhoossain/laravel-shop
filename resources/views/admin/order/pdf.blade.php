@@ -157,7 +157,7 @@ thead {
       <tr>
         <td><span>{{$cart->product->title}}</span></td>
         <td>x{{$cart->quantity}}</td>
-        <td><span>{{$cart->price}}{{Helper::currency()}}</span></td>
+        <td><span>{{$cart->price}}{{Helper::base_currency()}}</span></td>
       </tr>
     @endforeach
     </tbody>
@@ -165,17 +165,17 @@ thead {
       <tr>
         <th scope="col" class="empty"></th>
         <th scope="col" class="text-right">Subtotal:</th>
-        <th scope="col"> <span>{{Helper::orderPrice($order->id, $order->user->id)}}{{Helper::currency()}}</span></th>
+        <th scope="col"> <span>{{Helper::orderPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}</span></th>
       </tr>
       <tr>
         <th scope="col" class="empty"></th>
         <th scope="col" class="text-right ">Shipping:</th>
-        <th><span>{{$order->shipping->price}}{{Helper::currency()}}</span></th>
+        <th><span>{{$order->shipping->price}}{{Helper::base_currency()}}</span></th>
       </tr>
       <tr>
         <th scope="col" class="empty"></th>
         <th scope="col" class="text-right">Total:</th>
-        <th><span>{{ Helper::grandPrice($order->id, $order->user->id)}}{{Helper::currency()}}</span></th>
+        <th><span>{{ Helper::grandPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}</span></th>
       </tr>
 
 {{-- 

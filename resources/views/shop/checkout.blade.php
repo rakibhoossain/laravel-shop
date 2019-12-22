@@ -26,17 +26,14 @@
         <div class="billing_details">
           <div class="row">
             <div class="col-lg-8">
-              <h3>Billing Details</h3>
-
-
-
+              <h3>Shipping Details</h3>
 
               <div class="row contact_form">
                 <div class="col-md-6 form-group p_star">
-                  <input type="text" class="form-control" name="first_name" placeholder="First name"/>
+                  <input type="text" class="form-control" name="first_name" placeholder="First name" value="{{Helper::user_address('first_name', auth()->user()->id)}}" />
                 </div>
                 <div class="col-md-6 form-group p_star">
-                  <input type="text" class="form-control" name="last_name" placeholder="Last name"/>
+                  <input type="text" class="form-control" name="last_name" placeholder="Last name" value="{{Helper::user_address('last_name', auth()->user()->id)}}"/>
                 </div>
 {{--                 <div class="col-md-12 form-group">
                   <input
@@ -48,7 +45,7 @@
                   />
                 </div> --}}
                 <div class="col-md-6 form-group p_star">
-                  <input type="text" class="form-control" name="phone_number" placeholder="Phone number"/>
+                  <input type="text" class="form-control" name="phone_number" placeholder="Phone number" value="{{Helper::user_address('phone_number', auth()->user()->id)}}"/>
                 </div>
 {{--                 <div class="col-md-6 form-group p_star">
                   <input type="text" class="form-control" name="compemailany" />
@@ -58,36 +55,24 @@
 
                 <div class="col-md-12 form-group p_star">
                   <select class="country_select" name="country">
-                    <option value="1">Country</option>
-                    <option value="2">Country</option>
-                    <option value="4">Country</option>
+                    <option value="Bangladesh">Bangladesh</option>
                   </select>
                 </div>
                 <div class="col-md-12 form-group p_star">
                   <select class="country_select" name="city">
-                    <option value="1">District</option>
-                    <option value="2">District</option>
-                    <option value="4">District</option>
+                    <option value="">Select city</option>
+                    @foreach(Helper::cities() as $city)
+                    <option value="{{$city->id}}" @if(Helper::user_address('city_id', auth()->user()->id) == $city->id) selected @endif>{{$city->name}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="col-md-12 form-group p_star">
-                  <input type="text" class="form-control" name="city" placeholder="Town/City"/>
+                  <input type="text" class="form-control" name="address" placeholder="Address" value="{{Helper::user_address('address', auth()->user()->id)}}"/>
                 </div>
-                <div class="col-md-12 form-group p_star">
-                  <input type="text" class="form-control" name="address" placeholder="Address"/>
-                </div>
-
-
                 <div class="col-md-12 form-group">
-                  <input type="text" class="form-control" name="post_code" placeholder="Postcode/ZIP"/>
+                  <input type="text" class="form-control" name="post_code" placeholder="Postcode/ZIP" value="{{Helper::user_address('post_code', auth()->user()->id)}}"/>
                 </div>
-
                 <div class="col-md-12 form-group">
-                  <div class="creat_account">
-                    <h3>Shipping Details</h3>
-                    <input type="checkbox" id="f-option3" name="selector" />
-                    <label for="f-option3">Ship to a different address?</label>
-                  </div>
                   <textarea class="form-control" name="notes" rows="1" placeholder="Order Notes"></textarea>
                 </div>
               </div>
@@ -107,16 +92,16 @@
                   <li>
                     <a href="{{route('shop.single', $order->product->slug)}}">{{$order->product->title}}
                       <span class="middle">x {{$order->quantity}}</span>
-                      <span class="last">{{$order->price}}{{Helper::currency()}}</span>
+                      <span class="last">{{Helper::currency_amount($order->price)}}{{Helper::currency()}}</span>
                     </a>
                   </li>
                   @endforeach
 
                 </ul>
                 <ul class="list list_2">
-                  <li class="order_sutotal" data-price="{{$total_price}}" data-currency="{{Helper::currency()}}">
+                  <li class="order_sutotal" data-price="{{Helper::currency_amount($total_price)}}" data-currency="{{Helper::currency()}}">
                     <a href="{{route('cart')}}">
-                      Subtotal <span>{{$total_price}}{{Helper::currency()}}</span>
+                      Subtotal <span>{{Helper::currency_amount($total_price)}}{{Helper::currency()}}</span>
                     </a>
                   </li>
                   <li class="shipping">
@@ -129,7 +114,7 @@
                         <select name="shipping">
                           <option value="">Select</option>
                           @foreach(Helper::shiping() as $shiping)
-                          <option value="{{$shiping->id}}" data-price="{{$shiping->price}}">{{$shiping->type}}: {{$shiping->price}}{{Helper::currency()}}</option>
+                          <option value="{{$shiping->id}}" data-price="{{Helper::currency_amount($shiping->price)}}">{{$shiping->type}}: {{Helper::currency_amount($shiping->price)}}{{Helper::currency()}}</option>
                           @endforeach
                         </select>
                       </div>
@@ -137,7 +122,7 @@
                   </li>
                   <li id="order_total_price">
                     <a href="{{route('cart')}}">
-                      Total <span>{{$total_price}}{{Helper::currency()}}</span>
+                      Total <span>{{Helper::currency_amount($total_price)}}{{Helper::currency()}}</span>
                     </a>
                   </li>
                 </ul>

@@ -17,7 +17,7 @@ class ItemCollection extends ResourceCollection
     {
         // return parent::toArray($request);
         return [
-            'currency'=> Helper::currency(),
+            'currency'=> Helper::base_currency(),
             'data' => $this->collection,
         ];
     }

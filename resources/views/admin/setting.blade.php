@@ -48,18 +48,19 @@
                   @endif
 
         </div>
+
+        <div class="row m-b-md">
+          <div class="col-md-12">
+              <button class="btn-primary btn">
+                  {{ Arr::get($settingsUI, 'submit_btn_text', 'Save Settings') }}
+              </button>
+          </div>
+        </div>
+
       </div>
     </div>
 
-
-                            <div class="row m-b-md">
-                              <div class="col-md-12">
-                                  <button class="btn-primary btn">
-                                      {{ Arr::get($settingsUI, 'submit_btn_text', 'Save Settings') }}
-                                  </button>
-                              </div>
-                            </div>
-                          </form>
+</form>
 
 
 

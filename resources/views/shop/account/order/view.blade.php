@@ -23,7 +23,7 @@
               <p>data</p><span>: {{$order->updated_at}}</span>
             </li>
             <li>
-              <p>total</p><span>: {{Helper::grandPrice($order->id)}} </span>
+              <p>total</p><span>: {{Helper::currency_amount(Helper::grandPrice($order->id, $order->user->id))}}{{Helper::currency()}}</span>
             </li>
             <li>
               <p>payment method</p><span>: {{$order->payment->payment_method}}</span>
@@ -117,24 +117,24 @@
               <tr>
                 <td colspan="2"><span>{{$cart->product->title}}</span></td>
                 <td>x{{$cart->quantity}}</td>
-                <td><span>{{$cart->price}}</span></td>
+                <td><span>{{Helper::currency_amount($cart->price)}}{{Helper::currency()}}</span></td>
               </tr>
             @endforeach
 
               <tr>
                 <th colspan="3">Subtotal</th>
-                <th> <span>{{Helper::orderPrice($order->id)}}</span></th>
+                <th> <span>{{Helper::currency_amount(Helper::orderPrice($order->id, $order->user->id))}}{{Helper::currency()}}</span></th>
               </tr>
               <tr>
                 <th colspan="3">shipping</th>
-                <th><span>{{$order->shipping->type}} rate: {{$order->shipping->price}}</span></th>
+                <th><span>{{$order->shipping->type}} rate: {{Helper::currency_amount($order->shipping->price)}}{{Helper::currency()}}</span></th>
               </tr>
             </tbody>
             <tfoot>
               <tr>
                 <th scope="col" colspan="2">Quantity:</th>
                 <th scope="col">x{{ Helper::orderCount($order->id)}}</th>
-                <th scope="col">Total: {{ Helper::grandPrice($order->id)}}</th>
+                <th scope="col">Total: {{ Helper::currency_amount(Helper::grandPrice($order->id, $order->user->id))}}{{Helper::currency()}}</th>
               </tr>
             </tfoot>
           </table>

@@ -22,7 +22,7 @@ class Post extends Model
          return $this->hasMany(Comment::class)->where('status', '1');
     }
 
-   public function user()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

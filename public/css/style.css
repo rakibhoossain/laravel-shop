@@ -461,6 +461,10 @@ ul {
   border-right: 0px;
 }
 
+.top_menu .float-left a {
+  color: #4a4a4a;
+}
+
 .top_menu .right_side {
   margin-bottom: 0px;
   padding: 7px 0;
@@ -487,6 +491,69 @@ ul {
 
 .top_menu .right_side li:hover a {
   color: #71cd14;
+}
+
+.top_menu .right_side li li a {
+  color: #4a4a4a;
+}
+
+.top_menu .right_side li li a:hover {
+  color: #c89979;
+}
+
+.top_menu .right_side .curreny-wrap {
+  cursor: pointer;
+  position: relative;
+  margin-left: 10px;
+}
+
+.top_menu .right_side .curreny-wrap .curreny-list {
+  top: 100%;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px);
+  transition: 0.4s;
+  padding: 15px 15px 20px;
+  width: 100px;
+  z-index: 9;
+  pointer-events: none;
+  background-color: #fff;
+  box-shadow: 0 0 6.65px 0.35px rgba(0, 0, 0, 0.15);
+}
+
+.top_menu .right_side .curreny-wrap .curreny-list li {
+  margin-left: 0;
+  padding: 0;
+}
+
+.top_menu .right_side .curreny-wrap .curreny-list li a {
+  color: #252525;
+  font-size: 14px;
+  display: block;
+  padding: 5px 0 3px;
+  text-transform: capitalize;
+}
+
+.top_menu .right_side .curreny-wrap .curreny-list li a:hover {
+  color: #c89979;
+}
+
+.top_menu .right_side .curreny-wrap .curreny-list li.active a {
+  color: #71cd14;
+}
+
+.top_menu .right_side .curreny-wrap:first-child {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.top_menu .right_side .curreny-wrap:hover .curreny-list {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: visible;
+  transform: translateY(0);
 }
 
 .top_menu .ac_btn {

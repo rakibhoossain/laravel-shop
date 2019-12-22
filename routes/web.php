@@ -24,11 +24,6 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 		Route::get('/users', 'AdminController@users')->name('admin.user');
 		Route::get('/users-list', 'AdminController@usersList')->name('admin.user.list');
 
-		Route::group(['prefix' => '/setting'], function () {
-			Route::get('/', 'AdminController@setting')->name('admin.setting');
-		});
-
-
 		Route::get('/notification/{id}', 'ShopNotificationController@show')->name('admin.notification');
 		Route::get('/notification/delete/{id}', 'ShopNotificationController@delete')->name('admin.notification.delete');
 		Route::get('/notification/', 'ShopNotificationController@index')->name('admin.notifications');
@@ -195,6 +190,8 @@ Route::group(['prefix' => '/shop'], function () {
 	
 	Route::get('/category/{slug}', 'ShopController@categoryProduct')->name('shop.category');
 	Route::get('/brand/{slug}', 'ShopController@brandProduct')->name('shop.brand');
+
+	Route::get('/currency/{id}', 'ShopController@shopCurrency')->name('shop.currency');
 
 
 	Route::get('/track/', 'OrderController@ordersTrackIndex')->name('shop.track');

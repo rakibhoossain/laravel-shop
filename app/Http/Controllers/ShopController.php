@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use App\Brand;
+use App\Currency;
 
+use Session;
 use Newsletter;
 
 use App\Http\Resources\ItemCollection;
@@ -162,6 +164,18 @@ class ShopController extends Controller
                     ->orderBy('id', 'desc')
                     ->paginate(9);
         return view('shop.search')->with('products', $products);
+
+    }    
+
+    public function shopCurrency(Request $request){
+        
+        $currency = Currency::find($request->id);
+        if($currency){
+            Session::put('shop_currency', $request->id);
+        }else if($request->id == 0){
+            Session::put('shop_currency', 0);
+        }
+        return back();
 
     }
 

@@ -20,8 +20,8 @@ class Item extends JsonResource
             'title'=> $this->title,
             'slug' => $this->slug,
 
-            'offer_price' => $this->offer_price.Helper::currency(),
-            'price' =>  $this->price.Helper::currency(),           
+            'offer_price' => $this->offer_price.Helper::base_currency(),
+            'price' =>  $this->price.Helper::base_currency(),           
 
             'category' => $this->category->name,
             'brand' =>  $this->brand->name,

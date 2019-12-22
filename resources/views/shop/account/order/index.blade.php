@@ -33,7 +33,7 @@
           <td>{{$order->user->name}}</td>
           
           <td>{{Helper::orderCount($order->id)}}</td>
-          <td>{{Helper::grandPrice($order->id)}}</td>
+          <td>{{Helper::currency_amount(Helper::grandPrice($order->id, $order->user->id))}}{{Helper::currency()}}</td>
 
           <td>
             <a class="btn btn-primary" href="{{ route('account.order.view', $order->id )}}">View</a>

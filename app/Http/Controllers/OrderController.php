@@ -6,6 +6,7 @@ use App\Order;
 use App\Cart;
 use App\Payment;
 use App\User;
+use App\Address;
 use Illuminate\Http\Request;
 use Notification;
 use App\Notifications\ShopNotification;
@@ -112,10 +113,24 @@ class OrderController extends Controller
         $order->status = 'pending';
 
         $order->shipping_id = $request->shipping;
+
+        if(empty(auth()->user()->address)){
+            $address = new Address;
+            $address->user_id = auth()->user()->id;
+            $address->first_name = $request->first_name;
+            $address->last_name = $request->last_name;
+            $address->address = $request->address;
+            $address->city_id = $request->city;
+            $address->country = $request->country;
+            $address->post_code = $request->post_code;
+            $address->phone_number = $request->phone_number;
+            $address->save();
+        }
+
         $order->first_name = $request->first_name;
         $order->last_name = $request->last_name;
         $order->address = $request->address;
-        $order->city = $request->city;
+        $order->city_id = $request->city;
         $order->country = $request->country;
         $order->post_code = $request->post_code;
         $order->phone_number = $request->phone_number;

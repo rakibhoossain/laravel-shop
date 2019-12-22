@@ -44,7 +44,7 @@
           <div class="col-lg-5 offset-lg-1">
             <div class="s_product_text">
               <h3>{{$product->title}}</h3>
-              <h2>{{Helper::currency()}}{{$product->price}}</h2>
+              <h2>{{Helper::currency()}}{{Helper::currency_amount($product->price)}}</h2>
               <ul class="list">
                 @if($product->category)
                   <li><a class="active" href="{{route('shop.category', $product->category->slug)}}"><span>Category</span> : {{$product->category->name}}</a></li>

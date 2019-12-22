@@ -18,8 +18,8 @@
         <h4>{{$product->title}}</h4>
       </a>
       <div class="mt-3">
-        <span class="mr-4">{{$product->offer_price}}{{Helper::currency()}}</span>
-        <del>{{$product->price}}{{Helper::currency()}}</del>
+        <span class="mr-4">{{Helper::currency_amount($product->offer_price)}}{{Helper::currency()}}</span>
+        <del>{{Helper::currency_amount($product->price)}}{{Helper::currency()}}</del>
       </div>
     </div>
   </div>
