@@ -264,19 +264,27 @@ class Helper
         return number_format((float)($amount), 2, '.', '');
     }
 
-    // public static function base_amount($amount)
-    // {
-    //     if( self::setting()->has('shop_currency') && !empty(setting('shop_currency')) ){
-    //         $data = Currency::find(setting('shop_currency'));
-    //         if ($data) {
-    //             return number_format((float)($amount / $data->exchange_rate), 2, '.', '');
-    //         }else{
-    //            return number_format((float)($amount), 2, '.', '');
-    //         }
-    //     }else{
-    //         return number_format((float)($amount), 2, '.', '');  
-    //     }
-    // }
+    public static function base_amount($amount)
+    {
+        if(Session::has('shop_currency')) {
+            $data = Currency::find(Session::get('shop_currency'));
+            if ($data) {
+                return number_format((float)($amount / $data->exchange_rate), 2, '.', '');
+            }else{
+                return number_format((float)($amount), 2, '.', '');
+            }
+        }
+        if( self::setting()->has('shop_currency') && !empty(setting('shop_currency')) ){
+            $data = Currency::find(setting('shop_currency'));
+            if($data){
+                return number_format((float)($amount / $data->exchange_rate), 2, '.', '');
+            }else{
+                return number_format((float)($amount), 2, '.', ''); 
+            }
+        }
+
+        return number_format((float)($amount), 2, '.', '');
+    }
 
 
     public static function currencies()

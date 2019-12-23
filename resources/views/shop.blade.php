@@ -58,6 +58,47 @@
 </section>
 <!--================End Category Product Area =================-->
 </form>
+
+@push('scripts')
+<script src="{{ asset('vendors/jquery-ui/jquery-ui.js') }}"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+  /*----------------------------------------------------*/
+  /*  Jquery Ui slider js
+  /*----------------------------------------------------*/
+  if ($("#slider-range").length > 0) {
+      const max_value = parseInt( $("#slider-range").data('max') ) || 500;
+      const min_value = parseInt($("#slider-range").data('min')) || 0;
+      const currency = $("#slider-range").data('currency') || '';
+      let price_range = min_value+'-'+max_value;
+
+      if($("#price_range").length > 0 && $("#price_range").val()){
+          price_range = $("#price_range").val().trim();
+      }
+      
+      let price = price_range.split('-');
+      $("#slider-range").slider({
+          range: true,
+          min: min_value,
+          max: max_value,
+          values: price,
+          slide: function (event, ui) {
+              $("#amount").val(currency + ui.values[0] + " -  "+currency+ ui.values[1]);
+              $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
+          }
+      });
+  }
+  if ($("#amount").length > 0) {
+      const m_currency = $("#slider-range").data('currency') || '';
+      $("#amount").val(m_currency + $("#slider-range").slider("values", 0) +
+          "  -  "+m_currency + $("#slider-range").slider("values", 1));
+  }
+})
+</script>
+@endpush
+
+
 @else
 <section class="banner_area">
   <div class="banner_inner d-flex align-items-center">
