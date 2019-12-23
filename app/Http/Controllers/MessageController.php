@@ -44,7 +44,7 @@ class MessageController extends Controller
         ]);
        $message = Message::create($request->all());
 
-       event(new MessageEvent('message sent'));
+       event(new MessageEvent($message));
        exit();
     }
 

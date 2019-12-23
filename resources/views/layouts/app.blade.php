@@ -233,12 +233,10 @@
 @stack('scripts')
 
 <script type="text/javascript">
-  window.Echo.channel('message').notification((notification) => {console.log(notification)});
-
-
-                    // .listen('contactMessage', (e) => {
-                    //     console.log(e)
-                    // })
+Echo.channel('message')
+    .listen('MessageEvent', (e) => {
+        console.log(e);
+    });
 </script>
 
 </body>
