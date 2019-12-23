@@ -247,6 +247,12 @@ Route::group(['prefix' => '/post'], function () {
 });
 
 
+Route::group(['prefix' => '/contact'], function () {
+	Route::get('/', 'HomeController@contact')->name('contact');
+	Route::post('/message', 'MessageController@store')->name('contact.store');
+});
+
+
 
 
 // Route::group(['prefix' => '/post'], function () {

@@ -472,6 +472,11 @@
       </div>
     </section>
     <!--================End Product Description Area =================-->
+
+    @push('scripts')
+    <script src="{{ asset('js/comment.js') }}"></script>
+    @endpush
+
   @else
     <section class="banner_area">
       <div class="banner_inner d-flex align-items-center">

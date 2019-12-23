@@ -250,4 +250,12 @@
       </div>
     </section>
     <!--================End Checkout Area =================-->
+
+    @push('scripts')
+    <script src="{{ asset('vendors/nice-select/js/jquery.nice-select.min.js') }}"></script>
+    <script type="text/javascript">
+      $('select').niceSelect();
+    </script>
+    @endpush
 @endsection
+    

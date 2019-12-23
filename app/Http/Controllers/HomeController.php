@@ -39,6 +39,13 @@ class HomeController extends Controller
         ];
         return view('home')->with($data);
     }
+
+    /** Contactus view */
+    public function contact(){
+        return view('contact');
+    }
+
+
     /** Return view to upload file */
     public function uploadFile(){
         return view('welcome');

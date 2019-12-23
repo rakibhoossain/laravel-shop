@@ -160,7 +160,9 @@
   <!--================Blog Area =================-->
 
 
-
+@push('scripts')
+<script src="{{ asset('js/comment.js') }}"></script>
+@endpush
 
 @else
 <section class="banner_area">
