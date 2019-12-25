@@ -232,12 +232,5 @@
 <!-- Page level custom scripts -->
 @stack('scripts')
 
-<script type="text/javascript">
-Echo.channel('message')
-    .listen('MessageEvent', (e) => {
-        console.log(e);
-    });
-</script>
-
 </body>
 </html>

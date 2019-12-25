@@ -19,7 +19,7 @@ class User extends JsonResource
             'email' => $this->email,
             'created_at' => date_format($this->created_at,"F D, Y").' at '.date_format($this->created_at,"g:i a"),
             'admin_status' => $this->is_admin,
-            'action' => 'Update',
+            'action' => "<a class='btn btn-primary' href=".route('admin.user.show', $this->id ).">View</a>",
         ];
     }
 }

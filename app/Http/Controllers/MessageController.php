@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Message;
 use Illuminate\Http\Request;
 use App\Events\MessageEvent;
+use Helper;
 
 class MessageController extends Controller
 {
@@ -15,8 +16,16 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $messages = Message::paginate(20);
+        return view('admin.message.index')->with('messages', $messages);
+    }    
+
+    public function messageFive()
+    {
+        $messages = Message::whereNull('read_at')->limit(5)->get();
+        return response()->json($messages);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,7 +53,16 @@ class MessageController extends Controller
         ]);
        $message = Message::create($request->all());
 
-       event(new MessageEvent($message));
+       $data = array();
+       $data['url'] = route('admin.message.show', $message->id);
+       $data['date'] = $message->created_at->format('F d, Y h:i A');
+       $data['name'] = $message->name;
+       $data['email'] = $message->email;
+       $data['image'] = Helper::get_gravatar($message->email,60);
+       $data['message'] = $message->message;
+       $data['subject'] = $message->subject;
+
+       event(new MessageEvent($data));
        exit();
     }
 
@@ -54,9 +72,16 @@ class MessageController extends Controller
      * @param  \App\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message)
+    public function show(Request $request)
     {
-        //
+        $message = Message::find($request->id);
+        if($message){
+            $message->read_at = \Carbon\Carbon::now();
+            $message->save();  
+            return view('admin.message.show')->with('message', $message); 
+        }else{
+            return back();
+        }         
     }
 
     /**
@@ -88,8 +113,14 @@ class MessageController extends Controller
      * @param  \App\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Message $message)
+    public function destroy(Request $request)
     {
-        //
+        $message = Message::find($request->id);
+        if($message){
+          $message->delete(); 
+          return back()->with('success','Message delete success!.');
+        }else{
+            return back()->withErrors('Invalid message!.');
+        }
     }
 }

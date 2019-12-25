@@ -14,20 +14,17 @@
         </tr>
       </thead>
       <tbody>
-        @php $order_count = 1; @endphp
         @foreach ( Auth::user()->Notifications as $notification)
 
         <tr class="@if($notification->unread()) bg-warning border-left-warning @else border-left-success @endif">
-          <td scope="row">{{$order_count}}</td>
+          <td scope="row">{{$loop->index +1}}</td>
           <td>{{$notification->created_at->format('F d, Y h:i A')}}</td>
           <td>{{$notification->data['title']}}</td>
           <td><a href="{{ route('admin.notification', $notification->id) }}" class="btn btn-dark">View</a> <a href="{{ route('admin.notification.delete', $notification->id) }}" class="btn btn-danger">Delete</a></td>
 
         </tr>
 
-        @php ++$order_count; @endphp
         @endforeach
-
       </tbody>
     </table>
     @else

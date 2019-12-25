@@ -17,6 +17,7 @@ use App\Widget;
 use App\Address;
 use App\User;
 use App\City;
+use App\Message;
 use Auth;
 use Session;
 class Helper
@@ -46,6 +47,15 @@ class Helper
 	    return $url;
 	}
 
+
+
+
+    //frontend brands supply
+    public static function messageList()
+    {
+        return Message::whereNull('read_at')->orderBy('created_at', 'desc')->get();
+    }    
+
     //frontend brands supply
     public static function productBrandList($option='all')
     {
@@ -54,6 +64,7 @@ class Helper
         }
         return Brand::has('products')->orderBy('id', 'desc')->get();
     }
+
 	//frontend cat supply
     public static function productCategoryList($option='all')
     {

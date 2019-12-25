@@ -33,12 +33,25 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 			Route::get('/delete/{id}', 'CommentController@destroy')->name('admin.comments.destroy');
 			Route::get('/edit/{id}', 'CommentController@edit')->name('admin.comments.edit');
 			Route::post('/update/{id}', 'CommentController@update')->name('admin.comments.update');
-
 			Route::get('/list', 'CommentController@commentsList')->name('admin.comments.list');
 		});
 
 	});
 
+	Route::group(['prefix' => '/message'], function () {
+		Route::get('/Five', 'MessageController@messageFive')->name('messages.five');
+		Route::get('/', 'MessageController@index')->name('admin.message.index');
+		Route::get('/view/{id}', 'MessageController@show')->name('admin.message.show');
+		Route::get('/delete/{id}', 'MessageController@destroy')->name('admin.message.delete');
+	});
+
+
+	Route::group(['prefix' => '/user'], function () {
+		Route::get('/view/{id}', 'UserController@show')->name('admin.user.show');
+		Route::get('/edit/{id}', 'UserController@edit')->name('admin.user.edit');
+		Route::post('/update/{id}', 'UserController@update')->name('admin.user.update');
+		Route::get('/delete/{id}', 'UserController@destroy')->name('admin.user.destroy');
+	});
 
 	Route::group(['prefix' => '/widget'], function () {
 		Route::get('/', 'WidgetController@index')->name('admin.widget');

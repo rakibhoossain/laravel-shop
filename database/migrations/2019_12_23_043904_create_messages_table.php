@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->string('email');
             $table->text('subject');
             $table->text('message');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
