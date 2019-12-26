@@ -18,6 +18,7 @@ use App\Address;
 use App\User;
 use App\City;
 use App\Message;
+use App\Comment;
 use Auth;
 use Session;
 class Helper
@@ -175,6 +176,37 @@ class Helper
             $order_price = self::orderPrice($id, $user_id);
             return number_format((float)($order_price + $shipping_price), 2, '.', '');
         }else return 0;
+    }
+
+    public static function orderByMonth()
+    {   
+        $year_data = Order::whereYear('created_at', \Carbon\Carbon::now()->year)->whereMonth('created_at', \Carbon\Carbon::now()->month)->get();
+        $price = 0;
+        foreach ($year_data as $data) {
+            $price += (float)Cart::where('order_id', $data->id)->sum('price');
+        }
+        return number_format((float)($price), 2, '.', '');
+    }
+    public static function orderByYear()
+    {   
+        $month_data = Order::whereYear('created_at', \Carbon\Carbon::now()->year)->get();
+        $price = 0;
+        foreach ($month_data as $data) {
+            $price += (float)Cart::where('order_id', $data->id)->sum('price');
+        }
+        return number_format((float)($price), 2, '.', '');
+    }
+
+
+
+    public static function pendingComments()
+    {   
+        return Comment::where('status', '0')->count();
+    }
+
+    public static function shopUsers()
+    {   
+        return User::where('is_admin', '<>', '1')->count();
     }
 
     //frontend shipping

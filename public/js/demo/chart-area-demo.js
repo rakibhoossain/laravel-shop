@@ -29,6 +29,22 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+
+axios.get(window.baseURL+'/shop/list')
+            .then(function (response) {
+              // vm.products = response.data.data
+              // vm.categories = response.data.productCategories
+              // vm.brands = response.data.ProductBrands
+            console.log(response.data)
+            })
+            .catch(function (error) {
+            //   vm.answer = 'Error! Could not reach the API. ' + error
+            console.log(error)
+            });
+
+
+
+
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -46,7 +62,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 44660],
     }],
   },
   options: {
