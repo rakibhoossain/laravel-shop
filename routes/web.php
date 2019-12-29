@@ -133,9 +133,7 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 			Route::post('/store', 'CategoryController@store')->name('admin.product.category.store');
 			
 			Route::get('/edit/{id}', 'CategoryController@edit')->name('admin.product.category.edit');
-
 			Route::post('/update/{id}', 'CategoryController@update')->name('admin.product.category.update');
-
 			Route::post('/delete/{id}', 'CategoryController@destroy')->name('admin.product.category.destroy');
 		});
 
@@ -143,11 +141,13 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 			Route::get('/', 'OrderController@index')->name('admin.product.order');
 			Route::get('/show/{id}', 'OrderController@show')->name('admin.product.order.show');
 			Route::get('/edit/{id}', 'OrderController@edit')->name('admin.product.order.edit');
+			Route::post('/update/{id}', 'OrderController@update')->name('admin.product.order.update');
 			Route::get('/destroy/{id}', 'OrderController@destroy')->name('admin.product.order.destroy');
 
 			Route::get('/list', 'OrderController@ordersList')->name('admin.product.order.list');
-
 			Route::get('/pdf/{id}', 'OrderController@pdf')->name('admin.product.order.pdf');
+
+			Route::get('/income', 'OrderController@incomeChart')->name('admin.product.order.income');
 
 		});
 

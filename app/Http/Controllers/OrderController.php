@@ -197,9 +197,28 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request)
     {
-        //
+        $order = Order::find($request->id);
+
+        if($order->status == 'completed') return back();
+
+        $order->status = $request->order_status;
+        $order->save();
+
+        $payment = $order->payment;
+        $payment->status = $request->payment_status;
+        $payment->save();
+
+        if($request->order_status == 'completed'){
+            foreach ($order->cart as $cart) {
+                $product = $cart->product;
+                $product->quantity -= $cart->quantity;
+                $product->save();
+            }
+        }
+
+        return redirect()->route('admin.product.order')->with('success','You have successfully update an order.');
     }
 
     /**
@@ -217,5 +236,36 @@ class OrderController extends Controller
         }else{
             return redirect()->route('admin.product.order')->withErrors('Invalid order!.');
         }
+    }    
+
+    public function incomeChart(Request $request)
+    {
+        $year = \Carbon\Carbon::now()->year;
+
+        $items = Order::with(['cart'])->whereYear('created_at', $year)
+        ->where('status','completed')
+        ->get()
+        ->groupBy(function($d) {
+            return \Carbon\Carbon::parse($d->created_at)->format('m');
+        });
+
+
+        $result = [];
+        foreach($items as $month => $item_collections){
+            foreach($item_collections as $item){
+                $amount = $item->cart->sum('price');
+                isset($result[$month]) ? $result[$month] += $amount : $result[$month] = $amount;
+            }
+        }
+
+        $data = [];
+        for ($i=1; $i <=12 ; $i++) { 
+            $monthName = date("F", mktime(0, 0, 0, $i, 1));
+            $data[$monthName] = (!empty($result[$i]))? number_format((float)($result[$i]), 2, '.', '') : 0.0;
+        }
+
+        return $data;
     }
+
+
 }

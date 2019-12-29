@@ -39,6 +39,7 @@ class CartController extends Controller
         if($already_cart) {
             $already_cart->quantity = $already_cart->quantity + 1;
             $already_cart->price = $product->offer_price + $already_cart->price ;
+            if ($already_cart->product->quantity < $already_cart->quantity || $already_cart->product->quantity <= 0) return back()->withErrors('Stock not sufficient!.');
             $already_cart->save();
             
         }else{
@@ -48,6 +49,7 @@ class CartController extends Controller
             $cart->product_id = $product->id;
             $cart->price = $product->offer_price;
             $cart->quantity = 1;
+            if ($cart->product->quantity < $cart->quantity || $cart->product->quantity <= 0) return back()->withErrors('Stock not sufficient!.');
             $cart->save();
         }
         return back()->with('success','Product added to cart.');       
@@ -70,9 +72,14 @@ class CartController extends Controller
 
         $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->where('product_id', $product->id)->first();
 
+
+
         if($already_cart) {
             $already_cart->quantity = $already_cart->quantity + $request->qty;
             $already_cart->price = ($product->offer_price * $request->qty) + $already_cart->price ;
+
+            if ($already_cart->product->quantity < $already_cart->quantity || $already_cart->product->quantity <= 0) return back()->withErrors('Stock not sufficient!.');
+
             $already_cart->save();
             
         }else{
@@ -82,6 +89,9 @@ class CartController extends Controller
             $cart->product_id = $product->id;
             $cart->price = ($product->offer_price * $request->qty);
             $cart->quantity = $request->qty;
+
+            if ($cart->product->quantity < $cart->quantity || $cart->product->quantity <= 0) return back()->withErrors('Stock not sufficient!.');
+
             $cart->save();
         }
         return back()->with('success','Product added to cart.');       
@@ -117,7 +127,8 @@ class CartController extends Controller
                 $cart = Cart::find($id);
 
                 if ($qty>0 && $cart) {
-                    $cart->quantity = $qty;
+                    $cart->quantity = ($cart->product->quantity > $qty) ? $qty  : $cart->product->quantity;
+                    if ($cart->product->quantity <=0) continue;
                     $cart->price = $cart->product->offer_price * $qty;
                     $cart->save();
                     $success = 'Cart updated!';

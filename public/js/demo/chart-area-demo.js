@@ -30,7 +30,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 
-axios.get(window.baseURL+'/shop/list')
+axios.get('{{route("admin.product.order.income"}}')
             .then(function (response) {
               // vm.products = response.data.data
               // vm.categories = response.data.productCategories

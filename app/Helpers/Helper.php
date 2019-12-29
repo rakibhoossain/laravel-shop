@@ -178,26 +178,27 @@ class Helper
         }else return 0;
     }
 
+    //Admin home data
     public static function orderByMonth()
     {   
-        $year_data = Order::whereYear('created_at', \Carbon\Carbon::now()->year)->whereMonth('created_at', \Carbon\Carbon::now()->month)->get();
+        $year_data = Order::whereYear('created_at', \Carbon\Carbon::now()->year)->whereMonth('created_at', \Carbon\Carbon::now()->month)->where('status','completed')->get();
         $price = 0;
         foreach ($year_data as $data) {
-            $price += (float)Cart::where('order_id', $data->id)->sum('price');
+            $price += $data->cart->sum('price');
+            // $price += (float)Cart::where('order_id', $data->id)->sum('price');
         }
         return number_format((float)($price), 2, '.', '');
     }
+
     public static function orderByYear()
     {   
-        $month_data = Order::whereYear('created_at', \Carbon\Carbon::now()->year)->get();
+        $month_data = Order::whereYear('created_at', \Carbon\Carbon::now()->year)->where('status','completed')->get();
         $price = 0;
         foreach ($month_data as $data) {
-            $price += (float)Cart::where('order_id', $data->id)->sum('price');
+            $price += $data->cart->sum('price');
         }
         return number_format((float)($price), 2, '.', '');
     }
-
-
 
     public static function pendingComments()
     {   
