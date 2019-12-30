@@ -71,8 +71,8 @@
                     
                     <td colspan="1">
                       <div class="cupon_text">
-                        <input type="text" placeholder="Coupon Code" />
-                        <a class="main_btn" href="#">Apply</a>
+                        <input type="text" placeholder="Coupon Code" id="coupon_code" />
+                        <a class="main_btn" id="coupon_apply" href="#">Apply</a>
                       </div>
                     </td>
                     <td colspan="4" class="text-right">
@@ -81,7 +81,6 @@
 
                   </tr>
                 </form>
-
                 <tr>
                   <td colspan="3"></td>
                   <td>
@@ -91,6 +90,29 @@
                     <h5 id="subtotal_cart_price"><span class="money">0.00</span>{{Helper::currency()}}</h5>
                   </td>
                 </tr>
+
+                @if(session()->has('discount'))
+                <tr>
+                  <td colspan="3"></td>
+                  <td>
+                    <h5>Discount({{Session::get('discount')['code']}})</h5>
+                  </td>
+                  <td>
+                    <h5 id="discount_price">-<span class="money">{{Helper::currency_amount(Session::get('discount')['value'])}}</span>{{Helper::currency()}}</h5>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3"></td>
+                  <td>
+                    <h5>Total</h5>
+                  </td>
+                  <td>
+                    <h5 id="total_price"><span class="money">{{Helper::currency_amount(Session::get('discount')['value'])}}</span>{{Helper::currency()}}</h5>
+                  </td>
+                </tr>
+                @endif
+
+
                 <tr class="out_button_area">
                   <td colspan="5">
                     <div class="checkout_btn_inner">
@@ -112,3 +134,24 @@
     @endif
     
 @endsection
+
+@push('scripts')
+  <script type="text/javascript">
+  const url = "{{route('shop.coupon')}}";
+  const redirect_url = "{{route('cart.checkout')}}";
+
+  $('#coupon_apply').click(function(e){
+    e.preventDefault();
+
+    axios.post(url, {
+      code: $('#coupon_code').val()
+    })
+    .then(function (response) {
+      window.location.href = redirect_url;
+    })
+    .catch(function (error) {
+      $('#basicform').html(`<div class="alert alert-danger"><ul><li>Invalid Coupon</li></ul></div>`);
+    });
+  });
+  </script>
+@endpush

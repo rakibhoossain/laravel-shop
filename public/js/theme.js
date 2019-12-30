@@ -47096,6 +47096,14 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
       total += val;
     });
     $('#subtotal_cart_price>.money').text(total.toFixed(2));
+
+    if ($('#discount_price').length) {
+      var discount = parseFloat($('#discount_price>.money').text());
+      if (isNaN(discount) || discount == '') return false;
+      var price = total - discount;
+      if (price < 0) price = 0;
+      $('#total_price>.money').text(price.toFixed(2));
+    }
   }
 
   cart_subtotal();

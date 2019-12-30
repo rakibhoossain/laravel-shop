@@ -237,6 +237,7 @@ Route::group(['prefix' => '/shop'], function () {
 	Route::post('/review', 'ProductReviewController@store')->name('product.review.store');
 
 	Route::post('/subscribe', 'ShopController@storeEmail')->name('shop.subscribe');
+	Route::post('/coupon', 'ShopController@couponApply')->name('shop.coupon');
 });
 
 

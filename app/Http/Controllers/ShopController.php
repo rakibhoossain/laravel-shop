@@ -7,6 +7,8 @@ use App\Product;
 use App\Category;
 use App\Brand;
 use App\Currency;
+use App\Coupon;
+use App\Cart;
 
 use Session;
 use Newsletter;
@@ -191,5 +193,24 @@ class ShopController extends Controller
 
         return back()->withErrors('Already subscribed!');
         
+    }
+
+    public function couponApply(Request $request){
+        
+        $coupon = Coupon::where('code', $request->code)->first();
+        if($coupon){
+            $total_price = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price');
+            Session::put('discount', [
+                'code' => $coupon->code,
+                'value' => $coupon->discount($total_price)
+            ]);
+        }
+        return;
+        // if($currency){
+        //     Session::put('shop_currency', $request->id);
+        // }else if($request->id == 0){
+        //     Session::put('shop_currency', 0);
+        // }
+        // return $coupon->discount($total_price);
     }
 }
