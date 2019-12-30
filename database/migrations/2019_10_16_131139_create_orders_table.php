@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('status', ['pending', 'processing', 'completed', 'decline'])->default('pending');
+            $table->unsignedInteger('coupon_id')->nullable();
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
             $table->unsignedInteger('payment_id')->nullable();
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null');
             $table->unsignedInteger('shipping_id')->nullable();

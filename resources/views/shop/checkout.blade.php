@@ -59,6 +59,9 @@
                   <div class="col-md-6 form-group p_star">
                     <input type="text" class="form-control" name="last_name" placeholder="Last name" value="{{Helper::user_address('last_name', auth()->user()->id)}}"/>
                   </div>
+                  <div class="col-md-6 form-group p_star">
+                    <input type="text" class="form-control" name="phone_number" placeholder="Phone number" value="{{Helper::user_address('phone_number', auth()->user()->id)}}"/>
+                  </div>
 
                   <div class="col-md-12 form-group p_star">
                     <select class="select2" name="country" style="width:100%;">
@@ -106,11 +109,19 @@
 
                   </ul>
                   <ul class="list list_2">
+                  @if(session()->has('discount'))
+                    <li class="order_sutotal" data-price="{{Helper::currency_amount($total_price-Session::get('discount')['value'])}}" data-currency="{{Helper::currency()}}">
+                      <a href="{{route('cart')}}">
+                        Subtotal<span>{{Helper::currency_amount($total_price-Session::get('discount')['value'])}}{{Helper::currency()}}</span>
+                      </a>
+                    </li>
+                  @else
                     <li class="order_sutotal" data-price="{{Helper::currency_amount($total_price)}}" data-currency="{{Helper::currency()}}">
                       <a href="{{route('cart')}}">
                         Subtotal <span>{{Helper::currency_amount($total_price)}}{{Helper::currency()}}</span>
                       </a>
                     </li>
+                  @endif
                     <li class="shipping">
                       <span>Shipping</span>
                       <div class="input-group-icon">
@@ -173,21 +184,21 @@
                         <p>Bkash</p>
                       </div>
                       <div class="rocket">
-                          <p>rocket</p>
+                          <p>Rocket</p>
                       </div>
                       <div class="mt-10 mb-10">
                           <input type="text" name="transectionId" placeholder="Transaction ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Transaction ID'" class="single-input">
                       </div>
                     </div>
                     <div class="cashondelivary">
-                      <p>cashondelivary</p>
+                      <p>Cash on delivary</p>
                     </div>
                   </div>
-                  <div class="creat_account">
+                  <!-- <div class="creat_account">
                     <input type="checkbox" id="condition" name="condition" />
                     <label for="condition">I’ve read and accept the </label>
                     <a href="#">terms & conditions*</a>
-                  </div>
+                  </div> -->
                   <button class="main_btn" type="submit">Proceed</button>
                 </div>
               </div>
@@ -227,7 +238,8 @@
       code: $('#coupon_code').val()
     })
     .then(function (response) {
-       window.location.href = redirect_url;
+      if(response.data == '1') window.location.href = redirect_url;
+      else {$('#basicform').html(`<div class="alert alert-danger"><ul><li>Invalid Coupon</li></ul></div>`);}
     })
     .catch(function (error) {
       $('#basicform').html(`<div class="alert alert-danger"><ul><li>Invalid Coupon</li></ul></div>`);

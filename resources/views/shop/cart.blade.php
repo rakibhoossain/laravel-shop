@@ -138,7 +138,7 @@
 @push('scripts')
   <script type="text/javascript">
   const url = "{{route('shop.coupon')}}";
-  const redirect_url = "{{route('cart.checkout')}}";
+  const redirect_url = "{{route('cart')}}";
 
   $('#coupon_apply').click(function(e){
     e.preventDefault();
@@ -147,7 +147,8 @@
       code: $('#coupon_code').val()
     })
     .then(function (response) {
-      window.location.href = redirect_url;
+      if(response.data == '1') window.location.href = redirect_url;
+      else {$('#basicform').html(`<div class="alert alert-danger"><ul><li>Invalid Coupon</li></ul></div>`);}
     })
     .catch(function (error) {
       $('#basicform').html(`<div class="alert alert-danger"><ul><li>Invalid Coupon</li></ul></div>`);

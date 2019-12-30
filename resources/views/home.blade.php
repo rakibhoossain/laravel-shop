@@ -3,21 +3,33 @@
   Shop || home
 @endsection
 @section('content')
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('vendors/OwlCarousel/assets/owl.carousel.min.css') }}" />
+@endpush
 <!--================Home Banner Area =================-->
-<section class="home_banner_area mb-40" style="background: url({{asset('img/banner/banner-bg.jpg')}}) no-repeat center;">
-  <div class="banner_inner d-flex align-items-center">
-    <div class="container">
-      <div class="banner_content row">
-        <div class="col-lg-12">
-          <p class="sub text-uppercase">men Collection</p>
-          <h3><span>Show</span> Your <br />Personal <span>Style</span></h3>
-          <h4>Fowl saw dry which a above together place.</h4>
-          <a class="main_btn mt-40" href="#">View Collection</a>
+@if(count($sliders)>0)
+<section class="owl-carousel">
+  @foreach($sliders as $slider)
+  <div class="home_banner_area mb-40" style="background: url({{asset('images/slider/'.$slider->image)}}) no-repeat center;">
+    <div class="banner_inner d-flex align-items-center">
+      <div class="container">
+        <div class="banner_content row">
+          <div class="col-lg-12">
+<!--             <p class="sub text-uppercase">men Collection</p>
+            <h3><span>Show</span> Your <br />Personal <span>Style</span></h3>
+            <h4>Fowl saw dry which a above together place.</h4> -->
+            {!!$slider->body!!}
+            @if($slider->button && $slider->url)
+            <a class="main_btn mt-40" href="{{$slider->url}}">{{$slider->button}}</a>
+            @endif
+          </div>
         </div>
       </div>
     </div>
   </div>
+  @endforeach
 </section>
+@endif
 <!--================End Home Banner Area =================-->
 
 <!-- Start feature Area -->
@@ -56,7 +68,7 @@
 <!--================ End Feature Product Area =================-->
 
 <!--================ Offer Area =================-->
-<section class="offer_area" style="background: url({{asset('img/offer-bg.png')}}) no-repeat center;">
+<!-- <section class="offer_area" style="background: url({{asset('img/offer-bg.png')}}) no-repeat center;">
   <div class="container">
     <div class="row justify-content-center">
       <div class="offset-lg-4 col-lg-6 text-center">
@@ -69,11 +81,11 @@
       </div>
     </div>
   </div>
-</section>
+</section>  section_gap_top-->
 <!--================ End Offer Area =================-->
 
 <!--================ New Product Area =================-->
-<section class="new_product_area section_gap_top section_gap_bottom_custom">
+<section class="new_product_area section_gap_bottom_custom">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-12">
@@ -172,3 +184,18 @@
 </section>
 <!--================ End Blog Area =================-->
 @endsection
+@push('scripts')
+<script src="{{ asset('vendors/OwlCarousel/owl.carousel.min.js') }}"></script>
+<script type="text/javascript">
+  $(document).ready(function() { 
+
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:0,
+    responsiveClass:false,
+    items:1,
+});
+
+  });
+</script>
+@endpush 

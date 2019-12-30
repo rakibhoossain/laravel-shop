@@ -16,9 +16,14 @@ class Coupon extends Model
     	if ($this->type == 'fixed') {
     		return $this->value;
     	}elseif ($this->type == 'percent') {
-    		return ($this->value / 100) * $total;
+    		return number_format((float)(($this->value / 100) * $total), 2, '.', '');
     	}else{
     		return 0.0;
     	}
+    }
+
+    public function orders()
+    {
+      return $this->hasMany(Order_Coupon::class);
     }
 }

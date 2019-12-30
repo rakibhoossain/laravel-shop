@@ -239,7 +239,24 @@
         </li>
 
 
-
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">Sliders</div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSlider" aria-expanded="true" aria-controls="collapseSlider">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Slider</span>
+          </a>
+          <div id="collapseSlider" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Slider Options:</h6>
+              <a class="collapse-item" href="{{route('admin.slider')}}">Slider</a>
+              <a class="collapse-item" href="{{route('admin.slider.create')}}">Add slider item</a>
+            </div>
+          </div>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">

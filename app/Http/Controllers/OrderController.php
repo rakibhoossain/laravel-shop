@@ -8,6 +8,7 @@ use App\Payment;
 use App\User;
 use App\Address;
 use Illuminate\Http\Request;
+use Session;
 use Notification;
 use App\Notifications\ShopNotification;
 
@@ -135,6 +136,11 @@ class OrderController extends Controller
         $order->post_code = $request->post_code;
         $order->phone_number = $request->phone_number;
         $order->notes = $request->notes;
+        if(Session::has('discount')){
+            $order->coupon_id = Session::get('discount')['id'];
+            Session::forget('discount');
+        }
+
         $order->save();
         Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
@@ -147,7 +153,6 @@ class OrderController extends Controller
         $payment->status = 'unpaid';
         $payment->save();
         Order::find($order->id)->where('user_id', auth()->user()->id)->update(['payment_id' => $payment->id]);
-
 
         $users = User::where('is_admin', 1)->get();
         $details = [
@@ -231,6 +236,9 @@ class OrderController extends Controller
     {
         $order = Order::find($request->id);
         if ($order) {
+            foreach ($order->cart as $cart) {
+                $cart->delete();
+            }
             $order->delete();
             return redirect()->route('admin.product.order')->with('success','You have successfully delete an order.');
         }else{

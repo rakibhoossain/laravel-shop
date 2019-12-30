@@ -66,32 +66,7 @@
               </ul>
             </div>
 
-            <div class="single_confirmation_details">
-              <h4>Billing Address</h4>
-              <ul>
-                <li>
-                  <p>Name</p><span>: {{$order->first_name}} {{$order->last_name}}</span>
-                </li>
-                <li>
-                  <p>Address</p><span>: {{$order->address}}</span>
-                </li>
-                <li>
-                  <p>City</p><span>: {{$order->city}}</span>
-                </li>
-                <li>
-                  <p>Country</p><span>: {{$order->country}}</span>
-                </li>
-                <li>
-                  <p>Postcode</p><span>: {{$order->post_code}}</span>
-                </li>
-                <li>
-                  <p>Phone number</p><span>: {{$order->phone_number}}</span>
-                </li>
-                <li>
-                  <p>Email</p><span class="email">: {{ $order->user->email }}</span>
-                </li>
-              </ul>
-            </div>
+
           </div>
 
           <div class="col-lg-6 col-lx-4">
@@ -105,7 +80,7 @@
                   <p>Address</p><span>: {{$order->address}}</span>
                 </li>
                 <li>
-                  <p>City</p><span>: {{$order->city}}</span>
+                  <p>City</p><span>: {{App\City::findById($order->city_id)->name}}</span>
                 </li>
                 <li>
                   <p>Country</p><span>: {{$order->country}}</span>
@@ -131,8 +106,8 @@
               <table class="table table-borderless">
                 <thead>
                   <tr>
-                    <th scope="col" class="col-6">Product</th>
-                    <th scope="col" class="col-3">Quantity</th>
+                    <th scope="col" class="col-5">Product</th>
+                    <th scope="col" class="col-4">Quantity</th>
                     <th scope="col" class="col-3">Total</th>
                   </tr>
                 </thead>
@@ -145,12 +120,20 @@
                     <td><span>{{$cart->price}}{{Helper::base_currency()}}</span></td>
                   </tr>
                 @endforeach
-
                   <tr>
                     <th></th>
                     <th>Subtotal</th>
                     <th><span>{{Helper::orderPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}</span></th>
                   </tr>
+                  @if(!empty($order->coupon))
+                  <tr>
+                    <th></th>
+                    <th>Discount</th>
+                    <th><span>-{{$order->coupon->discount(Helper::orderPrice($order->id, $order->user->id))}}{{Helper::base_currency()}}</span></th>
+                  </tr>                 
+                  @endif
+
+
                   <tr>
                     <th></th>
                     <th>Shipping</th>
@@ -161,7 +144,13 @@
                   <tr>
                     <th></th>
                     <th scope="col">Total:</th>
-                    <th scope="col">{{ Helper::grandPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}</th>
+                    <th scope="col">
+                      @if(!empty($order->coupon)) 
+                        {{Helper::grandPrice($order->id, $order->user->id)-($order->coupon->discount(Helper::orderPrice($order->id, $order->user->id)))}}{{Helper::base_currency()}}
+                      @else
+                        {{Helper::grandPrice($order->id, $order->user->id)}}{{Helper::base_currency()}}
+                      @endif
+                    </th>
                   </tr>
                 </tfoot>
               </table>

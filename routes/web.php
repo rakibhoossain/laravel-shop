@@ -53,6 +53,15 @@ Route::group(['prefix' => '/admin','middleware' => ['is_admin','verified']], fun
 		Route::get('/delete/{id}', 'UserController@destroy')->name('admin.user.destroy');
 	});
 
+	Route::group(['prefix' => '/slider'], function () {
+		Route::get('/', 'SliderController@index')->name('admin.slider');
+		Route::get('/create', 'SliderController@create')->name('admin.slider.create');
+		Route::post('/store', 'SliderController@store')->name('admin.slider.store');
+		Route::get('/edit/{id}', 'SliderController@edit')->name('admin.slider.edit');
+		Route::post('/update/{id}', 'SliderController@update')->name('admin.slider.update');
+		Route::post('/delete/{id}', 'SliderController@destroy')->name('admin.slider.destroy');
+	});
+
 	Route::group(['prefix' => '/widget'], function () {
 		Route::get('/', 'WidgetController@index')->name('admin.widget');
 		Route::get('/create', 'WidgetController@create')->name('admin.widget.create');

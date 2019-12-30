@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Post;
+use App\Slider;
 
 class HomeController extends Controller
 {
@@ -31,10 +32,12 @@ class HomeController extends Controller
         });
 
         $posts = Post::orderBy('id', 'desc')->limit(3)->get();
+        $sliders = Slider::orderBy('id', 'desc')->limit(5)->get();
 
         $data = [
             'products' => $products,
             'posts' => $posts,
+            'sliders' => $sliders,
 
         ];
         return view('home')->with($data);

@@ -201,16 +201,12 @@ class ShopController extends Controller
         if($coupon){
             $total_price = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->sum('price');
             Session::put('discount', [
+                'id' => $coupon->id,
                 'code' => $coupon->code,
                 'value' => $coupon->discount($total_price)
             ]);
+         return 1;   
         }
-        return;
-        // if($currency){
-        //     Session::put('shop_currency', $request->id);
-        // }else if($request->id == 0){
-        //     Session::put('shop_currency', 0);
-        // }
-        // return $coupon->discount($total_price);
+        return 0;
     }
 }
