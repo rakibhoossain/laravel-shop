@@ -157,6 +157,9 @@ $('.owl-carousel').owlCarousel({
     margin:0,
     responsiveClass:false,
     items:1,
+    autoplay:true,
+    lazyLoad:true,
+    autoplayHoverPause:true,
 });
 
   });

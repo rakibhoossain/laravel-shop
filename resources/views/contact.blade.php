@@ -79,21 +79,19 @@
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-home"></i></span>
             <div class="media-body">
-              <h3>Buttonwood, California.</h3>
-              <p>Rosemead, CA 91770</p>
+              <p>{{setting('shop_address')}}</p>
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-tablet"></i></span>
             <div class="media-body">
-              <h3><a href="tel:454545654">00 (440) 9865 562</a></h3>
-              <p>Mon to Fri 9am to 6pm</p>
+              <h3><a href="tel:{{setting('app_phone')}}">{{setting('app_phone')}}</a></h3>
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-email"></i></span>
             <div class="media-body">
-              <h3><a href="mailto:support@colorlib.com">support@colorlib.com</a></h3>
+              <h3><a href="mailto:{{setting('app_email')}}">{{setting('app_email')}}</a></h3>
               <p>Send us your query anytime!</p>
             </div>
           </div>
@@ -103,55 +101,39 @@
   </section>
 	<!-- ================ contact section end ================= -->
 
-	    <!--================Contact Success and Error message Area =================-->
-<!--     <div id="success" class="modal modal-message fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    
-                </div>
-            </div>
+	<!--================Contact Success and Error message Area =================-->
+  <div id="success" class="modal modal-message fade" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-success">Thank you!</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    </div> -->
-
-
-<div id="success" class="modal modal-message fade" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="text-success">Thank you!</h2>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="text-success">Your message is successfully sent...</p>
+        <div class="modal-body">
+          <p class="text-success">Your message is successfully sent...</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-
-    <!-- Modals error -->
-
-<div id="error" class="modal modal-message fade" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="text-warning">Sorry!</h2>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="text-warning">Something went wrong.</p>
+  <!-- Modals error -->
+  <div id="error" class="modal modal-message fade" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-warning">Sorry!</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-warning">Something went wrong.</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 <!--================End Contact Success and Error message Area =================-->
 
