@@ -101,6 +101,15 @@ return [
                         $dbCurrency = App\Currency::pluck('code', 'id')->toArray();
                         return $default + $dbCurrency;
                     }
+                ],
+                [
+                    'type' => 'textarea',
+                    'name' => 'shop_address',
+                    'label' => 'Shop address',
+                    'rows' => 2,
+                    'cols' => 10,
+                    'value' => 'Shop address',
+                    'placeholder' => 'You can set the shop address here.'
                 ]
             ]
         ],

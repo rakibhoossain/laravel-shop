@@ -15,9 +15,6 @@
       <div class="container">
         <div class="banner_content row">
           <div class="col-lg-12">
-<!--             <p class="sub text-uppercase">men Collection</p>
-            <h3><span>Show</span> Your <br />Personal <span>Style</span></h3>
-            <h4>Fowl saw dry which a above together place.</h4> -->
             {!!$slider->body!!}
             @if($slider->button && $slider->url)
             <a class="main_btn mt-40" href="{{$slider->url}}">{{$slider->button}}</a>
@@ -67,23 +64,6 @@
 </section>
 <!--================ End Feature Product Area =================-->
 
-<!--================ Offer Area =================-->
-<!-- <section class="offer_area" style="background: url({{asset('img/offer-bg.png')}}) no-repeat center;">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="offset-lg-4 col-lg-6 text-center">
-        <div class="offer_content">
-          <h3 class="text-uppercase mb-40">all men’s collection</h3>
-          <h2 class="text-uppercase">50% off</h2>
-          <a href="#" class="main_btn mb-20 mt-5">Discover Now</a>
-          <p>Limited Time Offer</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>  section_gap_top-->
-<!--================ End Offer Area =================-->
-
 <!--================ New Product Area =================-->
 <section class="new_product_area section_gap_bottom_custom">
   <div class="container">
@@ -95,27 +75,10 @@
         </div>
       </div>
     </div>
-
     <div class="row">
-      <div class="col-lg-6">
-        <div class="new_product">
-          <h5 class="text-uppercase">collection of 2019</h5>
-          <h3 class="text-uppercase">Men’s summer t-shirt</h3>
-          <div class="product-img">
-            <img class="img-fluid" src="img/product/new-product/new-product1.png" alt="" />
-          </div>
-          <h4>$120.70</h4>
-          <a href="#" class="main_btn">Add to cart</a>
-        </div>
-      </div>
-
-      <div class="col-lg-6 mt-5 mt-lg-0">
-        <div class="row">
-          @foreach(Helper::recentProduct() as $product)
-            @include('layouts.product', ['product' => $product, 'size' => 'medium', 'col' => 6])
-          @endforeach
-        </div>
-      </div>
+      @foreach(Helper::recentProduct() as $product)
+        @include('layouts.product', ['product' => $product, 'size' => 'medium', 'col' => 3])
+      @endforeach
     </div>
   </div>
 </section>

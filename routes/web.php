@@ -239,7 +239,6 @@ Route::group(['prefix' => '/shop'], function () {
 		Route::get('/', 'AccountController@index')->name('account');
 		Route::get('/order', 'AccountController@order')->name('account.order');
 		Route::get('/order/view/{id}', 'AccountController@orderView')->name('account.order.view');
-		Route::get('/order/edit/{id}', 'AccountController@orderEdit')->name('account.order.edit');
 	});
 
 	Route::post('/comment', 'ProductCommentController@store')->name('product.comments.store');
