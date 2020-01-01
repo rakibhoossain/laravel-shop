@@ -35,15 +35,14 @@
                   </div>
                   <div class="navigation-top">
                     <div class="d-sm-flex justify-content-between text-center">
-                      <p class="like-info"><span class="align-middle"><i class="ti-heart"></i></span> Lily and 4 people like this</p>
-                      <div class="col-sm-4 text-center my-2 my-sm-0">
+                      <!--<p class="like-info"><span class="align-middle"><i class="ti-heart"></i></span> Lily and 4 people like this</p>-->
+                      <!--<div class="col-sm-4 text-center my-2 my-sm-0">-->
                         <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span>{{count($post->allComments)}} Comments</p>
-                      </div>
+                      <!--</div>-->
                       <ul class="social-icons">
-                        <li><a href="#"><i class="ti-facebook"></i></a></li>
-                        <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
-                        <li><a href="#"><i class="ti-dribbble"></i></a></li>
-                        <li><a href="#"><i class="ti-wordpress"></i></a></li>
+                        <li><a href="https://www.facebook.com/sharer.php?u={{route('post.single', $post->slug)}}&t={{$post->title}}" onclick="window.open(this.href);return false;"><i class="ti-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/share?url={{route('post.single', $post->slug)}}&text={{$post->title}}" onclick="window.open(this.href);return false;"><i class="ti-twitter-alt"></i></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle/?mini=true&url={{route('post.single', $post->slug)}}"><i class="ti-linkedin" target="_blank"></i></a></li>
                       </ul>
                     </div>
 
@@ -53,7 +52,7 @@
                               @if($previous)  
                                 <div class="thumb">
                                     <a href="{{route('post.single', $previous->slug)}}">
-                                        <img class="img-fluid" src="{{asset('img/blog/prev.jpg')}}" alt="">
+                                        <img class="img-fluid" src="{{asset('images/post/thumb/'.$previous->image)}}" alt="{{$previous->title}}" width="60">
                                     </a>
                                 </div>
                                 <div class="arrow">
@@ -84,7 +83,7 @@
                                 </div>
                                 <div class="thumb">
                                     <a href="{{route('post.single', $next->slug)}}">
-                                        <img class="img-fluid" src="{{asset('img/blog/next.jpg')}}" alt="">
+                                        <img class="img-fluid" src="{{asset('images/post/thumb/'.$next->image)}}" alt="{{$next->title}}" width="60">
                                     </a>
                                 </div>
                               @endif
@@ -94,17 +93,17 @@
                   </div>
                   
                   
-                  <div class="blog-author">
-                    <div class="media align-items-center">
-                      <img src="{{asset('img/blog/author.png')}}" alt="">
-                      <div class="media-body">
-                        <a href="#">
-                          <h4>Harvard milan</h4>
-                        </a>
-                        <p>Second divided from form fish beast made. Every of seas all gathered use saying you're, he our dominion twon Second divided from</p>
-                      </div>
-                    </div>
-                  </div>
+                  <!--<div class="blog-author">-->
+                  <!--  <div class="media align-items-center">-->
+                  <!--    <img src="{{asset('img/blog/author.png')}}" alt="">-->
+                  <!--    <div class="media-body">-->
+                  <!--      <a href="#">-->
+                  <!--        <h4>Harvard milan</h4>-->
+                  <!--      </a>-->
+                  <!--      <p>Second divided from form fish beast made. Every of seas all gathered use saying you're, he our dominion twon Second divided from</p>-->
+                  <!--    </div>-->
+                  <!--  </div>-->
+                  <!--</div>-->
 
                   <div class="comments-area" id="comments-area">
                     <h4>{{count($post->allComments)}} Comments</h4>
