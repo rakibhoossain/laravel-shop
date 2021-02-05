@@ -16,7 +16,7 @@ class CreateShippingsTable extends Migration
         Schema::create('shippings', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('type')->unique();
+            $table->string('type', 45)->unique();
             $table->decimal('price', 20, 2);
             $table->text('description')->nullable();
 

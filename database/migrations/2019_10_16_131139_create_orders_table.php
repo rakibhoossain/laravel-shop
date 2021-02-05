@@ -15,24 +15,19 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('order_number')->unique();
+            $table->string('order_number', 100)->unique();
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->enum('status', ['pending', 'processing', 'completed', 'decline'])->default('pending');
             $table->unsignedInteger('coupon_id')->nullable();
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
             $table->unsignedInteger('payment_id')->nullable();
-            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null');
             $table->unsignedInteger('shipping_id')->nullable();
-            $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('set null');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name', 60);
+            $table->string('last_name', 65);
             $table->text('address');
             $table->unsignedInteger('city_id')->nullable();
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
-            $table->string('country');
-            $table->string('post_code');
-            $table->string('phone_number');
+            $table->string('country', 40);
+            $table->string('post_code', 10);
+            $table->string('phone_number', 25);
             $table->text('notes')->nullable();
             $table->timestamps();
         });

@@ -17,14 +17,10 @@ class CreatePaymentsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-
-            $table->unsignedInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');            
+            $table->unsignedInteger('order_id');         
             
             $table->enum('payment_method', ['cash', 'bKash', 'rocket'])->default('cash');
-            $table->string('transection_id')->nullable();
+            $table->string('transection_id', 120)->nullable();
 
             $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
 
